@@ -4,6 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  file_selector_windows
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
   file_selector_windows
 >>>>>>> feature/dashboard-Emails-observations-parametrages

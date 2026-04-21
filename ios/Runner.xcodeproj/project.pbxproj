@@ -373,7 +373,11 @@
 					"@executable_path/Frameworks",
 				);
 <<<<<<< HEAD
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sav;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva;
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva;
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -393,7 +397,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sav.RunnerTests;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva.RunnerTests;
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva.RunnerTests;
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -414,7 +422,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sav.RunnerTests;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva.RunnerTests;
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva.RunnerTests;
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -433,7 +445,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sav.RunnerTests;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva.RunnerTests;
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva.RunnerTests;
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -568,7 +584,11 @@
 					"@executable_path/Frameworks",
 				);
 <<<<<<< HEAD
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sav;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva;
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva;
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -594,7 +614,11 @@
 					"@executable_path/Frameworks",
 				);
 <<<<<<< HEAD
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sav;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva;
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.projetSva;
 >>>>>>> feature/dashboard-Emails-observations-parametrages

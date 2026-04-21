@@ -30,6 +30,10 @@ build/
 coverage/
 .flutter-plugins-dependencies
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+.metadata
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 .metadata
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -40,6 +44,10 @@ ios/Pods/
 ios/.symlinks/
 ios/Flutter/.last_build_id
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+ios/Flutter/Generated.xcconfig
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 ios/Flutter/Generated.xcconfig
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -49,6 +57,10 @@ android/app/debug/
 android/app/profile/
 android/app/release/
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+android/local.properties
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 android/local.properties
 >>>>>>> feature/dashboard-Emails-observations-parametrages

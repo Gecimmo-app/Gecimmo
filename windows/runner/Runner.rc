@@ -91,6 +91,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
 <<<<<<< HEAD
+<<<<<<< HEAD
             VALUE "FileDescription", "sav" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "sav" "\0"
@@ -98,12 +99,17 @@ BEGIN
             VALUE "OriginalFilename", "sav.exe" "\0"
             VALUE "ProductName", "sav" "\0"
 =======
+=======
+>>>>>>> feature/dashboard-Emails-observations-parametrages
             VALUE "FileDescription", "projet_sva" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "projet_sva" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "projet_sva.exe" "\0"
             VALUE "ProductName", "projet_sva" "\0"
+<<<<<<< HEAD
+>>>>>>> feature/dashboard-Emails-observations-parametrages
+=======
 >>>>>>> feature/dashboard-Emails-observations-parametrages
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

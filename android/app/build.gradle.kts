@@ -7,7 +7,11 @@ plugins {
 
 android {
 <<<<<<< HEAD
+<<<<<<< HEAD
     namespace = "com.example.sav"
+=======
+    namespace = "com.example.projet_sva"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
     namespace = "com.example.projet_sva"
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -26,7 +30,11 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
 <<<<<<< HEAD
+<<<<<<< HEAD
         applicationId = "com.example.sav"
+=======
+        applicationId = "com.example.projet_sva"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
         applicationId = "com.example.projet_sva"
 >>>>>>> feature/dashboard-Emails-observations-parametrages

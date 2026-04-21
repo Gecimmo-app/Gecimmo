@@ -1,7 +1,12 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "name": "sav",
     "short_name": "sav",
+=======
+    "name": "projet_sva",
+    "short_name": "projet_sva",
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
     "name": "projet_sva",
     "short_name": "projet_sva",

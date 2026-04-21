@@ -1,17 +1,23 @@
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
 <<<<<<< HEAD
+<<<<<<< HEAD
 project(sav LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "sav")
 =======
+=======
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 project(projet_sva LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "projet_sva")
+<<<<<<< HEAD
+>>>>>>> feature/dashboard-Emails-observations-parametrages
+=======
 >>>>>>> feature/dashboard-Emails-observations-parametrages
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent

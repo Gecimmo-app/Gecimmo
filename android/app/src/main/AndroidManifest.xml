@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:label="sav"
+=======
+        android:label="projet_sva"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
         android:label="projet_sva"
 >>>>>>> feature/dashboard-Emails-observations-parametrages

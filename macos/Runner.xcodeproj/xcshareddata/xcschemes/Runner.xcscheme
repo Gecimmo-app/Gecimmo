@@ -16,7 +16,11 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "33CC10EC2044A3C60003C045"
 <<<<<<< HEAD
+<<<<<<< HEAD
                BuildableName = "sav.app"
+=======
+               BuildableName = "projet_sva.app"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
                BuildableName = "projet_sva.app"
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -36,7 +40,11 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
 <<<<<<< HEAD
+<<<<<<< HEAD
             BuildableName = "sav.app"
+=======
+            BuildableName = "projet_sva.app"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
             BuildableName = "projet_sva.app"
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -75,7 +83,11 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
 <<<<<<< HEAD
+<<<<<<< HEAD
             BuildableName = "sav.app"
+=======
+            BuildableName = "projet_sva.app"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
             BuildableName = "projet_sva.app"
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -96,7 +108,11 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
 <<<<<<< HEAD
+<<<<<<< HEAD
             BuildableName = "sav.app"
+=======
+            BuildableName = "projet_sva.app"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
             BuildableName = "projet_sva.app"
 >>>>>>> feature/dashboard-Emails-observations-parametrages

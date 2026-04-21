@@ -8,7 +8,11 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<string>Sav</string>
+=======
+	<string>Projet Sva</string>
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 	<string>Projet Sva</string>
 >>>>>>> feature/dashboard-Emails-observations-parametrages
@@ -20,7 +24,11 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<string>sav</string>
+=======
+	<string>projet_sva</string>
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 	<string>projet_sva</string>
 >>>>>>> feature/dashboard-Emails-observations-parametrages

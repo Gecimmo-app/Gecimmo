@@ -1,7 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # sav
 
 
+=======
+<!-- # projet_sva
+
+A new Flutter project.
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 =======
 <!-- # projet_sva
 
@@ -21,8 +27,11 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 <<<<<<< HEAD
+<<<<<<< HEAD
 samples, guidance on mobile development, and a full API reference.
 =======
+=======
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 samples, guidance on mobile development, and a full API reference. -->
 
 
@@ -2026,5 +2035,9 @@ class _SidebarState extends State<Sidebar> {
       ),
     );
   }
+<<<<<<< HEAD
+} 
+>>>>>>> feature/dashboard-Emails-observations-parametrages
+=======
 } 
 >>>>>>> feature/dashboard-Emails-observations-parametrages
