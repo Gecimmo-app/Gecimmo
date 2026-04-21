@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
 import '../pages/reclamations_page.dart';
 import '../pages/Login_page.dart';
+import '../pages/home_page.dart';
 import '../services/auth_service.dart';
+import '../pages/agenda_screen.dart';
+import '../pages/settings_screen.dart';
 
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({super.key});
+  final String currentRoute;
+  const AppDrawer({super.key, this.currentRoute = 'Welcome'});
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  String _selectedItem = 'Welcome';
+  late String _selectedItem;
   bool _crmExpanded = true;
   bool _advExpanded = false;
   bool _afterSalesExpanded = false;
 
+  @override
+  void initState() {
+    super.initState();
+    _selectedItem = widget.currentRoute;
+  }
+  
   static const _primaryBlack = Color(0xFF000000);
   static const _primaryWhite = Color(0xFFFFFFFF);
   static const _grayLight = Color(0xFFF5F5F5);
@@ -79,12 +89,31 @@ class _AppDrawerState extends State<AppDrawer> {
                     _buildMenuItem(
                       'Welcome',
                       Icons.home_outlined,
-                      onTap: () => _navigateTo(context, 'Welcome'),
+                      onTap: () {
+                        setState(() => _selectedItem = 'Welcome');
+                        Navigator.pop(context); // fermer le drawer
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HomePage(),
+                          ),
+                          (route) => false,
+                        );
+                      },
                     ),
                     _buildMenuItem(
                       'Agenda',
                       Icons.calendar_month_outlined,
-                      onTap: () => _navigateTo(context, 'Agenda'),
+                      onTap: () {
+                        setState(() => _selectedItem = 'Agenda');
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const AgendaScreen(),
+                          ),
+                        );
+                      },
                     ),
                     _buildMenuItem(
                       'Leads',
@@ -127,7 +156,16 @@ class _AppDrawerState extends State<AppDrawer> {
                     _buildMenuItem(
                       'Paramétrage',
                       Icons.settings_outlined,
-                      onTap: () => _navigateTo(context, 'Paramétrage'),
+                      onTap: () {
+                        setState(() => _selectedItem = 'Paramétrage');
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SettingsScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
 
