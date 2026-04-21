@@ -29,17 +29,29 @@ migrate_working_dir/
 build/
 coverage/
 .flutter-plugins-dependencies
+<<<<<<< HEAD
+=======
+.metadata
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 **/doc/api/
 
 # iOS
 ios/Pods/
 ios/.symlinks/
 ios/Flutter/.last_build_id
+<<<<<<< HEAD
+=======
+ios/Flutter/Generated.xcconfig
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 
 # Android
 android/app/debug/
 android/app/profile/
 android/app/release/
+<<<<<<< HEAD
+=======
+android/local.properties
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 
 # Logs
 *.log

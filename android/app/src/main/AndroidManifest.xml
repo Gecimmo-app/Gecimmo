@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
+<<<<<<< HEAD
         android:label="sav"
+=======
+        android:label="projet_sva"
+>>>>>>> feature/dashboard-Emails-observations-parametrages
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

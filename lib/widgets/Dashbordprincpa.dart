@@ -1,662 +1,7 @@
-<<<<<<< HEAD
-# sav
-
-
-=======
-<!-- # projet_sva
-
-A new Flutter project.
->>>>>>> feature/dashboard-Emails-observations-parametrages
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-<<<<<<< HEAD
-samples, guidance on mobile development, and a full API reference.
-=======
-samples, guidance on mobile development, and a full API reference. -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-bghit nkhli app menu osidebar ofach nwrk 23la regression constats affcher liya hadik 3ndii  had codes obgt fach nwrk 3la dashbord princiap fsidebar ytl3 liya page dylo okadalik bnisbaa l regression constats voici le codes et donne moi les codes complet import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Technical Dashboard',
-      theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Inter',
-        scaffoldBackgroundColor: AppColors.background,
-      ),
-      home: const DashboardScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class AppColors {
-  static const Color blue = Color(0xFF3B82F6);
-  static const Color bluePale = Color(0xFFEFF6FF);
-  static const Color textDark = Color(0xFF1F2937);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color background = Color(0xFFFAFAFE);
-  
-  // Couleurs pour les cartes
-  static const Color cardBlue = Color(0xFF3B82F6);
-  static const Color cardGreen = Color(0xFF22C55E);
-  static const Color cardRed = Color(0xFFEF4444);
-  static const Color cardPurple = Color(0xFF8B5CF6);
-  static const Color cardOrange = Color(0xFFF59E0B);
-}
-
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
-
-  @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
-}
-
-class _DashboardScreenState extends State<DashboardScreen> {
-  final List<Map<String, dynamic>> cards = [
-    {
-      'title': 'Réception Technique',
-      'count': 14,
-      'color': AppColors.cardBlue,
-      'lightColor': const Color(0xFFEFF6FF),
-      'summary': '6 corps métier • 6 localités • 6 prestataires',
-      'sections': [
-        {
-          'title': 'Corps Métier',
-          'items': [
-            {'name': 'Plomberie', 'count': 2},
-            {'name': 'Plâtrerie', 'count': 1},
-            {'name': 'Peinture', 'count': 1},
-            {'name': 'Electricité', 'count': 1},
-          ],
-          'hidden': [],
-        },
-        {
-          'title': 'Localités',
-          'items': [
-            {'name': 'Chambre d\'enfant', 'count': 1},
-            {'name': 'Salle de bain', 'count': 1},
-            {'name': 'Cuisine', 'count': 1},
-            {'name': 'Couloir', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Bureau', 'count': 1},
-            {'name': 'Salon', 'count': 1},
-          ],
-        },
-        {
-          'title': 'Prestataires',
-          'items': [
-            {'name': 'Prestataire A', 'count': 1},
-            {'name': 'Prestataire B', 'count': 1},
-            {'name': 'Prestataire C', 'count': 1},
-            {'name': 'Prestataire D', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Prestataire E', 'count': 1},
-            {'name': 'Prestataire F', 'count': 1},
-          ],
-        },
-      ],
-    },
-    {
-      'title': 'Livraison Technique',
-      'count': 9,
-      'color': AppColors.cardGreen,
-      'lightColor': const Color(0xFFECFDF5),
-      'summary': '4 corps métier • 5 localités • 5 prestataires',
-      'sections': [
-        {
-          'title': 'Corps Métier',
-          'items': [
-            {'name': 'Peinture', 'count': 1},
-            {'name': 'Plomberie', 'count': 1},
-            {'name': 'Maçonnerie', 'count': 1},
-            {'name': 'Electricité', 'count': 1},
-          ],
-          'hidden': [],
-        },
-        {
-          'title': 'Localités',
-          'items': [
-            {'name': 'Chambre d\'enfant', 'count': 1},
-            {'name': 'Bureau', 'count': 1},
-            {'name': 'Couloir', 'count': 1},
-            {'name': 'Salle de bain', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Cuisine', 'count': 1},
-          ],
-        },
-        {
-          'title': 'Prestataires',
-          'items': [
-            {'name': 'Prestataire 1', 'count': 1},
-            {'name': 'Prestataire 2', 'count': 1},
-            {'name': 'Prestataire 3', 'count': 1},
-            {'name': 'Prestataire 4', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Prestataire 5', 'count': 1},
-          ],
-        },
-      ],
-    },
-    {
-      'title': 'Réclamation',
-      'count': 4,
-      'color': AppColors.cardRed,
-      'lightColor': const Color(0xFFFEF2F2),
-      'summary': '4 corps métier • 6 localités • 5 prestataires',
-      'sections': [
-        {
-          'title': 'Corps Métier',
-          'items': [
-            {'name': 'Maçonnerie', 'count': 1},
-            {'name': 'Electricité', 'count': 1},
-            {'name': 'Plâtrerie', 'count': 1},
-            {'name': 'Plomberie', 'count': 1},
-          ],
-          'hidden': [],
-        },
-        {
-          'title': 'Localités',
-          'items': [
-            {'name': 'Bureau', 'count': 1},
-            {'name': 'Buanderie', 'count': 1},
-            {'name': 'Chambre d\'enfant', 'count': 1},
-            {'name': 'Salle de bain', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Cuisine', 'count': 1},
-            {'name': 'Couloir', 'count': 1},
-          ],
-        },
-        {
-          'title': 'Prestataires',
-          'items': [
-            {'name': 'Prestataire X', 'count': 1},
-            {'name': 'Prestataire Y', 'count': 1},
-            {'name': 'Prestataire Z', 'count': 1},
-            {'name': 'Prestataire W', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Prestataire V', 'count': 1},
-          ],
-        },
-      ],
-    },
-    {
-      'title': 'Livraison Client',
-      'count': 2,
-      'color': AppColors.cardPurple,
-      'lightColor': const Color(0xFFF5F3FF),
-      'summary': '4 corps métier • 6 localités • 5 prestataires',
-      'sections': [
-        {
-          'title': 'Corps Métier',
-          'items': [
-            {'name': 'Electricité', 'count': 1},
-            {'name': 'Plomberie', 'count': 1},
-            {'name': 'Peinture', 'count': 1},
-            {'name': 'Maçonnerie', 'count': 1},
-          ],
-          'hidden': [],
-        },
-        {
-          'title': 'Localités',
-          'items': [
-            {'name': 'Bureau', 'count': 1},
-            {'name': 'Buanderie', 'count': 1},
-            {'name': 'Chambre', 'count': 1},
-            {'name': 'Salon', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Cuisine', 'count': 1},
-            {'name': 'Couloir', 'count': 1},
-          ],
-        },
-        {
-          'title': 'Prestataires',
-          'items': [
-            {'name': 'Prestataire 1', 'count': 1},
-            {'name': 'Prestataire Alpha', 'count': 1},
-            {'name': 'Prestataire Beta', 'count': 1},
-            {'name': 'Prestataire Gamma', 'count': 1},
-          ],
-          'hidden': [
-            {'name': 'Prestataire Delta', 'count': 1},
-          ],
-        },
-      ],
-    },
-    {
-      'title': 'Livraison Syndic',
-      'count': 2,
-      'color': AppColors.cardOrange,
-      'lightColor': const Color(0xFFFEF3C7),
-      'summary': '2 corps métier • 2 localités • 1 prestataires',
-      'sections': [
-        {
-          'title': 'Corps Métier',
-          'items': [
-            {'name': 'Plomberie', 'count': 1},
-            {'name': 'Plâtrerie', 'count': 1},
-          ],
-          'hidden': [],
-        },
-        {
-          'title': 'Localités',
-          'items': [
-            {'name': 'Bureau', 'count': 1},
-            {'name': 'Chambre des invités', 'count': 1},
-          ],
-          'hidden': [],
-        },
-        {
-          'title': 'Prestataires',
-          'items': [
-            {'name': 'Prestataire 1', 'count': 2},
-          ],
-          'hidden': [],
-        },
-      ],
-    },
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            _TopBar(
-              onAddVisit: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Ajouter une visite')),
-                );
-              },
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    
-                    const SizedBox(height: 28),
-                    ...cards.map((card) => Padding(
-                      padding: const EdgeInsets.only(bottom: 18),
-                      child: DashboardCard(
-                        title: card['title'],
-                        count: card['count'],
-                        summary: card['summary'],
-                        sections: card['sections'],
-                        cardColor: card['color'],
-                        lightColor: card['lightColor'],
-                      ),
-                    )),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
- 
-}
-
-class _TopBar extends StatelessWidget {
-  final VoidCallback onAddVisit;
-
-  const _TopBar({required this.onAddVisit});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.bluePale,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          const Text(
-            'Dashboard',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: AppColors.textDark,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const Spacer(),
-          ElevatedButton.icon(
-            onPressed: onAddVisit,
-            icon: const Icon(Icons.add_circle_outline, size: 16),
-            label: const Text('Ajouter une visite', style: TextStyle(fontSize: 13)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.blue,
-              foregroundColor: AppColors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              elevation: 0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StatTile extends StatelessWidget {
-  final String label, value;
-  final int color1, color2;
-  final IconData icon;
-  const _StatTile({required this.label, required this.value, required this.color1, required this.color2, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.grey.shade100),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [Color(color1), Color(color2)]),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: Colors.white, size: 14),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                  Text(label, style: const TextStyle(fontSize: 10, color: Color(0xFF9CA3AF))),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DashboardCard extends StatefulWidget {
-  final String title;
-  final int count;
-  final String summary;
-  final List sections;
-  final Color cardColor;
-  final Color lightColor;
-
-  const DashboardCard({
-    super.key,
-    required this.title,
-    required this.count,
-    required this.summary,
-    required this.sections,
-    required this.cardColor,
-    required this.lightColor,
-  });
-
-  @override
-  State<DashboardCard> createState() => _DashboardCardState();
-}
-
-class _DashboardCardState extends State<DashboardCard> {
-  bool _expanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [BoxShadow(color: widget.cardColor.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 8))],
-      ),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => setState(() => _expanded = !_expanded),
-            child: Container(
-              padding: const EdgeInsets.all(18),
-              child: Row(
-                children: [
-                  Container(width: 6, height: 32, decoration: BoxDecoration(color: widget.cardColor, borderRadius: BorderRadius.circular(10))),
-                  const SizedBox(width: 12),
-                  Expanded(child: Text(widget.title, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700))),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(color: widget.lightColor, borderRadius: BorderRadius.circular(30)),
-                    child: Text(
-                      widget.count.toString(),
-                      style: TextStyle(color: widget.cardColor, fontSize: 15, fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  AnimatedRotation(
-                    turns: _expanded ? 0.5 : 0,
-                    duration: const Duration(milliseconds: 300),
-                    child: Icon(Icons.keyboard_arrow_down, color: widget.cardColor, size: 24),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          if (_expanded) ...[
-            const Divider(height: 1),
-            Padding(
-              padding: const EdgeInsets.all(18),
-              child: Column(
-                children: [
-                  for (var section in widget.sections)
-                    SectionCard(
-                      title: section['title'],
-                      items: List<Map<String, dynamic>>.from(section['items']),
-                      hiddenItems: section['hidden'] != null ? List<Map<String, dynamic>>.from(section['hidden']) : [],
-                      cardColor: widget.cardColor,
-                    ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(18, 12, 18, 18),
-              decoration: BoxDecoration(border: Border(top: BorderSide(color: Colors.grey.shade100))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(widget.summary, style: const TextStyle(fontSize: 12, color: Color(0xFF6B7280))),
-                  const Row(
-                    children: [
-                      Icon(Icons.access_time, size: 12, color: Color(0xFF9CA3AF)),
-                      SizedBox(width: 4),
-                      Text("Mis à jour", style: TextStyle(fontSize: 11, color: Color(0xFF9CA3AF))),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class SectionCard extends StatefulWidget {
-  final String title;
-  final List<Map<String, dynamic>> items;
-  final List<Map<String, dynamic>> hiddenItems;
-  final Color cardColor;
-
-  const SectionCard({
-    super.key,
-    required this.title,
-    required this.items,
-    required this.hiddenItems,
-    required this.cardColor,
-  });
-
-  @override
-  State<SectionCard> createState() => _SectionCardState();
-}
-
-class _SectionCardState extends State<SectionCard> {
-  bool _showAll = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final displayItems = _showAll ? [...widget.items, ...widget.hiddenItems] : widget.items;
-    final hasMore = widget.hiddenItems.isNotEmpty;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(widget.title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF6B7280))),
-        const SizedBox(height: 10),
-        Column(
-          children: [
-            for (var item in displayItems)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        item['name'],
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        "+${item['count']}",
-                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF6B7280)),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            if (hasMore && !_showAll)
-              GestureDetector(
-                onTap: () => setState(() => _showAll = true),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: widget.cardColor,
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "+${widget.hiddenItems.length} autres",
-                        style: TextStyle(fontSize: 14, color: widget.cardColor),
-                      ),
-                      const SizedBox(width: 4),
-                      Icon(Icons.arrow_forward_ios, size: 12, color: widget.cardColor),
-                    ],
-                  ),
-                ),
-              ),
-            if (_showAll && hasMore)
-              GestureDetector(
-                onTap: () => setState(() => _showAll = false),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: widget.cardColor,
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        'Voir moins',
-                        style: TextStyle(fontSize: 14, color: widget.cardColor),
-                      ),
-                      Icon(Icons.arrow_drop_up, size: 18, color: widget.cardColor),
-                    ],
-                  ),
-                ),
-              ),
-          ],
-        ),
-        const SizedBox(height: 8),
-      ],
-    );
-  }
-} import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import '../ajouter_visite.dart';
+import '../widgets/Ajouter_visite.dart';
+import '../screens/parametrage/EmailsParEtape.dart';
 
 // ─────────────────────────────────────────────
 //  THEME CONSTANTS
@@ -763,8 +108,10 @@ class _DashbordPrincpaState extends State<DashbordPrincpa> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.bg,
+    return Container(
+  color: AppColors.bluePale,
+  child: Scaffold(
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Column(
           children: [
@@ -801,6 +148,10 @@ class _DashbordPrincpaState extends State<DashbordPrincpa> {
                         showSearch: true,
                       ),
                       onPeriodeTap: () => _showPeriodeDialog(context),
+                      onEmailsParEtapeTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const EmailsParEtapeScreen()),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     _KpiRow1(scrollController: _scrollControllerRow1),
@@ -816,7 +167,7 @@ class _DashbordPrincpaState extends State<DashbordPrincpa> {
           ],
         ),
       ),
-    );
+    ));
   }
 
   void _showFilterSheet(
@@ -834,7 +185,7 @@ class _DashbordPrincpaState extends State<DashbordPrincpa> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return _FilterSheetContent(
+        return FilterSheetContent(
           title: title,
           options: options,
           currentValue: currentValue,
@@ -990,14 +341,14 @@ class _DashbordPrincpaState extends State<DashbordPrincpa> {
 // ─────────────────────────────────────────────
 //  FILTER SHEET CONTENT
 // ─────────────────────────────────────────────
-class _FilterSheetContent extends StatefulWidget {
+class FilterSheetContent extends StatefulWidget {
   final String title;
   final List<String> options;
   final String? currentValue;
   final Function(String) onSelected;
   final bool showSearch;
 
-  const _FilterSheetContent({
+  const FilterSheetContent({
     required this.title,
     required this.options,
     required this.currentValue,
@@ -1006,10 +357,10 @@ class _FilterSheetContent extends StatefulWidget {
   });
 
   @override
-  State<_FilterSheetContent> createState() => _FilterSheetContentState();
+  State<FilterSheetContent> createState() => FilterSheetContentState();
 }
 
-class _FilterSheetContentState extends State<_FilterSheetContent> {
+class FilterSheetContentState extends State<FilterSheetContent> {
   String _searchQuery = '';
   
   List<String> get _filteredOptions {
@@ -1094,6 +445,7 @@ class _FilterSheetContentState extends State<_FilterSheetContent> {
                     ),
                     value: isSelected,
                     activeColor: AppColors.blue,
+                    controlAffinity: ListTileControlAffinity.leading,
                     onChanged: (checked) {
                       if (checked == true) {
                         widget.onSelected(option);
@@ -1125,15 +477,16 @@ class _TopBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
-          const Text(
-            'Dashboard',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: AppColors.textDark,
-              letterSpacing: -0.5,
-            ),
-          ),
+       const Text(
+  'Dashboard',
+  style: TextStyle(
+    fontSize: 21,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textDark,
+    letterSpacing: -0.8,
+    fontFamily: 'Inter',
+  ),
+),
           const Spacer(),
           ElevatedButton.icon(
             onPressed: onAddVisit,
@@ -1161,12 +514,14 @@ class _DashboardHeader extends StatelessWidget {
   final VoidCallback onProjetTap;
   final VoidCallback onUtilisateurTap;
   final VoidCallback onPeriodeTap;
+  final VoidCallback onEmailsParEtapeTap;
 
   const _DashboardHeader({
     required this.onTypeVisiteTap,
     required this.onProjetTap,
     required this.onUtilisateurTap,
     required this.onPeriodeTap,
+    required this.onEmailsParEtapeTap,
   });
 
   @override
@@ -1201,6 +556,12 @@ class _DashboardHeader extends StatelessWidget {
                 icon: Icons.calendar_today_outlined,
                 label: 'Période',
                 onTap: onPeriodeTap,
+              ),
+              const SizedBox(width: 8),
+              _FilterChip(
+                icon: Icons.email_outlined,
+                label: 'Emails par étape',
+                onTap: onEmailsParEtapeTap,
               ),
             ],
           ),
@@ -1608,18 +969,21 @@ class _DonutChartCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 24,
+            runSpacing: 16,
             children: [
               SizedBox(
-                width: 130,
-                height: 130,
+                width: 120, // Slightly reduced to fit better
+                height: 120,
                 child: CustomPaint(
                   painter: _DonutPainter(segments: segments, centerLabel: centerLabel),
                 ),
               ),
-              const SizedBox(width: 24),
-              Expanded(
+              SizedBox(
+                width: 180, // Legend takes a fixed width to wrap naturally
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: segments
@@ -1727,304 +1091,4 @@ class _DonutPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_DonutPainter old) => false;
-} import 'package:flutter/material.dart';
-import '../menu_sidebar/widgests/menuapp.dart';
-import 'RegressionConstats.dart';
-// import 'package:projet_sva/menu_sidebar/widgests/menuapp.dart';
-
-void main() {
-  runApp(const MyApp());
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SVA',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2563EB)),
-        useMaterial3: true,
-        fontFamily: 'SF Pro Display',
-      ),
-      home: const DashboardScreen(),
-    );
-  }
-}  import 'package:flutter/material.dart';
-
-const Color primaryBlue = Color(0xFF1E40AF);
-
-class SidebarItem {
-  final String title;
-  final IconData icon;
-  final List<SidebarItem>? children;
-  bool isExpanded;
-
-  SidebarItem({
-    required this.title,
-    required this.icon,
-    this.children,
-    this.isExpanded = false,
-  });
-}
-
-class Sidebar extends StatefulWidget {
-  final AnimationController animationController;
-  final VoidCallback onClose;
-
-  const Sidebar({
-    Key? key,
-    required this.animationController,
-    required this.onClose,
-  }) : super(key: key);
-
-  @override
-  State<Sidebar> createState() => _SidebarState();
-}
-
-class _SidebarState extends State<Sidebar> {
-  final List<SidebarItem> _menuItems = [
-    SidebarItem(
-      title: 'Dashbord',
-      icon: Icons.dashboard_outlined,
-      isExpanded: true,
-      children: [
-        SidebarItem(title: 'Dashboard Principal', icon: Icons.circle),
-        SidebarItem(title: 'Observations', icon: Icons.circle_outlined),
-        SidebarItem(title: 'Regression Constats', icon: Icons.circle_outlined),
-      ],
-    ),
-    SidebarItem(title: 'Visites', icon: Icons.explore_outlined),
-    SidebarItem(title: 'Observations', icon: Icons.visibility_outlined),
-    // SidebarItem(title: 'Reclamation', icon: Icons.notifications_outlined),
-    SidebarItem(title: 'Agenda', icon: Icons.calendar_today_outlined),
-    SidebarItem(
-      title: 'Reporting',
-      icon: Icons.bar_chart_outlined,
-      isExpanded: true,
-      children: [
-        SidebarItem(title: 'Livraison', icon: Icons.circle_outlined),
-        SidebarItem(title: 'Rapport Immeubles', icon: Icons.circle_outlined),
-      ],
-    ),
-    SidebarItem(title: 'Parametrages', icon: Icons.settings_outlined),
-  ];
-
-  String _selectedItem = 'Dashboard Principal';
-
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.73;
-
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(-1, 0),
-        end: Offset.zero,
-      ).animate(widget.animationController),
-
-      child: Material(
-        elevation: 24,
-        child: Container(
-          width: width,
-          color: Colors.white,
-          child: Column(
-            children: [
-              // 🔵 HEADER
-              _buildHeader(),
-
-              // 🔵 LINE HEADER → MENU
-              Container(
-                height: 1,
-                margin: const EdgeInsets.symmetric(horizontal: 12),
-                color: primaryBlue.withOpacity(0.08),
-              ),
-
-              // 🔵 MENU
-              Expanded(
-                child: ListView(
-                  children: _menuItems.map(_buildMenuItem).toList(),
-                ),
-              ),
-
-              // 🔵 LINE MENU → FOOTER
-              Container(
-                height: 1,
-                margin: const EdgeInsets.symmetric(horizontal: 12),
-                color: primaryBlue.withOpacity(0.08),
-              ),
-
-              // 🔵 FOOTER
-              _buildFooter(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // 🔵 HEADER
-  Widget _buildHeader() {
-    return Container(
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top + 15,
-        left: 16,
-        right: 16,
-        bottom: 12,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: primaryBlue.withOpacity(0.10),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(
-                  Icons.bolt_rounded,
-                  color: primaryBlue,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 10),
-
-              const Text(
-                "SVA",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF1E293B),
-                ),
-              ),
-            ],
-          ),
-
-          GestureDetector(
-            onTap: widget.onClose,
-            child: Container(
-              padding: const EdgeInsets.all(7),
-              decoration: BoxDecoration(
-                color: primaryBlue.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(
-                Icons.close_rounded,
-                size: 18,
-                color: primaryBlue,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 🔵 MENU ITEM
-  Widget _buildMenuItem(SidebarItem item) {
-    final hasChildren = item.children != null;
-    final isSelected = _selectedItem == item.title;
-
-    if (hasChildren) {
-      return Column(
-        children: [
-          ListTile(
-            leading: Icon(item.icon, color: primaryBlue),
-            title: Text(item.title),
-            trailing: IconButton(
-              icon: Icon(
-                item.isExpanded
-                    ? Icons.keyboard_arrow_up
-                    : Icons.keyboard_arrow_down,
-                color: primaryBlue,
-              ),
-              onPressed: () {
-                setState(() {
-                  item.isExpanded = !item.isExpanded;
-                });
-              },
-            ),
-          ),
-          if (item.isExpanded)
-            ...item.children!.map(_buildChild),
-        ],
-      );
-    }
-
-    return ListTile(
-      leading: Icon(
-        item.icon,
-        color: isSelected
-            ? primaryBlue
-            : primaryBlue.withOpacity(0.6),
-      ),
-      title: Text(
-        item.title,
-        style: TextStyle(
-          color: isSelected ? primaryBlue : Colors.black87,
-        ),
-      ),
-      onTap: () {
-        setState(() => _selectedItem = item.title);
-        widget.onClose();
-      },
-    );
-  }
-
-  // 🔵 CHILD ITEM
-  Widget _buildChild(SidebarItem child) {
-    final isSelected = _selectedItem == child.title;
-
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: ListTile(
-        leading: Icon(
-          child.icon,
-          size: 10,
-          color: isSelected
-              ? primaryBlue
-              : primaryBlue.withOpacity(0.4),
-        ),
-        title: Text(
-          child.title,
-          style: TextStyle(
-            fontSize: 13,
-            color: isSelected ? primaryBlue : Colors.black54,
-          ),
-        ),
-        onTap: () {
-          setState(() => _selectedItem = child.title);
-          widget.onClose();
-        },
-      ),
-    );
-  }
-
-  // 🔵 FOOTER
-  Widget _buildFooter() {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: primaryBlue.withOpacity(0.1),
-            child: const Text(
-              "A",
-              style: TextStyle(color: primaryBlue),
-            ),
-          ),
-          const SizedBox(width: 10),
-          const Expanded(child: Text("Admin User")),
-          const Icon(
-            Icons.logout_outlined,
-            color: primaryBlue,
-          ),
-        ],
-      ),
-    );
-  }
-} 
->>>>>>> feature/dashboard-Emails-observations-parametrages

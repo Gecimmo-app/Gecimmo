@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "sav",
     "short_name": "sav",
+=======
+    "name": "projet_sva",
+    "short_name": "projet_sva",
+>>>>>>> feature/dashboard-Emails-observations-parametrages
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

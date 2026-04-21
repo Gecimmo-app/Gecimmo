@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'menu_sidebar/widgets/menuapp.dart';
+=======
+import './widgets/home_page.dart';
+>>>>>>> feature/dashboard-Emails-observations-parametrages
 void main() {
   runApp(const MyApp());
 }
@@ -17,7 +21,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'SF Pro Display',
       ),
+<<<<<<< HEAD
       home: const MenuApp(),
     );
   }
 }
+=======
+      home: const HomePage(),
+    );
+  }
+} 
+>>>>>>> feature/dashboard-Emails-observations-parametrages
