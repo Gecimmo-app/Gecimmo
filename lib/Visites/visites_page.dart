@@ -19,7 +19,7 @@ class _VisitesPageState extends State<VisitesPage> {
   DateTimeRange? selectedDateRange;
   String? selectedPeriodePreset;
   String selectedBien = "";
-  
+
   // ============ DONNÉES DES VISITES ============
   List<Map<String, dynamic>> toutesLesVisites = [
     {
@@ -68,7 +68,7 @@ class _VisitesPageState extends State<VisitesPage> {
       "nbTicketEnAttente": "0",
     },
   ];
-  
+
   // ============ LISTES DES OPTIONS ============
   final List<String> typeVisiteOptions = [
     'Tous les types de visite',
@@ -81,11 +81,26 @@ class _VisitesPageState extends State<VisitesPage> {
 
   final List<String> projetOptions = [
     'Tous les projets',
-    'Projet1', 'Projet2', 'Projet3', 'Projet4',
-    'Projet5', 'Projet6', 'Projet7', 'Projet8',
-    'Projet9', 'Projet10', 'Projet11', 'Projet12',
-    'Projet13', 'Projet14', 'Projet15', 'Projet16',
-    'Projet17', 'Projet18', 'Projet19', 'Projet20',
+    'Projet1',
+    'Projet2',
+    'Projet3',
+    'Projet4',
+    'Projet5',
+    'Projet6',
+    'Projet7',
+    'Projet8',
+    'Projet9',
+    'Projet10',
+    'Projet11',
+    'Projet12',
+    'Projet13',
+    'Projet14',
+    'Projet15',
+    'Projet16',
+    'Projet17',
+    'Projet18',
+    'Projet19',
+    'Projet20',
   ];
 
   final List<String> utilisateurOptions = [
@@ -105,31 +120,45 @@ class _VisitesPageState extends State<VisitesPage> {
     '90 derniers jours',
     '365 derniers jours',
   ];
-  
+
   List<String> biensDisponibles = [
-    "Bien4", "Bien1092", "Bien1056", 
-    "Bien1784", "Bien20881", "Bien1", "Bien10"
+    "Bien4",
+    "Bien1092",
+    "Bien1056",
+    "Bien1784",
+    "Bien20881",
+    "Bien1",
+    "Bien10",
   ];
-  
+
   // ============ FILTRAGE DES VISITES ============
   List<Map<String, dynamic>> get filteredVisites {
     return toutesLesVisites.where((visite) {
-      if (selectedProjet != null && selectedProjet != 'Tous les projets' && selectedProjet != visite["projet"]) {
+      if (selectedProjet != null &&
+          selectedProjet != 'Tous les projets' &&
+          selectedProjet != visite["projet"]) {
         return false;
       }
-      if (selectedUtilisateur != null && selectedUtilisateur != 'Tous les utilisateurs' && selectedUtilisateur != visite["createur"]) {
+      if (selectedUtilisateur != null &&
+          selectedUtilisateur != 'Tous les utilisateurs' &&
+          selectedUtilisateur != visite["createur"]) {
         return false;
       }
-      if (selectedTypeVisite != null && selectedTypeVisite != 'Tous les types de visite' && selectedTypeVisite != visite["type"]) {
+      if (selectedTypeVisite != null &&
+          selectedTypeVisite != 'Tous les types de visite' &&
+          selectedTypeVisite != visite["type"]) {
         return false;
       }
-      if (selectedBien.isNotEmpty && !visite["bien"].toString().toLowerCase().contains(selectedBien.toLowerCase())) {
+      if (selectedBien.isNotEmpty &&
+          !visite["bien"].toString().toLowerCase().contains(
+            selectedBien.toLowerCase(),
+          )) {
         return false;
       }
       return true;
     }).toList();
   }
-  
+
   void _ajouterVisite() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -139,7 +168,7 @@ class _VisitesPageState extends State<VisitesPage> {
       ),
     );
   }
-  
+
   // ============ DIALOG PÉRIODE ============
   void _showPeriodeDialog() {
     showModalBottomSheet(
@@ -237,17 +266,20 @@ class _VisitesPageState extends State<VisitesPage> {
       },
     );
   }
-  
+
   DateTimeRange? _getDateRangeFromPreset(String preset) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    
+
     switch (preset) {
       case 'Aujourd\'hui':
         return DateTimeRange(start: today, end: today);
       case 'Cette semaine':
         final start = today.subtract(Duration(days: today.weekday - 1));
-        return DateTimeRange(start: start, end: start.add(const Duration(days: 6)));
+        return DateTimeRange(
+          start: start,
+          end: start.add(const Duration(days: 6)),
+        );
       case 'Ce mois':
         return DateTimeRange(
           start: DateTime(today.year, today.month, 1),
@@ -259,13 +291,25 @@ class _VisitesPageState extends State<VisitesPage> {
           end: DateTime(today.year, 12, 31),
         );
       case '7 derniers jours':
-        return DateTimeRange(start: today.subtract(const Duration(days: 7)), end: today);
+        return DateTimeRange(
+          start: today.subtract(const Duration(days: 7)),
+          end: today,
+        );
       case '30 derniers jours':
-        return DateTimeRange(start: today.subtract(const Duration(days: 30)), end: today);
+        return DateTimeRange(
+          start: today.subtract(const Duration(days: 30)),
+          end: today,
+        );
       case '90 derniers jours':
-        return DateTimeRange(start: today.subtract(const Duration(days: 90)), end: today);
+        return DateTimeRange(
+          start: today.subtract(const Duration(days: 90)),
+          end: today,
+        );
       case '365 derniers jours':
-        return DateTimeRange(start: today.subtract(const Duration(days: 365)), end: today);
+        return DateTimeRange(
+          start: today.subtract(const Duration(days: 365)),
+          end: today,
+        );
       default:
         return null;
     }
@@ -282,7 +326,7 @@ class _VisitesPageState extends State<VisitesPage> {
     }
     return "Sélectionner des dates";
   }
-  
+
   // ============ DIALOG FILTER SHEET ============
   void _showFilterSheet({
     required String title,
@@ -302,9 +346,12 @@ class _VisitesPageState extends State<VisitesPage> {
         String? tempSelected = currentValue;
         return StatefulBuilder(
           builder: (context, setStateModal) {
-            List<String> filteredOptions = options.where((opt) => 
-              opt.toLowerCase().contains(searchQuery.toLowerCase())
-            ).toList();
+            List<String> filteredOptions = options
+                .where(
+                  (opt) =>
+                      opt.toLowerCase().contains(searchQuery.toLowerCase()),
+                )
+                .toList();
             return Container(
               padding: const EdgeInsets.all(20),
               height: MediaQuery.of(context).size.height * 0.7,
@@ -313,7 +360,10 @@ class _VisitesPageState extends State<VisitesPage> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   if (showSearch) ...[
@@ -325,7 +375,8 @@ class _VisitesPageState extends State<VisitesPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onChanged: (value) => setStateModal(() => searchQuery = value),
+                      onChanged: (value) =>
+                          setStateModal(() => searchQuery = value),
                     ),
                     const SizedBox(height: 16),
                   ],
@@ -355,7 +406,7 @@ class _VisitesPageState extends State<VisitesPage> {
       },
     );
   }
-  
+
   // ============ DIALOG BIEN ============
   void _showBienSearchDialog() {
     showDialog(
@@ -365,11 +416,16 @@ class _VisitesPageState extends State<VisitesPage> {
         String tempSelected = selectedBien;
         return StatefulBuilder(
           builder: (context, setStateDialog) {
-            List<String> filteredBiens = biensDisponibles.where((item) => 
-              item.toLowerCase().contains(searchQuery.toLowerCase())
-            ).toList();
+            List<String> filteredBiens = biensDisponibles
+                .where(
+                  (item) =>
+                      item.toLowerCase().contains(searchQuery.toLowerCase()),
+                )
+                .toList();
             return Dialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Container(
                 padding: const EdgeInsets.all(16),
                 width: double.maxFinite,
@@ -378,7 +434,10 @@ class _VisitesPageState extends State<VisitesPage> {
                   children: [
                     const Text(
                       "Rechercher un bien",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     TextField(
@@ -388,23 +447,31 @@ class _VisitesPageState extends State<VisitesPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 12,
+                        ),
                       ),
-                      onChanged: (value) => setStateDialog(() => searchQuery = value),
+                      onChanged: (value) =>
+                          setStateDialog(() => searchQuery = value),
                     ),
                     const SizedBox(height: 12),
                     Expanded(
                       child: ListView(
-                        children: filteredBiens.map((bien) => RadioListTile<String>(
-                          title: Text(bien),
-                          value: bien,
-                          groupValue: tempSelected,
-                          activeColor: const Color(0xFF1E40AF),
-                          onChanged: (value) {
-                            setState(() => selectedBien = value!);
-                            Navigator.pop(context);
-                          },
-                        )).toList(),
+                        children: filteredBiens
+                            .map(
+                              (bien) => RadioListTile<String>(
+                                title: Text(bien),
+                                value: bien,
+                                groupValue: tempSelected,
+                                activeColor: const Color(0xFF1E40AF),
+                                onChanged: (value) {
+                                  setState(() => selectedBien = value!);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            )
+                            .toList(),
                       ),
                     ),
                   ],
@@ -416,7 +483,7 @@ class _VisitesPageState extends State<VisitesPage> {
       },
     );
   }
-  
+
   // ============ BUILD ============
   @override
   Widget build(BuildContext context) {
@@ -432,7 +499,7 @@ class _VisitesPageState extends State<VisitesPage> {
     final filtered = filteredVisites;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
@@ -443,37 +510,7 @@ class _VisitesPageState extends State<VisitesPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Visites',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: _ajouterVisite,
-                           icon: const Icon(Icons.add, size: 20, color: Color.fromARGB(255, 255, 255, 255)),
-                          label: const Text(
-                            'Ajouter une visite',
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1E40AF),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    _buildPageHeader(),
                     const SizedBox(height: 16),
                     _buildViewToggles(),
                     const SizedBox(height: 16),
@@ -491,7 +528,10 @@ class _VisitesPageState extends State<VisitesPage> {
                   child: Center(
                     child: Text(
                       'Aucune visite trouvée',
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 15),
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
                 ),
@@ -500,16 +540,15 @@ class _VisitesPageState extends State<VisitesPage> {
               SliverPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final visite = filtered[index];
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: index < filtered.length - 1 ? 12 : 0),
-                        child: _buildVisiteListCard(context, visite),
-                      );
-                    },
-                    childCount: filtered.length,
-                  ),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final visite = filtered[index];
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: index < filtered.length - 1 ? 8 : 0,
+                      ),
+                      child: _buildVisiteListCard(context, visite),
+                    );
+                  }, childCount: filtered.length),
                 ),
               ),
               SliverPadding(
@@ -528,30 +567,81 @@ class _VisitesPageState extends State<VisitesPage> {
                     mainAxisSpacing: 16,
                     mainAxisExtent: 375,
                   ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final visite = filtered[index];
-                      return _buildVisiteCard(
-                        context,
-                        visite["projet"] as String,
-                        visite["bien"] as String,
-                        visite["status"] as String,
-                        visite["color"] as Color,
-                        (visite["tags"] as List).cast<String>(),
-                        visite["createur"] as String,
-                        visite["nbBien"] as String,
-                        visite["nbTicket"] as String,
-                        visite["datePlanification"] as String,
-                        visite["dateVisite"] as String,
-                      );
-                    },
-                    childCount: filtered.length,
-                  ),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final visite = filtered[index];
+                    return _buildVisiteCard(
+                      context,
+                      visite["projet"] as String,
+                      visite["bien"] as String,
+                      visite["status"] as String,
+                      visite["color"] as Color,
+                      (visite["tags"] as List).cast<String>(),
+                      visite["createur"] as String,
+                      visite["nbBien"] as String,
+                      visite["nbTicket"] as String,
+                      visite["datePlanification"] as String,
+                      visite["dateVisite"] as String,
+                    );
+                  }, childCount: filtered.length),
                 ),
               ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPageHeader() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isCompact = constraints.maxWidth < 560;
+
+        final Widget title = const Text(
+          'Visites',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF111827),
+          ),
+        );
+
+        final Widget addButton = ElevatedButton.icon(
+          onPressed: _ajouterVisite,
+          icon: const Icon(Icons.add, size: 18),
+          label: const Text(
+            'Ajouter une visite',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF1E40AF),
+            foregroundColor: Colors.white,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+
+        if (isCompact) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              title,
+              const SizedBox(height: 12),
+              SizedBox(width: double.infinity, child: addButton),
+            ],
+          );
+        }
+
+        return Row(
+          children: [
+            title,
+            const Spacer(),
+            addButton,
+          ],
+        );
+      },
     );
   }
 
@@ -632,99 +722,178 @@ class _VisitesPageState extends State<VisitesPage> {
   Widget _buildFiltersSection(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9FAFB),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade200),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0A0F172A),
+            blurRadius: 12,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildDesktopFilterItem(
-              "Période:",
-              _getPeriodeLabel(),
-              Icons.calendar_today_outlined,
+            _buildFilterChip(
+              icon: Icons.calendar_today_outlined,
+              label: _getPeriodeLabel(),
               onTap: _showPeriodeDialog,
             ),
-            const SizedBox(width: 16),
-            _buildDesktopFilterItem(
-               "Bien:",
-               selectedBien.isEmpty ? "Rechercher un bien..." : selectedBien,
-               Icons.search,
-               onTap: _showBienSearchDialog,
-            ),
-            const SizedBox(width: 16),
-            _buildDesktopFilterItem(
-              "Créé par:",
-              selectedUtilisateur != null && selectedUtilisateur != 'Tous les utilisateurs' ? selectedUtilisateur! : '3 utilisateur(s)',
-              Icons.person_outline,
-              onTap: () => _showFilterSheet(
-                  title: 'Utilisateurs',
-                  options: utilisateurOptions,
-                  currentValue: selectedUtilisateur,
-                  onSelected: (v) => setState(() => selectedUtilisateur = v),
-                  showSearch: true,
-              ),
-            ),
-            const SizedBox(width: 16),
-            _buildDesktopFilterItem(
-              "Projet:",
-              selectedProjet != null && selectedProjet != 'Tous les projets' ? selectedProjet! : 'Sélectionner des projets',
-              Icons.folder_outlined,
-              onTap: () => _showFilterSheet(
-                  title: 'Projets',
-                  options: projetOptions,
-                  currentValue: selectedProjet,
-                  onSelected: (v) => setState(() => selectedProjet = v),
-                  showSearch: true,
-              ),
-            ),
-            const SizedBox(width: 16),
-            _buildDesktopFilterItem(
-              "Statut visite:",
-               "Sélectionner des statuts", 
-               Icons.grid_view,
-               onTap: () {},
-            ),
-            const SizedBox(width: 16),
-            _buildDesktopFilterItem(
-              "Type visite:",
-              selectedTypeVisite != null && selectedTypeVisite != 'Tous les types de visite' ? selectedTypeVisite! : 'Sélectionner des types',
-              Icons.grid_view,
-              onTap: () => _showFilterSheet(
-                  title: 'Type de visite',
-                  options: typeVisiteOptions,
-                  currentValue: selectedTypeVisite,
-                  onSelected: (v) => setState(() => selectedTypeVisite = v),
-                  showSearch: false,
-              ),
-            ),
-            const SizedBox(width: 24),
-            _buildAppliquerBtn(),
             const SizedBox(width: 8),
-            _buildReinitialiserBtn(),
+            _buildFilterChip(
+              icon: Icons.search,
+              label: selectedBien.isEmpty
+                  ? 'Rechercher un bien...'
+                  : selectedBien,
+              onTap: _showBienSearchDialog,
+            ),
+            const SizedBox(width: 8),
+            _buildFilterChip(
+              icon: Icons.person_outline,
+              label:
+                  selectedUtilisateur != null &&
+                      selectedUtilisateur != 'Tous les utilisateurs'
+                  ? selectedUtilisateur!
+                  : 'Utilisateurs',
+              onTap: () => _showFilterSheet(
+                title: 'Utilisateurs',
+                options: utilisateurOptions,
+                currentValue: selectedUtilisateur,
+                onSelected: (v) => setState(() => selectedUtilisateur = v),
+                showSearch: true,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildFilterChip(
+              icon: Icons.folder_outlined,
+              label:
+                  selectedProjet != null && selectedProjet != 'Tous les projets'
+                  ? selectedProjet!
+                  : 'Projets',
+              onTap: () => _showFilterSheet(
+                title: 'Projets',
+                options: projetOptions,
+                currentValue: selectedProjet,
+                onSelected: (v) => setState(() => selectedProjet = v),
+                showSearch: true,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildFilterChip(
+              icon: Icons.grid_view,
+              label:
+                  selectedTypeVisite != null &&
+                      selectedTypeVisite != 'Tous les types de visite'
+                  ? selectedTypeVisite!
+                  : 'Type visite',
+              onTap: () => _showFilterSheet(
+                title: 'Type de visite',
+                options: typeVisiteOptions,
+                currentValue: selectedTypeVisite,
+                onSelected: (v) => setState(() => selectedTypeVisite = v),
+                showSearch: false,
+              ),
+            ),
+            const SizedBox(width: 8),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedTypeVisite = null;
+                  selectedProjet = null;
+                  selectedUtilisateur = null;
+                  selectedDateRange = null;
+                  selectedPeriodePreset = null;
+                  selectedBien = '';
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 4,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: const Text(
+                  'Réinitialiser',
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: Color(0xFF64748B),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDesktopFilterItem(String label, String hint, IconData icon, {VoidCallback? onTap}) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(label, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Colors.grey.shade800)),
-        const SizedBox(width: 8),
-        GestureDetector(
-          onTap: onTap,
-          child: _buildInputField(hint, icon, 180),
+  Widget _buildFilterChip({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
         ),
-      ],
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 15, color: const Color(0xFF64748B)),
+            const SizedBox(width: 6),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 180),
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  color: Color(0xFF64748B),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(width: 4),
+            const Icon(
+              Icons.arrow_drop_down,
+              size: 18,
+              color: Color(0xFF64748B),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -743,10 +912,10 @@ class _VisitesPageState extends State<VisitesPage> {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-                    hint,
-                    style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+              hint,
+              style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
@@ -763,7 +932,10 @@ class _VisitesPageState extends State<VisitesPage> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       ),
-      child: const Text("Appliquer", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+      child: const Text(
+        "Appliquer",
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+      ),
     );
     return fullWidth ? SizedBox(width: double.infinity, child: btn) : btn;
   }
@@ -771,17 +943,24 @@ class _VisitesPageState extends State<VisitesPage> {
   Widget _buildReinitialiserBtn({bool fullWidth = false}) {
     Widget btn = TextButton.icon(
       onPressed: () {
-         setState(() {
-            selectedTypeVisite = null;
-            selectedProjet = null;
-            selectedUtilisateur = null;
-            selectedDateRange = null;
-            selectedPeriodePreset = null;
-            selectedBien = "";
-         });
+        setState(() {
+          selectedTypeVisite = null;
+          selectedProjet = null;
+          selectedUtilisateur = null;
+          selectedDateRange = null;
+          selectedPeriodePreset = null;
+          selectedBien = "";
+        });
       },
       icon: Icon(Icons.close, size: 16, color: Colors.grey.shade700),
-      label: Text("Réinitialiser", style: TextStyle(color: Colors.grey.shade700, fontSize: 13, fontWeight: FontWeight.w600)),
+      label: Text(
+        "Réinitialiser",
+        style: TextStyle(
+          color: Colors.grey.shade700,
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
       style: TextButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       ),
@@ -793,9 +972,7 @@ class _VisitesPageState extends State<VisitesPage> {
   static const double _kListMetricBoxHeight = 118;
 
   Widget _buildVisitesListPaginationBar(int totalCount) {
-    final String rangeText = totalCount == 0
-        ? '0'
-        : '1 à $totalCount';
+    final String rangeText = totalCount == 0 ? '0' : '1 à $totalCount';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 12),
       decoration: BoxDecoration(
@@ -807,7 +984,11 @@ class _VisitesPageState extends State<VisitesPage> {
           Expanded(
             child: Text(
               'Affichage de $rangeText sur $totalCount visites',
-              style: TextStyle(fontSize: 12.5, color: Colors.grey.shade600, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 12.5,
+                color: Colors.grey.shade600,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           Icon(Icons.chevron_left, size: 18, color: Colors.grey.shade400),
@@ -818,7 +999,14 @@ class _VisitesPageState extends State<VisitesPage> {
               color: _kPrimaryBlue,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: const Text('1', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700)),
+            child: const Text(
+              '1',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           const SizedBox(width: 4),
           Icon(Icons.chevron_right, size: 18, color: Colors.grey.shade400),
@@ -827,7 +1015,10 @@ class _VisitesPageState extends State<VisitesPage> {
     );
   }
 
-  Widget _buildVisiteListCard(BuildContext context, Map<String, dynamic> visite) {
+  Widget _buildVisiteListCard(
+    BuildContext context,
+    Map<String, dynamic> visite,
+  ) {
     final String projet = visite["projet"] as String;
     final String typeVisite = visite["type"] as String;
     final String nbTicket = visite["nbTicket"] as String;
@@ -885,10 +1076,7 @@ class _VisitesPageState extends State<VisitesPage> {
         children: [
           Flexible(
             fit: FlexFit.loose,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: typePill,
-            ),
+            child: Align(alignment: Alignment.centerLeft, child: typePill),
           ),
           const SizedBox(width: 10),
           const Spacer(),
@@ -905,10 +1093,7 @@ class _VisitesPageState extends State<VisitesPage> {
           Expanded(
             child: SizedBox(
               height: _kListMetricBoxHeight,
-              child: _buildListMetricCell(
-                value: nbTicket,
-                label: 'Tickets',
-              ),
+              child: _buildListMetricCell(value: nbTicket, label: 'Tickets'),
             ),
           ),
           const SizedBox(width: 10),
@@ -953,11 +1138,15 @@ class _VisitesPageState extends State<VisitesPage> {
                     fontWeight: FontWeight.w700,
                     color: Color(0xFF0F172A),
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFDCFCE7),
                   borderRadius: BorderRadius.circular(999),
@@ -985,10 +1174,7 @@ class _VisitesPageState extends State<VisitesPage> {
     );
   }
 
-  Widget _buildListMetricCell({
-    required String value,
-    required String label,
-  }) {
+  Widget _buildListMetricCell({required String value, required String label}) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -1059,7 +1245,7 @@ class _VisitesPageState extends State<VisitesPage> {
             color: Colors.black.withOpacity(0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Column(
@@ -1070,7 +1256,10 @@ class _VisitesPageState extends State<VisitesPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF8E1),
                   borderRadius: BorderRadius.circular(4),
@@ -1086,55 +1275,81 @@ class _VisitesPageState extends State<VisitesPage> {
               ),
               InkWell(
                 onTap: () {
-                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailsVisitePage(projetName: projet),
-                      ),
-                    );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          DetailsVisitePage(projetName: projet),
+                    ),
+                  );
                 },
                 child: Container(
                   padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(color: Colors.blue.shade500, shape: BoxShape.circle),
-                  child: const Icon(Icons.chevron_right, size: 16, color: Colors.white),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade500,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.chevron_right,
+                    size: 16,
+                    color: Colors.white,
+                  ),
                 ),
-              )
+              ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
 
           // Row 2: Content (Project & Bien)
           Text(
             projet,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
           ),
           const SizedBox(height: 4),
           Text(
             bien,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.grey.shade700, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey.shade700,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
 
           // Row 3: Tags
           Wrap(
             alignment: WrapAlignment.center,
             spacing: 6,
             runSpacing: 6,
-            children: tags.map((t) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade500,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                t,
-                style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600),
-              ),
-            )).toList(),
+            children: tags
+                .map(
+                  (t) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade500,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      t,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
-          const Spacer(),
 
           // Row 4: Info Row
           Row(
@@ -1160,19 +1375,31 @@ class _VisitesPageState extends State<VisitesPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.calendar_today_outlined, size: 13, color: Colors.grey.shade500),
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      size: 13,
+                      color: Colors.grey.shade500,
+                    ),
                     const SizedBox(width: 6),
-                    Text("Date de planification de la réalisation:", style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
+                    Text(
+                      "Date de planification de la réalisation:",
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 11,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text(
                   datePlanification,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 12, 
-                    color: datePlanification == "Non définie" ? Colors.black87 : Colors.grey.shade800
-                   ),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: datePlanification == "Non définie"
+                        ? Colors.black87
+                        : Colors.grey.shade800,
+                  ),
                 ),
               ],
             ),
@@ -1188,11 +1415,25 @@ class _VisitesPageState extends State<VisitesPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.calendar_today_outlined, size: 13, color: Colors.grey.shade500),
+                Icon(
+                  Icons.calendar_today_outlined,
+                  size: 13,
+                  color: Colors.grey.shade500,
+                ),
                 const SizedBox(width: 6),
-                Text("Date Visite:", style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
+                Text(
+                  "Date Visite:",
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: 11),
+                ),
                 const SizedBox(width: 4),
-                Text(dateVisite, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.grey.shade800)),
+                Text(
+                  dateVisite,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: Colors.grey.shade800,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1204,7 +1445,14 @@ class _VisitesPageState extends State<VisitesPage> {
   Widget _buildInfoIcon(IconData icon, String count) {
     return Column(
       children: [
-        Text(count, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black87)),
+        Text(
+          count,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: Colors.black87,
+          ),
+        ),
         const SizedBox(height: 4),
         Icon(icon, size: 18, color: Colors.grey.shade400),
       ],
@@ -1214,7 +1462,14 @@ class _VisitesPageState extends State<VisitesPage> {
   Widget _buildUserInfo(String name) {
     return Column(
       children: [
-        Text(name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: Colors.black87)),
+        Text(
+          name,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+            color: Colors.black87,
+          ),
+        ),
         const SizedBox(height: 4),
         Icon(Icons.person_outline, size: 18, color: Colors.grey.shade400),
       ],

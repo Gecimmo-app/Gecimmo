@@ -6,7 +6,8 @@ class ConfigurationsProfilPage extends StatefulWidget {
   const ConfigurationsProfilPage({super.key});
 
   @override
-  State<ConfigurationsProfilPage> createState() => _ConfigurationsProfilPageState();
+  State<ConfigurationsProfilPage> createState() =>
+      _ConfigurationsProfilPageState();
 }
 
 class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
@@ -20,7 +21,10 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
   void _refreshList() {
     setState(() {});
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Liste actualisée'), backgroundColor: Color(0xFF1E40AF)),
+      const SnackBar(
+        content: Text('Liste actualisée'),
+        backgroundColor: Color(0xFF1E40AF),
+      ),
     );
   }
 
@@ -28,11 +32,10 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      builder: (context) => DettailPage(
-        roleId: id,
-        roleName: nom,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
+      builder: (context) => DettailPage(roleId: id, roleName: nom),
     );
   }
 
@@ -40,7 +43,9 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
       builder: (context) => AddRoleForm(
         onRoleAdded: (newRole) => setState(() => roles.add(newRole)),
       ),
@@ -60,7 +65,9 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
   List<Map<String, String>> get _filteredRoles {
     if (rechercheGlobale.isEmpty) return roles;
     return roles.where((role) {
-      return role['nom']!.toLowerCase().contains(rechercheGlobale.toLowerCase()) ||
+      return role['nom']!.toLowerCase().contains(
+            rechercheGlobale.toLowerCase(),
+          ) ||
           role['id']!.contains(rechercheGlobale);
     }).toList();
   }
@@ -115,9 +122,18 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
               onChanged: (v) => setState(() => rechercheGlobale = v),
               decoration: InputDecoration(
                 hintText: 'Rechercher...',
-                prefixIcon: const Icon(Icons.search, size: 20, color: Color(0xFF64748B)),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 20,
+                  color: Color(0xFF64748B),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 12,
+                ),
               ),
             ),
           ),
@@ -128,14 +144,27 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.admin_panel_settings, size: 64, color: Colors.grey[400]),
+                        Icon(
+                          Icons.admin_panel_settings,
+                          size: 64,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(height: 16),
-                        Text('Aucun rôle trouvé', style: TextStyle(fontSize: 16, color: Colors.grey[600])),
+                        Text(
+                          'Aucun rôle trouvé',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
                       ],
                     ),
                   )
                 : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     itemCount: filteredRoles.length,
                     itemBuilder: (context, index) {
                       final role = filteredRoles[index];
@@ -226,7 +255,10 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
                           const SizedBox(width: 4),
                           Text(
                             'ID: ${role['id']}',
-                            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
                           ),
                         ],
                       ),
@@ -240,7 +272,11 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
                   ),
                   child: IconButton(
                     onPressed: () => _viewRole(role['id']!, role['nom']!),
-                    icon: const Icon(Icons.remove_red_eye_outlined, size: 20, color: Color(0xFF1E40AF)),
+                    icon: const Icon(
+                      Icons.remove_red_eye_outlined,
+                      size: 20,
+                      color: Color(0xFF1E40AF),
+                    ),
                     tooltip: 'Modifier le rôle',
                   ),
                 ),
@@ -257,10 +293,7 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
 class AddRoleForm extends StatefulWidget {
   final Function(Map<String, String>)? onRoleAdded;
 
-  const AddRoleForm({
-    super.key,
-    this.onRoleAdded,
-  });
+  const AddRoleForm({super.key, this.onRoleAdded});
 
   @override
   State<AddRoleForm> createState() => _AddRoleFormState();
@@ -268,42 +301,202 @@ class AddRoleForm extends StatefulWidget {
 
 class _AddRoleFormState extends State<AddRoleForm> {
   late final TextEditingController _roleNameController;
-  
-  List<String> _allProjects = ['Projet1', 'Projet2', 'Projet3', 'Projet4', 'Projet5', 'Projet6', 'Projet7'];
+
+  List<String> _allProjects = [
+    'Projet1',
+    'Projet2',
+    'Projet3',
+    'Projet4',
+    'Projet5',
+    'Projet6',
+    'Projet7',
+  ];
   List<String> _selectedProjects = ['Projet1', 'Projet3', 'Projet5', 'Projet7'];
-  
+
   List<Map<String, dynamic>> formRights = [
-    {'formulaire': 'Visites', 'description': 'Visites SAV', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Tickets', 'description': 'Tickets SAV', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Tickets SAV', 'description': 'Consultation des Tickets et Objets de Service (TSOS) SAV', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Agenda SAV', 'description': 'Gestion des réunions et du suivi SAV', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Reclamations SAV', 'description': 'Gérer les réclamations SAV', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Prestataires', 'description': 'Gestion des prestataires', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Parametrage SAV', 'description': 'Paramétrages des listes SAV', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Utilisateur SAV', 'description': 'Gestion des utilisateurs', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
-    {'formulaire': 'Dashboards SAV', 'description': 'Consultation des Dashboards SAV', 'consulter': false, 'ajouter': false, 'modifier': false, 'supprimer': false},
+    {
+      'formulaire': 'Visites',
+      'description': 'Visites SAV',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Tickets',
+      'description': 'Tickets SAV',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Tickets SAV',
+      'description': 'Consultation des Tickets et Objets de Service (TSOS) SAV',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Agenda SAV',
+      'description': 'Gestion des réunions et du suivi SAV',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Reclamations SAV',
+      'description': 'Gérer les réclamations SAV',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Prestataires',
+      'description': 'Gestion des prestataires',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Parametrage SAV',
+      'description': 'Paramétrages des listes SAV',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Utilisateur SAV',
+      'description': 'Gestion des utilisateurs',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
+    {
+      'formulaire': 'Dashboards SAV',
+      'description': 'Consultation des Dashboards SAV',
+      'consulter': false,
+      'ajouter': false,
+      'modifier': false,
+      'supprimer': false,
+    },
   ];
 
   // ==================== ANCIENS DROITS SPÉCIAUX (CONSERVÉS) ====================
   // ==================== NOUVEAUX DROITS SPÉCIAUX AJOUTÉS ====================
   List<Map<String, dynamic>> specialRights = [
     // Anciens droits (conservés)
-    {'cle': '6000001', 'droit': 'RealiserObservation', 'cleFormulaire': '6000002', 'description': 'Réaliser une observation', 'active': false},
-    {'cle': '6000002', 'droit': 'AcceptObservation', 'cleFormulaire': '6000002', 'description': 'Accepter une observation', 'active': false},
-    {'cle': '6000003', 'droit': 'RefusObservation', 'cleFormulaire': '6000002', 'description': 'Refuser une observation', 'active': false},
-    {'cle': '6000004', 'droit': 'PlanificationTravaux', 'cleFormulaire': '6000002', 'description': 'Planification Travaux', 'active': false},
-    {'cle': '6000006', 'droit': 'PlanificationTravauxObservation', 'cleFormulaire': '6000002', 'description': 'Planification travaux de l\'observation', 'active': false},
-    {'cle': '6000012', 'droit': 'CommercialConsulteDetail', 'cleFormulaire': '1000000000', 'description': 'Les commerciaux peuvent accéder uniquement à la reclamation', 'active': false},
-    {'cle': '6000013', 'droit': 'Add', 'cleFormulaire': '1000000000', 'description': 'Peuvent ajouter la reclamation', 'active': false},
-    
+    {
+      'cle': '6000001',
+      'droit': 'RealiserObservation',
+      'cleFormulaire': '6000002',
+      'description': 'Réaliser une observation',
+      'active': false,
+    },
+    {
+      'cle': '6000002',
+      'droit': 'AcceptObservation',
+      'cleFormulaire': '6000002',
+      'description': 'Accepter une observation',
+      'active': false,
+    },
+    {
+      'cle': '6000003',
+      'droit': 'RefusObservation',
+      'cleFormulaire': '6000002',
+      'description': 'Refuser une observation',
+      'active': false,
+    },
+    {
+      'cle': '6000004',
+      'droit': 'PlanificationTravaux',
+      'cleFormulaire': '6000002',
+      'description': 'Planification Travaux',
+      'active': false,
+    },
+    {
+      'cle': '6000006',
+      'droit': 'PlanificationTravauxObservation',
+      'cleFormulaire': '6000002',
+      'description': 'Planification travaux de l\'observation',
+      'active': false,
+    },
+    {
+      'cle': '6000012',
+      'droit': 'CommercialConsulteDetail',
+      'cleFormulaire': '1000000000',
+      'description':
+          'Les commerciaux peuvent accéder uniquement à la reclamation',
+      'active': false,
+    },
+    {
+      'cle': '6000013',
+      'droit': 'Add',
+      'cleFormulaire': '1000000000',
+      'description': 'Peuvent ajouter la reclamation',
+      'active': false,
+    },
+
     // Nouveaux droits ajoutés
-    {'cle': '6000014', 'droit': 'Edit', 'cleFormulaire': '1000000000', 'description': 'Peuvent modifier la reclamation', 'active': false},
-    {'cle': '999999709', 'droit': 'Réception Technique', 'cleFormulaire': '1000000005', 'description': 'Consulter et Ajouter Les Visites De Type Réception Technique', 'active': false},
-    {'cle': '999999710', 'droit': 'Livraison Technique', 'cleFormulaire': '1000000005', 'description': 'Consulter et ajouter les visites de type Livraison Technique', 'active': false},
-    {'cle': '999999711', 'droit': 'Livraison Client', 'cleFormulaire': '1000000005', 'description': 'Consulter et ajouter les visites de type Livraison Client', 'active': false},
-    {'cle': '999999712', 'droit': 'Livraison Syndic', 'cleFormulaire': '1000000005', 'description': 'Consulter et ajouter les visites de type Livraison Syndic', 'active': false},
-    {'cle': '999999713', 'droit': 'Réclamation SAV', 'cleFormulaire': '1000000005', 'description': 'Consulter et ajouter les visites de type Réclamation SAV', 'active': false},
-    {'cle': '999999714', 'droit': 'CheckAllAgenda', 'cleFormulaire': '1000000007', 'description': 'Consulter toutes les réunions de l\'Agenda SAV', 'active': false},
+    {
+      'cle': '6000014',
+      'droit': 'Edit',
+      'cleFormulaire': '1000000000',
+      'description': 'Peuvent modifier la reclamation',
+      'active': false,
+    },
+    {
+      'cle': '999999709',
+      'droit': 'Réception Technique',
+      'cleFormulaire': '1000000005',
+      'description':
+          'Consulter et Ajouter Les Visites De Type Réception Technique',
+      'active': false,
+    },
+    {
+      'cle': '999999710',
+      'droit': 'Livraison Technique',
+      'cleFormulaire': '1000000005',
+      'description':
+          'Consulter et ajouter les visites de type Livraison Technique',
+      'active': false,
+    },
+    {
+      'cle': '999999711',
+      'droit': 'Livraison Client',
+      'cleFormulaire': '1000000005',
+      'description':
+          'Consulter et ajouter les visites de type Livraison Client',
+      'active': false,
+    },
+    {
+      'cle': '999999712',
+      'droit': 'Livraison Syndic',
+      'cleFormulaire': '1000000005',
+      'description':
+          'Consulter et ajouter les visites de type Livraison Syndic',
+      'active': false,
+    },
+    {
+      'cle': '999999713',
+      'droit': 'Réclamation SAV',
+      'cleFormulaire': '1000000005',
+      'description': 'Consulter et ajouter les visites de type Réclamation SAV',
+      'active': false,
+    },
+    {
+      'cle': '999999714',
+      'droit': 'CheckAllAgenda',
+      'cleFormulaire': '1000000007',
+      'description': 'Consulter toutes les réunions de l\'Agenda SAV',
+      'active': false,
+    },
   ];
 
   @override
@@ -315,7 +508,10 @@ class _AddRoleFormState extends State<AddRoleForm> {
   void _submit() {
     if (_roleNameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Veuillez entrer un nom de rôle'), backgroundColor: Colors.red),
+        const SnackBar(
+          content: Text('Veuillez entrer un nom de rôle'),
+          backgroundColor: Colors.red,
+        ),
       );
       return;
     }
@@ -326,7 +522,10 @@ class _AddRoleFormState extends State<AddRoleForm> {
     };
     widget.onRoleAdded?.call(newRole);
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Rôle créé avec succès'), backgroundColor: Colors.green),
+      const SnackBar(
+        content: Text('Rôle créé avec succès'),
+        backgroundColor: Colors.green,
+      ),
     );
     Navigator.pop(context);
   }
@@ -337,98 +536,171 @@ class _AddRoleFormState extends State<AddRoleForm> {
   }
 
   Widget _buildAddRoleForm(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom, left: 20, right: 20, top: 20),
-      decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      child: SingleChildScrollView(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.92,
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Ajouter un nouveau rôle',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.close, color: Colors.grey),
-                  onPressed: () => Navigator.pop(context),
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            
-            Card(
-              elevation: 1,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Informations du rôle', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E40AF))),
-                    const SizedBox(height: 16),
-                    _buildRequiredLabel('Nom du rôle'),
-                    const SizedBox(height: 8),
-                    TextField(
-                      controller: _roleNameController,
-                      decoration: InputDecoration(
-                        hintText: 'Nom du rôle',
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              decoration: const BoxDecoration(
+                color: Color(0xFF1E40AF),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(12),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: 18,
+                        color: Colors.white,
                       ),
                     ),
-                  ],
+                  ),
+                  const SizedBox(width: 12),
+                  const Expanded(
+                    child: Text(
+                      'Ajouter un nouveau rôle',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                  left: 20,
+                  right: 20,
+                  top: 20,
+                ),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 8),
+                      Card(
+                        elevation: 1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Informations du rôle',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF1E40AF),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              _buildRequiredLabel('Nom du rôle'),
+                              const SizedBox(height: 8),
+                              TextField(
+                                controller: _roleNameController,
+                                decoration: InputDecoration(
+                                  hintText: 'Nom du rôle',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Droits formulaires',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1E40AF),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ...formRights.map(
+                        (right) => _buildProfessionalFormCard(right),
+                      ),
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Droits spéciaux',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1E40AF),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ...specialRights.map(
+                        (right) => _buildProfessionalSpecialCard(right),
+                      ),
+                      const SizedBox(height: 32),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () => Navigator.pop(context),
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(color: Colors.grey[400]!),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text('Annuler'),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: _submit,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF1E40AF),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text('Créer le rôle'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
-            
-            const SizedBox(height: 24),
-            
-            const Text('Droits formulaires', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E40AF))),
-            const SizedBox(height: 12),
-            ...formRights.map((right) => _buildProfessionalFormCard(right)),
-            
-            const SizedBox(height: 24),
-            
-            const Text('Droits spéciaux', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E40AF))),
-            const SizedBox(height: 12),
-            ...specialRights.map((right) => _buildProfessionalSpecialCard(right)),
-            
-            const SizedBox(height: 32),
-            
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.grey[400]!),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    child: const Text('Annuler'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _submit,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1E40AF),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    child: const Text('Créer le rôle'),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -436,7 +708,7 @@ class _AddRoleFormState extends State<AddRoleForm> {
   }
 
   // ==================== CARTES PROFESSIONNELLES ====================
-  
+
   Widget _buildProfessionalFormCard(Map<String, dynamic> right) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -476,7 +748,11 @@ class _AddRoleFormState extends State<AddRoleForm> {
                     color: const Color(0xFFEEF2FF),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(Icons.description_outlined, color: Color(0xFF4F46E5), size: 18),
+                  child: const Icon(
+                    Icons.description_outlined,
+                    color: Color(0xFF4F46E5),
+                    size: 18,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -503,7 +779,10 @@ class _AddRoleFormState extends State<AddRoleForm> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE5E7EB),
                     borderRadius: BorderRadius.circular(16),
@@ -527,7 +806,11 @@ class _AddRoleFormState extends State<AddRoleForm> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.lock_outline, size: 12, color: Color(0xFF9CA3AF)),
+                    const Icon(
+                      Icons.lock_outline,
+                      size: 12,
+                      color: Color(0xFF9CA3AF),
+                    ),
                     const SizedBox(width: 6),
                     const Text(
                       'PERMISSIONS',
@@ -540,7 +823,10 @@ class _AddRoleFormState extends State<AddRoleForm> {
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Container(height: 1, color: const Color(0xFFF3F4F6)),
+                      child: Container(
+                        height: 1,
+                        color: const Color(0xFFF3F4F6),
+                      ),
                     ),
                   ],
                 ),
@@ -549,10 +835,30 @@ class _AddRoleFormState extends State<AddRoleForm> {
                   spacing: 20,
                   runSpacing: 10,
                   children: [
-                    _buildPermissionChip('Consulter', right['consulter'], (v) => setState(() => right['consulter'] = v), Icons.visibility_outlined),
-                    _buildPermissionChip('Ajouter', right['ajouter'], (v) => setState(() => right['ajouter'] = v), Icons.add_circle_outline),
-                    _buildPermissionChip('Modifier', right['modifier'], (v) => setState(() => right['modifier'] = v), Icons.edit_outlined),
-                    _buildPermissionChip('Supprimer', right['supprimer'], (v) => setState(() => right['supprimer'] = v), Icons.delete_outline),
+                    _buildPermissionChip(
+                      'Consulter',
+                      right['consulter'],
+                      (v) => setState(() => right['consulter'] = v),
+                      Icons.visibility_outlined,
+                    ),
+                    _buildPermissionChip(
+                      'Ajouter',
+                      right['ajouter'],
+                      (v) => setState(() => right['ajouter'] = v),
+                      Icons.add_circle_outline,
+                    ),
+                    _buildPermissionChip(
+                      'Modifier',
+                      right['modifier'],
+                      (v) => setState(() => right['modifier'] = v),
+                      Icons.edit_outlined,
+                    ),
+                    _buildPermissionChip(
+                      'Supprimer',
+                      right['supprimer'],
+                      (v) => setState(() => right['supprimer'] = v),
+                      Icons.delete_outline,
+                    ),
                   ],
                 ),
               ],
@@ -563,7 +869,12 @@ class _AddRoleFormState extends State<AddRoleForm> {
     );
   }
 
-  Widget _buildPermissionChip(String label, bool value, Function(bool) onChanged, IconData icon) {
+  Widget _buildPermissionChip(
+    String label,
+    bool value,
+    Function(bool) onChanged,
+    IconData icon,
+  ) {
     return GestureDetector(
       onTap: () => onChanged(!value),
       child: Container(
@@ -590,7 +901,9 @@ class _AddRoleFormState extends State<AddRoleForm> {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: value ? FontWeight.w600 : FontWeight.w500,
-                color: value ? const Color(0xFF6366F1) : const Color(0xFF6B7280),
+                color: value
+                    ? const Color(0xFF6366F1)
+                    : const Color(0xFF6B7280),
               ),
             ),
             const SizedBox(width: 4),
@@ -601,8 +914,13 @@ class _AddRoleFormState extends State<AddRoleForm> {
                 onChanged: (v) => onChanged(v ?? false),
                 activeColor: const Color(0xFF6366F1),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                visualDensity: const VisualDensity(
+                  horizontal: -4,
+                  vertical: -4,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
               ),
             ),
           ],
@@ -629,7 +947,11 @@ class _AddRoleFormState extends State<AddRoleForm> {
               color: const Color(0xFFF3F4F6),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: const Icon(Icons.star_border, size: 14, color: Color(0xFF6B7280)),
+            child: const Icon(
+              Icons.star_border,
+              size: 14,
+              color: Color(0xFF6B7280),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -641,9 +963,13 @@ class _AddRoleFormState extends State<AddRoleForm> {
                   spacing: 6,
                   runSpacing: 4,
                   children: [
-                    if (right['cle'] != null && right['cle']!.toString().isNotEmpty)
+                    if (right['cle'] != null &&
+                        right['cle']!.toString().isNotEmpty)
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEEF2FF),
                           borderRadius: BorderRadius.circular(4),
@@ -657,9 +983,13 @@ class _AddRoleFormState extends State<AddRoleForm> {
                           ),
                         ),
                       ),
-                    if (right['droit'] != null && right['droit']!.toString().isNotEmpty)
+                    if (right['droit'] != null &&
+                        right['droit']!.toString().isNotEmpty)
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFF3F4F6),
                           borderRadius: BorderRadius.circular(4),
@@ -673,9 +1003,13 @@ class _AddRoleFormState extends State<AddRoleForm> {
                           ),
                         ),
                       ),
-                    if (right['cleFormulaire'] != null && right['cleFormulaire']!.toString().isNotEmpty)
+                    if (right['cleFormulaire'] != null &&
+                        right['cleFormulaire']!.toString().isNotEmpty)
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFFEF3C7),
                           borderRadius: BorderRadius.circular(4),
@@ -694,7 +1028,11 @@ class _AddRoleFormState extends State<AddRoleForm> {
                 const SizedBox(height: 6),
                 Text(
                   right['description'],
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF111827)),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF111827),
+                  ),
                 ),
               ],
             ),
@@ -714,8 +1052,22 @@ class _AddRoleFormState extends State<AddRoleForm> {
     return RichText(
       text: TextSpan(
         children: [
-          TextSpan(text: text, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFF1E293B))),
-          const TextSpan(text: ' *', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red)),
+          TextSpan(
+            text: text,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF1E293B),
+            ),
+          ),
+          const TextSpan(
+            text: ' *',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ),
         ],
       ),
     );

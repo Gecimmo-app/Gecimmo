@@ -28,16 +28,29 @@ class _DetailsVisitePageState extends State<DetailsVisitePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _PagePalette.background,
+      appBar: AppBar(
+        backgroundColor: _PagePalette.primary,
+        elevation: 0,
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+        title: Text(
+          widget.projetName,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 18,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            const SliverToBoxAdapter(
-              child: HeaderSection(),
-            ),
+            const SliverToBoxAdapter(child: HeaderSection()),
             SliverToBoxAdapter(
               child: TabsSection(
                 currentIndex: _currentTabIndex,
-                onTabChanged: (index) => setState(() => _currentTabIndex = index),
+                onTabChanged: (index) =>
+                    setState(() => _currentTabIndex = index),
               ),
             ),
           ];
@@ -64,115 +77,84 @@ class HeaderSection extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: _PagePalette.surface,
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 12, 16, 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Material(
-                    color: const Color(0xFFF1F5F9),
-                    borderRadius: BorderRadius.circular(12),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).maybePop(),
-                      borderRadius: BorderRadius.circular(12),
-                      child: const SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: Center(
-                          child: Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            size: 16,
-                            color: _PagePalette.title,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Projet1 - Tranche3 - GH1.1 - I1 - 1er - Bien4",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: _PagePalette.title,
-                              letterSpacing: -0.2,
-                              height: 1.25,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 12),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFDBEAFE),
-                              borderRadius: BorderRadius.circular(999),
-                              border: Border.all(color: const Color(0xFFBFDBFE)),
-                            ),
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.flag_outlined, size: 14, color: _PagePalette.primary),
-                                SizedBox(width: 6),
-                                Text(
-                                  "Réclamation",
-                                  style: TextStyle(
-                                    color: _PagePalette.primary,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12.5,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 40),
-                ],
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              "Projet1 - Tranche3 - GH1.1 - I1 - 1er - Bien4",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: _PagePalette.title,
+                letterSpacing: -0.2,
+                height: 1.25,
               ),
-              const SizedBox(height: 20),
-              Row(
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+              decoration: BoxDecoration(
+                color: const Color(0xFFDBEAFE),
+                borderRadius: BorderRadius.circular(999),
+                border: Border.all(color: const Color(0xFFBFDBFE)),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: _ActionButton(
-                      text: "Ajouter un Ticket",
-                      icon: Icons.add_circle_outline,
-                      bg: _PagePalette.primary,
-                      textCol: Colors.white,
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const AddTicketPage()),
-                      ),
-                    ),
+                  Icon(
+                    Icons.flag_outlined,
+                    size: 14,
+                    color: _PagePalette.primary,
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _ActionButton(
-                      text: "Clôturer la visite",
-                      icon: Icons.task_alt_outlined,
-                      bg: const Color(0xFFDC2626),
-                      textCol: Colors.white,
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (context) => const CloturerVisitePage(),
-                      ),
+                  SizedBox(width: 6),
+                  Text(
+                    "Réclamation",
+                    style: TextStyle(
+                      color: _PagePalette.primary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12.5,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: _ActionButton(
+                    text: "Ajouter un Ticket",
+                    icon: Icons.add_circle_outline,
+                    bg: _PagePalette.primary,
+                    textCol: Colors.white,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddTicketPage(),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _ActionButton(
+                    text: "Clôturer la visite",
+                    icon: Icons.task_alt_outlined,
+                    bg: const Color(0xFFDC2626),
+                    textCol: Colors.white,
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (context) => const CloturerVisitePage(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -214,7 +196,10 @@ class _ActionButton extends StatelessWidget {
             child: Text(
               text,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5),
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 13.5,
+              ),
             ),
           ),
         ],
@@ -228,7 +213,11 @@ class TabsSection extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTabChanged;
 
-  const TabsSection({super.key, required this.currentIndex, required this.onTabChanged});
+  const TabsSection({
+    super.key,
+    required this.currentIndex,
+    required this.onTabChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -245,11 +234,26 @@ class TabsSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _TabItem(title: "Vue global", index: 0, currentIndex: currentIndex, onTap: onTabChanged),
+              _TabItem(
+                title: "Vue global",
+                index: 0,
+                currentIndex: currentIndex,
+                onTap: onTabChanged,
+              ),
               const SizedBox(width: 24),
-              _TabItem(title: "Tickets", index: 1, currentIndex: currentIndex, onTap: onTabChanged),
+              _TabItem(
+                title: "Tickets",
+                index: 1,
+                currentIndex: currentIndex,
+                onTap: onTabChanged,
+              ),
               const SizedBox(width: 24),
-              _TabItem(title: "Observations", index: 2, currentIndex: currentIndex, onTap: onTabChanged),
+              _TabItem(
+                title: "Observations",
+                index: 2,
+                currentIndex: currentIndex,
+                onTap: onTabChanged,
+              ),
             ],
           ),
         ),
@@ -264,7 +268,12 @@ class _TabItem extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  const _TabItem({required this.title, required this.index, required this.currentIndex, required this.onTap});
+  const _TabItem({
+    required this.title,
+    required this.index,
+    required this.currentIndex,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -323,14 +332,14 @@ class _DesktopLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           StatsGrid(crossAxisCount: 5),
-          SizedBox(height: 24),
+          SizedBox(height: 16),
           CategoriesList(),
-          SizedBox(height: 24),
+          SizedBox(height: 16),
           Align(
             alignment: Alignment.centerLeft,
             child: SizedBox(width: 350, child: DetailsCard()),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 16),
           ReportsSection(),
         ],
       ),
@@ -350,14 +359,14 @@ class _TabletLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           StatsGrid(crossAxisCount: 3),
-          SizedBox(height: 24),
+          SizedBox(height: 16),
           CategoriesList(),
-          SizedBox(height: 24),
+          SizedBox(height: 16),
           DetailsCard(),
-          SizedBox(height: 24),
+          SizedBox(height: 16),
           ReportsSection(),
         ],
-      )
+      ),
     );
   }
 }
@@ -374,14 +383,14 @@ class _MobileLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           StatsGrid(crossAxisCount: 2),
-          SizedBox(height: 16),
+          SizedBox(height: 12),
           CategoriesList(),
-          SizedBox(height: 16),
+          SizedBox(height: 12),
           DetailsCard(),
-          SizedBox(height: 16),
+          SizedBox(height: 12),
           ReportsSection(),
         ],
-      )
+      ),
     );
   }
 }
@@ -527,8 +536,8 @@ class StatsGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
         childAspectRatio: 0.95,
       ),
       itemBuilder: (context, index) {
@@ -550,7 +559,13 @@ class StatCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
 
-  const StatCard({super.key, required this.value, required this.label, required this.icon, required this.iconColor});
+  const StatCard({
+    super.key,
+    required this.value,
+    required this.label,
+    required this.icon,
+    required this.iconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -569,8 +584,8 @@ class StatCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 36,
@@ -594,6 +609,7 @@ class StatCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             label,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 12.5,
               fontWeight: FontWeight.w500,
@@ -636,8 +652,8 @@ class CategoriesList extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columns,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
             childAspectRatio: 2.05,
           ),
           itemBuilder: (context, index) {
@@ -661,7 +677,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: _PagePalette.surface,
         borderRadius: BorderRadius.circular(16),
@@ -675,7 +691,8 @@ class CategoryCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             title,
@@ -687,23 +704,25 @@ class CategoryCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF8FAFC),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _PagePalette.border),
-            ),
-            child: Text(
-              val,
-              style: const TextStyle(
-                color: _PagePalette.subtitle,
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
+          const SizedBox(height: 10),
+          Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8FAFC),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: _PagePalette.border),
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              child: Text(
+                val,
+                style: const TextStyle(
+                  color: _PagePalette.subtitle,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ],
@@ -732,9 +751,10 @@ class _ReportsSectionState extends State<ReportsSection> {
   ];
 
   void _showFilterMenu() {
-    final RenderBox button = _buttonKey.currentContext!.findRenderObject() as RenderBox;
+    final RenderBox button =
+        _buttonKey.currentContext!.findRenderObject() as RenderBox;
     final Offset offset = button.localToGlobal(Offset.zero);
-    
+
     showMenu(
       context: context,
       position: RelativeRect.fromLTRB(
@@ -754,8 +774,12 @@ class _ReportsSectionState extends State<ReportsSection> {
               Text(
                 option,
                 style: TextStyle(
-                  fontWeight: _selectedFilter == option ? FontWeight.w600 : FontWeight.normal,
-                  color: _selectedFilter == option ? _PagePalette.primary : _PagePalette.title,
+                  fontWeight: _selectedFilter == option
+                      ? FontWeight.w600
+                      : FontWeight.normal,
+                  color: _selectedFilter == option
+                      ? _PagePalette.primary
+                      : _PagePalette.title,
                 ),
               ),
             ],
@@ -763,9 +787,7 @@ class _ReportsSectionState extends State<ReportsSection> {
         );
       }).toList(),
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ).then((value) {
       if (value != null && value is String) {
         setState(() {
@@ -802,7 +824,10 @@ class _ReportsSectionState extends State<ReportsSection> {
                     color: const Color(0xFF1E40AF).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.visibility_outlined, color: _PagePalette.primary),
+                  child: const Icon(
+                    Icons.visibility_outlined,
+                    color: _PagePalette.primary,
+                  ),
                 ),
                 title: const Text(
                   "Aperçu",
@@ -825,7 +850,10 @@ class _ReportsSectionState extends State<ReportsSection> {
                     color: const Color(0xFF16A34A).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.download_outlined, color: Color(0xFF16A34A)),
+                  child: const Icon(
+                    Icons.download_outlined,
+                    color: Color(0xFF16A34A),
+                  ),
                 ),
                 title: const Text(
                   "Télécharger",
@@ -883,7 +911,10 @@ class _ReportsSectionState extends State<ReportsSection> {
                 key: _buttonKey,
                 onTap: _showFilterMenu,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     border: Border.all(color: _PagePalette.border),
                     borderRadius: BorderRadius.circular(10),
@@ -899,7 +930,11 @@ class _ReportsSectionState extends State<ReportsSection> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(Icons.unfold_more, size: 16, color: _PagePalette.subtitle),
+                      const Icon(
+                        Icons.unfold_more,
+                        size: 16,
+                        color: _PagePalette.subtitle,
+                      ),
                     ],
                   ),
                 ),
@@ -915,16 +950,34 @@ class _ReportsSectionState extends State<ReportsSection> {
 
   Widget _buildFilteredReports() {
     List<Map<String, String>> reports = [
-      {"filename": "ordinateur.jpg", "subtitle": "Image - 07/04/2026 11:43", "type": "Ticket"},
-      {"filename": "ordinateur.jpg", "subtitle": "Image - 07/04/2026 11:38", "type": "Ticket"},
-      {"filename": "document.pdf", "subtitle": "PDF - 07/04/2026 10:00", "type": "Rapport"},
-      {"filename": "marker.png", "subtitle": "Image - 07/04/2026 09:30", "type": "TicketMarker"},
+      {
+        "filename": "ordinateur.jpg",
+        "subtitle": "Image - 07/04/2026 11:43",
+        "type": "Ticket",
+      },
+      {
+        "filename": "ordinateur.jpg",
+        "subtitle": "Image - 07/04/2026 11:38",
+        "type": "Ticket",
+      },
+      {
+        "filename": "document.pdf",
+        "subtitle": "PDF - 07/04/2026 10:00",
+        "type": "Rapport",
+      },
+      {
+        "filename": "marker.png",
+        "subtitle": "Image - 07/04/2026 09:30",
+        "type": "TicketMarker",
+      },
     ];
 
     List<Map<String, String>> filteredReports = reports;
-    
+
     if (_selectedFilter != "Tous les documents") {
-      filteredReports = reports.where((report) => report["type"] == _selectedFilter).toList();
+      filteredReports = reports
+          .where((report) => report["type"] == _selectedFilter)
+          .toList();
     }
 
     if (filteredReports.isEmpty) {
@@ -955,7 +1008,8 @@ class _ReportsSectionState extends State<ReportsSection> {
               filename: report["filename"]!,
               subtitle: report["subtitle"]!,
               type: report["type"]!,
-              onMenuTap: () => _showDocumentMenu(report["filename"]!, report["type"]!),
+              onMenuTap: () =>
+                  _showDocumentMenu(report["filename"]!, report["type"]!),
             ),
             if (index < filteredReports.length - 1)
               const Padding(
@@ -976,9 +1030,9 @@ class ReportItem extends StatelessWidget {
   final VoidCallback onMenuTap;
 
   const ReportItem({
-    super.key, 
-    required this.filename, 
-    required this.subtitle, 
+    super.key,
+    required this.filename,
+    required this.subtitle,
     required this.type,
     required this.onMenuTap,
   });
@@ -1007,9 +1061,11 @@ class ReportItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(9),
           ),
           child: Icon(
-            type == "Ticket" ? Icons.description_outlined : 
-            type == "TicketMarker" ? Icons.flag_outlined :
-            Icons.picture_as_pdf_outlined,
+            type == "Ticket"
+                ? Icons.description_outlined
+                : type == "TicketMarker"
+                ? Icons.flag_outlined
+                : Icons.picture_as_pdf_outlined,
             color: _getIconColor(),
             size: 23,
           ),
@@ -1030,7 +1086,10 @@ class ReportItem extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: const TextStyle(color: _PagePalette.subtitle, fontSize: 13),
+                style: const TextStyle(
+                  color: _PagePalette.subtitle,
+                  fontSize: 13,
+                ),
               ),
             ],
           ),
