@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import '../widgets/Ajouter_visite.dart';
-import '../screens/parametrage/EmailsParEtape.dart';
+import '../Ajouter_visite.dart';
+import 'package:sav/Parametrages/EmailsParEtape.dart';
 
 // ─────────────────────────────────────────────
 //  THEME CONSTANTS

@@ -1,4 +1,0 @@
-enum AppPage {
-  dashboard,
-  regressionConstats,
-}

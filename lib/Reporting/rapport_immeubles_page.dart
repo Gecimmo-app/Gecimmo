@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../widgets/fintech_filter_components.dart';
+import '../widgets/Ajouter_visite.dart';
 
 class RapportImmeublesPage extends StatefulWidget {
   const RapportImmeublesPage({super.key});
@@ -26,7 +27,7 @@ class _RapportImmeublesPageState extends State<RapportImmeublesPage> {
   };
 
   // Selected quick filter states (Horizontal bar)
-  final Set<String> _quickFilters = {"En cours"}; 
+  final Set<String> _quickFilters = {"En cours"};
 
   int _getActiveFilterCount() {
     int count = 0;
@@ -76,12 +77,21 @@ class _RapportImmeublesPageState extends State<RapportImmeublesPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add, size: 28),
-        backgroundColor: const Color(0xFF1E40AF),
-        foregroundColor: Colors.white,
-        elevation: 4,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddVisitFlow()),
+            );
+          },
+          backgroundColor: const Color(0xFF1E40AF),
+          foregroundColor: Colors.white,
+          elevation: 6,
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add, size: 34),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
@@ -97,8 +107,8 @@ class _RapportImmeublesPageState extends State<RapportImmeublesPage> {
           const Text(
             "Rapports",
             style: TextStyle(
-              fontSize: 28, 
-              fontWeight: FontWeight.w900, 
+              fontSize: 28,
+              fontWeight: FontWeight.w900,
               color: Color(0xFF0F172A),
               letterSpacing: -0.5
             ),

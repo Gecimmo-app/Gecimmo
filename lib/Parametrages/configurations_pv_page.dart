@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import '../widgets/Ajouter_visite.dart' hide AppTheme;
+import '../widgets/Dashboard/Dashbordprincpa.dart';
 
 class ConfigurationsPvPage extends StatefulWidget {
   const ConfigurationsPvPage({super.key});
@@ -123,8 +125,9 @@ class _ConfigurationsPvPageState extends State<ConfigurationsPvPage> {
   }
 
   void _ajouterVisite() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Ajouter une visite (fonctionnalité à venir)'), backgroundColor: Color(0xFF1E40AF)),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddVisitFlow()),
     );
   }
 
@@ -148,18 +151,21 @@ class _ConfigurationsPvPageState extends State<ConfigurationsPvPage> {
   }
 
   void _showAddModal() {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) => NewAddModelForm(
-        onModelAdded: (newModel) {
-          setState(() {
-            models.add(newModel);
-          });
-        },
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.all(20),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: NewAddModelForm(
+            onModelAdded: (newModel) {
+              setState(() {
+                models.add(newModel);
+              });
+            },
+          ),
+        ),
       ),
     );
   }
@@ -169,7 +175,7 @@ class _ConfigurationsPvPageState extends State<ConfigurationsPvPage> {
     final filteredModels = _filteredModels;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: const Color(0xFFEFF6FF),
       appBar: AppBar(
         title: const Text(
           'Gestion des Modèles PV',
@@ -224,15 +230,59 @@ class _ConfigurationsPvPageState extends State<ConfigurationsPvPage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _buildFilterDropdown(selectedTypeRapport, typeRapports, (v) => setState(() => selectedTypeRapport = v!), 'Type Rapport'),
-                        const SizedBox(width: 12),
-                        _buildFilterDropdown(selectedProjet, projets, (v) => setState(() => selectedProjet = v!), 'Projet'),
-                        const SizedBox(width: 12),
-                        _buildFilterDropdown(selectedTranche, tranches, (v) => setState(() => selectedTranche = v!), 'Tranche'),
-                        const SizedBox(width: 12),
-                        _buildFilterDropdown(selectedNature, natures, (v) => setState(() => selectedNature = v!), 'Nature'),
-                        const SizedBox(width: 12),
-                        _buildFilterDropdown(selectedTypeVisite, typeVisites, (v) => setState(() => selectedTypeVisite = v!), 'Type Visite'),
+                        _buildFilterChip(
+                          icon: Icons.article_outlined,
+                          label: selectedTypeRapport != 'Tous les types' ? selectedTypeRapport : 'Type Rapport',
+                          onTap: () => _showFilterSheet(context, 'Type Rapport', typeRapports, selectedTypeRapport, (v) => setState(() => selectedTypeRapport = v), showSearch: false),
+                        ),
+                        const SizedBox(width: 8),
+                        _buildFilterChip(
+                          icon: Icons.folder_outlined,
+                          label: selectedProjet != 'Tous les projets' ? selectedProjet : 'Projet',
+                          onTap: () => _showFilterSheet(context, 'Projet', projets, selectedProjet, (v) => setState(() => selectedProjet = v), showSearch: true),
+                        ),
+                        const SizedBox(width: 8),
+                        _buildFilterChip(
+                          icon: Icons.layers_outlined,
+                          label: selectedTranche != 'Toutes les tranches' ? selectedTranche : 'Tranche',
+                          onTap: () => _showFilterSheet(context, 'Tranche', tranches, selectedTranche, (v) => setState(() => selectedTranche = v), showSearch: true),
+                        ),
+                        const SizedBox(width: 8),
+                        _buildFilterChip(
+                          icon: Icons.category_outlined,
+                          label: selectedNature != 'Toutes les natures' ? selectedNature : 'Nature',
+                          onTap: () => _showFilterSheet(context, 'Nature', natures, selectedNature, (v) => setState(() => selectedNature = v), showSearch: false),
+                        ),
+                        const SizedBox(width: 8),
+                        _buildFilterChip(
+                          icon: Icons.event_note_outlined,
+                          label: selectedTypeVisite != 'Tous les types' ? selectedTypeVisite : 'Type Visite',
+                          onTap: () => _showFilterSheet(context, 'Type Visite', typeVisites, selectedTypeVisite, (v) => setState(() => selectedTypeVisite = v), showSearch: false),
+                        ),
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedTypeRapport = 'Tous les types';
+                              selectedProjet = 'Tous les projets';
+                              selectedTranche = 'Toutes les tranches';
+                              selectedNature = 'Toutes les natures';
+                              selectedTypeVisite = 'Tous les types';
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: const Color(0xFFE2E8F0)),
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 4, offset: const Offset(0, 1)),
+                              ],
+                            ),
+                            child: const Text('Réinitialiser', style: TextStyle(fontSize: 12.5, color: Color(0xFF64748B), fontWeight: FontWeight.w500)),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -278,33 +328,73 @@ class _ConfigurationsPvPageState extends State<ConfigurationsPvPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _ajouterVisite,
-        backgroundColor: const Color(0xFF1E40AF),
-        child: const Icon(Icons.add, color: Colors.white),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        tooltip: 'Ajouter une visite',
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: FloatingActionButton(
+          onPressed: _ajouterVisite,
+          backgroundColor: const Color(0xFF1E40AF),
+          foregroundColor: Colors.white,
+          elevation: 6,
+          shape: const CircleBorder(),
+          tooltip: 'Ajouter une visite',
+          child: const Icon(Icons.add, size: 34),
+        ),
       ),
     );
   }
 
-  Widget _buildFilterDropdown(String value, List<String> items, Function(String?) onChanged, String label) {
-    return Container(
-      width: 150,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(10),
+  void _showFilterSheet(
+    BuildContext context,
+    String title,
+    List<String> options,
+    String? currentValue,
+    Function(String) onSelected, {
+    required bool showSearch,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: value,
-          isExpanded: true,
-          icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF1E40AF)),
-          items: items.map((item) {
-            return DropdownMenuItem(value: item, child: Text(item, style: const TextStyle(fontSize: 13)));
-          }).toList(),
-          onChanged: onChanged,
+      builder: (context) {
+        return FilterSheetContent(
+          title: title,
+          options: options,
+          currentValue: currentValue,
+          onSelected: onSelected,
+          showSearch: showSearch,
+        );
+      },
+    );
+  }
+
+  Widget _buildFilterChip({required IconData icon, required String label, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04), 
+              blurRadius: 4, 
+              offset: const Offset(0, 1)
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 15, color: const Color(0xFF64748B)),
+            const SizedBox(width: 5),
+            Text(label, style: const TextStyle(fontSize: 12.5, color: Color(0xFF64748B), fontWeight: FontWeight.w500)),
+            const SizedBox(width: 4),
+            const Icon(Icons.arrow_drop_down, size: 18, color: Color(0xFF64748B)),
+          ],
         ),
       ),
     );
@@ -487,7 +577,7 @@ class _NewAddModelFormState extends State<NewAddModelForm> {
 
   Future<void> _pickFile() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['mrt'],
         allowMultiple: false,
@@ -548,15 +638,10 @@ class _NewAddModelFormState extends State<NewAddModelForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-        left: 20,
-        right: 20,
-        top: 20,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFFEFF6FF),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -686,7 +771,7 @@ class _NewAddModelFormState extends State<NewAddModelForm> {
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     ),
-                    child: const Text('Enregistrer'),
+                    child: const Text('Enregistrer', style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ],

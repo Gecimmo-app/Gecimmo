@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../widgets/Dashbordprincpa.dart';
-import '../../widgets/Ajouter_visite.dart';
+import '../widgets/Dashboard/Dashbordprincpa.dart';
+import '../widgets/Ajouter_visite.dart';
 import 'dart:math' as math;
 
 class ProjectConfig {

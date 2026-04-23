@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/Ajouter_visite.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({super.key});
@@ -12,20 +13,31 @@ class _AgendaPageState extends State<AgendaPage> {
   DateTime selectedDate = DateTime.now();
   String selectedUser = "Utilisateurs (3)";
   bool showCompleted = false;
-  
+
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(const Duration(days: 6));
-  
+
   final List<String> hours = [
-    "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
-    "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
   ];
-  
+
   List<DateTime> get weekDays {
     final start = _startDate;
     return List.generate(7, (i) => start.add(Duration(days: i)));
   }
-  
+
   void _ajouterVisite() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -35,7 +47,7 @@ class _AgendaPageState extends State<AgendaPage> {
       ),
     );
   }
-  
+
   void _showDatePickerDialog() {
     showDialog(
       context: context,
@@ -43,7 +55,7 @@ class _AgendaPageState extends State<AgendaPage> {
         DateTime tempStartDate = _startDate;
         DateTime tempEndDate = _endDate;
         String selectedPeriod = "90 derniers jours";
-        
+
         return StatefulBuilder(
           builder: (context, setStateDialog) {
             return AlertDialog(
@@ -56,7 +68,10 @@ class _AgendaPageState extends State<AgendaPage> {
                   children: [
                     const Text(
                       "Sélection rapide",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     Wrap(
@@ -81,9 +96,13 @@ class _AgendaPageState extends State<AgendaPage> {
                             setStateDialog(() {
                               selectedPeriod = "Cette semaine";
                               final now = DateTime.now();
-                              final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+                              final startOfWeek = now.subtract(
+                                Duration(days: now.weekday - 1),
+                              );
                               tempStartDate = startOfWeek;
-                              tempEndDate = startOfWeek.add(const Duration(days: 6));
+                              tempEndDate = startOfWeek.add(
+                                const Duration(days: 6),
+                              );
                             });
                           },
                         ),
@@ -95,7 +114,11 @@ class _AgendaPageState extends State<AgendaPage> {
                               selectedPeriod = "Ce mois";
                               final now = DateTime.now();
                               tempStartDate = DateTime(now.year, now.month, 1);
-                              tempEndDate = DateTime(now.year, now.month + 1, 0);
+                              tempEndDate = DateTime(
+                                now.year,
+                                now.month + 1,
+                                0,
+                              );
                             });
                           },
                         ),
@@ -118,7 +141,9 @@ class _AgendaPageState extends State<AgendaPage> {
                             setStateDialog(() {
                               selectedPeriod = "7 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 7));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 7),
+                              );
                             });
                           },
                         ),
@@ -129,7 +154,9 @@ class _AgendaPageState extends State<AgendaPage> {
                             setStateDialog(() {
                               selectedPeriod = "30 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 30));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 30),
+                              );
                             });
                           },
                         ),
@@ -140,7 +167,9 @@ class _AgendaPageState extends State<AgendaPage> {
                             setStateDialog(() {
                               selectedPeriod = "90 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 90));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 90),
+                              );
                             });
                           },
                         ),
@@ -151,7 +180,9 @@ class _AgendaPageState extends State<AgendaPage> {
                             setStateDialog(() {
                               selectedPeriod = "365 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 365));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 365),
+                              );
                             });
                           },
                         ),
@@ -162,7 +193,10 @@ class _AgendaPageState extends State<AgendaPage> {
                     const SizedBox(height: 12),
                     const Text(
                       "Sélection personnalisée",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     InkWell(
@@ -182,18 +216,28 @@ class _AgendaPageState extends State<AgendaPage> {
                         }
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey[300]!),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.calendar_today, size: 16, color: Color(0xFF1E40AF)),
+                            const Icon(
+                              Icons.calendar_today,
+                              size: 16,
+                              color: Color(0xFF1E40AF),
+                            ),
                             const SizedBox(width: 8),
                             Text(
                               "Choisir une plage de dates",
-                              style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ],
                         ),
@@ -201,7 +245,10 @@ class _AgendaPageState extends State<AgendaPage> {
                     ),
                     const SizedBox(height: 12),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F7FA),
                         borderRadius: BorderRadius.circular(8),
@@ -211,7 +258,10 @@ class _AgendaPageState extends State<AgendaPage> {
                         children: [
                           Text(
                             "${tempStartDate.day}/${tempStartDate.month}/${tempStartDate.year} - ${tempEndDate.day}/${tempEndDate.month}/${tempEndDate.year}",
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
@@ -245,7 +295,11 @@ class _AgendaPageState extends State<AgendaPage> {
     );
   }
 
-  Widget _buildQuickSelectButton(String text, bool isSelected, VoidCallback onTap) {
+  Widget _buildQuickSelectButton(
+    String text,
+    bool isSelected,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -275,7 +329,7 @@ class _AgendaPageState extends State<AgendaPage> {
       ),
     );
   }
-  
+
   void _previousPeriod() {
     setState(() {
       if (selectedView == "Jour") {
@@ -289,7 +343,7 @@ class _AgendaPageState extends State<AgendaPage> {
       }
     });
   }
-  
+
   void _nextPeriod() {
     setState(() {
       if (selectedView == "Jour") {
@@ -303,7 +357,7 @@ class _AgendaPageState extends State<AgendaPage> {
       }
     });
   }
-  
+
   void _goToToday() {
     setState(() {
       selectedDate = DateTime.now();
@@ -311,284 +365,379 @@ class _AgendaPageState extends State<AgendaPage> {
       _endDate = selectedDate.add(const Duration(days: 6));
     });
   }
-  
+
   void _showNewTaskDialog() {
     final titleController = TextEditingController();
     final descriptionController = TextEditingController();
     DateTime? startDate = DateTime.now();
     DateTime? endDate = DateTime.now().add(const Duration(hours: 1));
     String? assignedTo = "admin user";
-    
-    showModalBottomSheet(
+
+    showDialog(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setStateDialog) {
-            return Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFEFF6FF),
+            return Dialog(
+              backgroundColor: Colors.transparent,
+              insetPadding: const EdgeInsets.all(16),
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFEFF6FF),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(
+                                  Icons.calendar_today,
+                                  size: 20,
+                                  color: Color(0xFF1E40AF),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              const Text(
+                                "Nouvelle tâche",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF1E293B),
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(
+                              Icons.close,
+                              size: 24,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RichText(
+                            text: const TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "Titre",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF1E293B),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: " *",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          TextField(
+                            controller: titleController,
+                            decoration: InputDecoration(
+                              hintText: "Ex: Réunion de lancement...",
+                              border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Icon(
-                                Icons.calendar_today,
-                                size: 20,
-                                color: Color(0xFF1E40AF),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
                               ),
                             ),
-                            const SizedBox(width: 12),
-                            const Text(
-                              "Nouvelle tâche",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF1E293B),
-                              ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Description",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
-                          ],
-                        ),
-                        IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.close, size: 24, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Titre",
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFF1E293B)),
-                              ),
-                              TextSpan(
-                                text: " *",
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
-                              ),
-                            ],
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: titleController,
-                          decoration: InputDecoration(
-                            hintText: "Ex: Réunion de lancement...",
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Description", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: descriptionController,
-                          maxLines: 3,
-                          decoration: InputDecoration(
-                            hintText: "Ajoutez des détails, liens ou objectifs...",
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            contentPadding: const EdgeInsets.all(16),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: const TextSpan(
-                                  children: [
-                                    TextSpan(text: "Début", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                    TextSpan(text: " *", style: TextStyle(color: Colors.red)),
-                                  ],
-                                ),
+                          const SizedBox(height: 8),
+                          TextField(
+                            controller: descriptionController,
+                            maxLines: 3,
+                            decoration: InputDecoration(
+                              hintText:
+                                  "Ajoutez des détails, liens ou objectifs...",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              const SizedBox(height: 8),
-                              InkWell(
-                                onTap: () async {
-                                  final picked = await showDatePicker(
-                                    context: context,
-                                    initialDate: startDate!,
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2030),
-                                  );
-                                  if (picked != null) {
-                                    setStateDialog(() {
-                                      startDate = picked;
-                                    });
-                                  }
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey[300]!),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
+                              contentPadding: const EdgeInsets.all(16),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: const TextSpan(
                                     children: [
-                                      const Icon(Icons.calendar_today, size: 18, color: Color(0xFF64748B)),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          "${startDate!.day}/${startDate!.month}/${startDate!.year} ${startDate!.hour}:${startDate!.minute.toString().padLeft(2, '0')}",
+                                      TextSpan(
+                                        text: "Début",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
                                         ),
+                                      ),
+                                      TextSpan(
+                                        text: " *",
+                                        style: TextStyle(color: Colors.red),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: const TextSpan(
-                                  children: [
-                                    TextSpan(text: "Fin", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                    TextSpan(text: " *", style: TextStyle(color: Colors.red)),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              InkWell(
-                                onTap: () async {
-                                  final picked = await showDatePicker(
-                                    context: context,
-                                    initialDate: endDate!,
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2030),
-                                  );
-                                  if (picked != null) {
-                                    setStateDialog(() {
-                                      endDate = picked;
-                                    });
-                                  }
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey[300]!),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.calendar_today, size: 18, color: Color(0xFF64748B)),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          "${endDate!.day}/${endDate!.month}/${endDate!.year} ${endDate!.hour}:${endDate!.minute.toString().padLeft(2, '0')}",
-                                        ),
+                                const SizedBox(height: 8),
+                                InkWell(
+                                  onTap: () async {
+                                    final picked = await showDatePicker(
+                                      context: context,
+                                      initialDate: startDate!,
+                                      firstDate: DateTime(2020),
+                                      lastDate: DateTime(2030),
+                                    );
+                                    if (picked != null) {
+                                      setStateDialog(() {
+                                        startDate = picked;
+                                      });
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 14,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey[300]!,
                                       ),
-                                    ],
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.calendar_today,
+                                          size: 18,
+                                          color: Color(0xFF64748B),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Text(
+                                            "${startDate!.day}/${startDate!.month}/${startDate!.year} ${startDate!.hour}:${startDate!.minute.toString().padLeft(2, '0')}",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Assigner à", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                        const SizedBox(height: 8),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: assignedTo,
-                              items: const [
-                                DropdownMenuItem(value: "admin user", child: Text("admin user")),
-                                DropdownMenuItem(value: "utilisateur10013", child: Text("utilisateur10013")),
-                                DropdownMenuItem(value: "SAV - Agent technique", child: Text("SAV - Agent technique")),
                               ],
-                              onChanged: (value) {
-                                setStateDialog(() {
-                                  assignedTo = value;
-                                });
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: const TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: "Fin",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: " *",
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                InkWell(
+                                  onTap: () async {
+                                    final picked = await showDatePicker(
+                                      context: context,
+                                      initialDate: endDate!,
+                                      firstDate: DateTime(2020),
+                                      lastDate: DateTime(2030),
+                                    );
+                                    if (picked != null) {
+                                      setStateDialog(() {
+                                        endDate = picked;
+                                      });
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 14,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey[300]!,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.calendar_today,
+                                          size: 18,
+                                          color: Color(0xFF64748B),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Text(
+                                            "${endDate!.day}/${endDate!.month}/${endDate!.year} ${endDate!.hour}:${endDate!.minute.toString().padLeft(2, '0')}",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Assigner à",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[300]!),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: assignedTo,
+                                items: const [
+                                  DropdownMenuItem(
+                                    value: "admin user",
+                                    child: Text("admin user"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "utilisateur10013",
+                                    child: Text("utilisateur10013"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "SAV - Agent technique",
+                                    child: Text("SAV - Agent technique"),
+                                  ),
+                                ],
+                                onChanged: (value) {
+                                  setStateDialog(() {
+                                    assignedTo = value;
+                                  });
+                                },
+                                isExpanded: true,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () => Navigator.pop(context),
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(color: Colors.grey[400]!),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text(
+                                "Annuler",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                if (titleController.text.isNotEmpty) {
+                                  Navigator.pop(context);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Tâche créée avec succès"),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                }
                               },
-                              isExpanded: true,
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              icon: const Icon(Icons.check, size: 18),
+                              label: const Text("Créer la tâche"),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF1E40AF),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () => Navigator.pop(context),
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.grey[400]!),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                            ),
-                            child: const Text("Annuler", style: TextStyle(color: Colors.grey)),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              if (titleController.text.isNotEmpty) {
-                                Navigator.pop(context);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("Tâche créée avec succès"), backgroundColor: Colors.green),
-                                );
-                              }
-                            },
-                            icon: const Icon(Icons.check, size: 18),
-                            label: const Text("Créer la tâche"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF1E40AF),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -616,7 +765,11 @@ class _AgendaPageState extends State<AgendaPage> {
                   children: [
                     const Text(
                       "Agenda des Tâches",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1E293B),
+                      ),
                     ),
                     const SizedBox(height: 4),
                     const Text(
@@ -624,16 +777,19 @@ class _AgendaPageState extends State<AgendaPage> {
                       style: TextStyle(fontSize: 14, color: Color(0xFF64748B)),
                     ),
                     const SizedBox(height: 16),
-                    
+
                     // ✅ BUTTON "AJOUTER UNE VISITE" - 9dam l'3nwan, t7t l header (hna hiya lblasa lidart bi lkhdar)
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                        onPressed: _ajouterVisite,
-                        icon: const Icon(Icons.calendar_today, size: 18),
+                        onPressed: _showNewTaskDialog,
+                        icon: const Icon(Icons.add_task, size: 18),
                         label: const Text(
-                          'Ajouter une visite',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                          'Créer une tâche',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF1E40AF),
@@ -646,53 +802,74 @@ class _AgendaPageState extends State<AgendaPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    
+
                     // Filters Row (horizontal scroll)
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          OutlinedButton(
-                            onPressed: _showDatePickerDialog,
-                            child: Row(
-                              children: [
-                                const Icon(Icons.calendar_today, size: 16),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "${_startDate.day}/${_startDate.month}/${_startDate.year} - ${_endDate.day}/${_endDate.month}/${_endDate.year}",
-                                  style: const TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: const Color(0xFF1E40AF),
-                              side: const BorderSide(color: Color(0xFF1E40AF)),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
+                          _buildFilterChip(
+                            icon: Icons.calendar_today_outlined,
+                            label:
+                                "${_startDate.day}/${_startDate.month}/${_startDate.year} - ${_endDate.day}/${_endDate.month}/${_endDate.year}",
+                            onTap: _showDatePickerDialog,
                           ),
                           const SizedBox(width: 12),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            height: 42,
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey[300]!),
-                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.grey.shade300,
+                                width: 1.5,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.02),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: selectedUser,
                                 items: const [
-                                  DropdownMenuItem(value: "Utilisateurs (3)", child: Text("Utilisateurs (3)")),
-                                  DropdownMenuItem(value: "admin user", child: Text("admin user")),
-                                  DropdownMenuItem(value: "utilisateur10013", child: Text("utilisateur10013")),
+                                  DropdownMenuItem(
+                                    value: "Utilisateurs (3)",
+                                    child: Text("Utilisateurs (3)"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "admin user",
+                                    child: Text("admin user"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "utilisateur10013",
+                                    child: Text("utilisateur10013"),
+                                  ),
                                 ],
                                 onChanged: (value) {
                                   setState(() {
                                     selectedUser = value!;
                                   });
                                 },
-                                icon: const Icon(Icons.arrow_drop_down),
+                                icon: Padding(
+                                  padding: const EdgeInsets.only(left: 6.0),
+                                  child: Icon(
+                                    Icons.arrow_drop_down,
+                                    size: 20,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade800,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                dropdownColor: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                           ),
@@ -717,9 +894,9 @@ class _AgendaPageState extends State<AgendaPage> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // View Selector (Jour, Semaine, Mois)
               Center(
                 child: Container(
@@ -737,9 +914,9 @@ class _AgendaPageState extends State<AgendaPage> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 20),
-              
+
               // Calendar Header with Navigation
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -754,7 +931,10 @@ class _AgendaPageState extends State<AgendaPage> {
                       onTap: _goToToday,
                       child: Text(
                         "${selectedDate.day} ${_getMonthName(selectedDate.month)} ${selectedDate.year}",
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     IconButton(
@@ -764,30 +944,98 @@ class _AgendaPageState extends State<AgendaPage> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Calendar Content based on selected view
-              if (selectedView == "Semaine")
-                _buildWeekView(),
-              if (selectedView == "Jour")
-                _buildDayView(),
-              if (selectedView == "Mois")
-                _buildMonthView(),
-              
+              if (selectedView == "Semaine") _buildWeekView(),
+              if (selectedView == "Jour") _buildDayView(),
+              if (selectedView == "Mois") _buildMonthView(),
+
               const SizedBox(height: 80),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showNewTaskDialog,
-        backgroundColor: const Color(0xFF1E40AF),
-        child: const Icon(Icons.add, color: Colors.white),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddVisitFlow()),
+            );
+          },
+          backgroundColor: const Color(0xFF1E40AF),
+          foregroundColor: Colors.white,
+          elevation: 6,
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add, size: 34),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  Widget _buildFilterChip({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+    bool isActive = false,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          color: isActive
+              ? const Color(0xFF1E40AF).withOpacity(0.1)
+              : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isActive ? const Color(0xFF1E40AF) : Colors.grey.shade300,
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.02),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 18,
+              color: isActive ? const Color(0xFF1E40AF) : Colors.grey.shade700,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: isActive
+                    ? const Color(0xFF1E40AF)
+                    : Colors.grey.shade800,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              Icons.arrow_drop_down,
+              size: 20,
+              color: isActive ? const Color(0xFF1E40AF) : Colors.grey.shade600,
+            ),
+          ],
+        ),
       ),
     );
   }
-  
+
   Widget _buildViewButton(String label, int index) {
     final isSelected = (selectedView == label);
     return GestureDetector(
@@ -812,7 +1060,7 @@ class _AgendaPageState extends State<AgendaPage> {
       ),
     );
   }
-  
+
   Widget _buildWeekView() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -849,7 +1097,9 @@ class _AgendaPageState extends State<AgendaPage> {
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
-                              color: isSelected ? const Color(0xFF1E40AF) : const Color(0xFF64748B),
+                              color: isSelected
+                                  ? const Color(0xFF1E40AF)
+                                  : const Color(0xFF64748B),
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -858,7 +1108,9 @@ class _AgendaPageState extends State<AgendaPage> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: isSelected ? const Color(0xFF1E40AF) : const Color(0xFF1E293B),
+                              color: isSelected
+                                  ? const Color(0xFF1E40AF)
+                                  : const Color(0xFF1E293B),
                             ),
                           ),
                         ],
@@ -874,67 +1126,78 @@ class _AgendaPageState extends State<AgendaPage> {
       ),
     );
   }
-  
+
   Widget _buildDayView() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0))),
-              ),
-              child: SizedBox(
-                width: 80,
-                child: Column(
-                  children: [
-                    Text(
-                      _getDayShortName(selectedDate.weekday),
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF1E40AF),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "${selectedDate.day}",
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E40AF),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0))),
             ),
-            ...hours.map((hour) => _buildDayTimeRow(hour)),
-          ],
-        ),
+            child: Row(
+              children: [
+                const SizedBox(width: 55),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        _getDayShortName(selectedDate.weekday),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF1E40AF),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        "${selectedDate.day}",
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1E40AF),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ...hours.map((hour) => _buildDayTimeRow(hour)),
+        ],
       ),
     );
   }
-  
+
   Widget _buildMonthView() {
     final firstDayOfMonth = DateTime(selectedDate.year, selectedDate.month, 1);
     final firstDayWeekday = firstDayOfMonth.weekday;
-    final daysInMonth = DateTime(selectedDate.year, selectedDate.month + 1, 0).day;
+    final daysInMonth = DateTime(
+      selectedDate.year,
+      selectedDate.month + 1,
+      0,
+    ).day;
     final int startingOffset = firstDayWeekday == 7 ? 0 : firstDayWeekday;
-    
+
     List<DateTime> calendarDays = [];
     final prevMonth = DateTime(selectedDate.year, selectedDate.month, 0);
     final daysInPrevMonth = prevMonth.day;
     for (int i = startingOffset - 1; i >= 0; i--) {
-      calendarDays.add(DateTime(selectedDate.year, selectedDate.month - 1, daysInPrevMonth - i));
+      calendarDays.add(
+        DateTime(
+          selectedDate.year,
+          selectedDate.month - 1,
+          daysInPrevMonth - i,
+        ),
+      );
     }
     for (int i = 1; i <= daysInMonth; i++) {
       calendarDays.add(DateTime(selectedDate.year, selectedDate.month, i));
@@ -943,7 +1206,7 @@ class _AgendaPageState extends State<AgendaPage> {
     for (int i = 1; i <= remainingDays; i++) {
       calendarDays.add(DateTime(selectedDate.year, selectedDate.month + 1, i));
     }
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -960,13 +1223,62 @@ class _AgendaPageState extends State<AgendaPage> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("LUN", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1E40AF))),
-                Text("MAR", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1E40AF))),
-                Text("MER", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1E40AF))),
-                Text("JEU", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1E40AF))),
-                Text("VEN", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1E40AF))),
-                Text("SAM", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1E40AF))),
-                Text("DIM", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1E40AF))),
+                Text(
+                  "LUN",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E40AF),
+                  ),
+                ),
+                Text(
+                  "MAR",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E40AF),
+                  ),
+                ),
+                Text(
+                  "MER",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E40AF),
+                  ),
+                ),
+                Text(
+                  "JEU",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E40AF),
+                  ),
+                ),
+                Text(
+                  "VEN",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E40AF),
+                  ),
+                ),
+                Text(
+                  "SAM",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E40AF),
+                  ),
+                ),
+                Text(
+                  "DIM",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E40AF),
+                  ),
+                ),
               ],
             ),
           ),
@@ -975,12 +1287,13 @@ class _AgendaPageState extends State<AgendaPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(7, (col) {
                 final index = row * 7 + col;
-                if (index >= calendarDays.length) return const SizedBox(width: 45, height: 60);
+                if (index >= calendarDays.length)
+                  return const SizedBox(width: 45, height: 60);
                 final day = calendarDays[index];
                 final isCurrentMonth = day.month == selectedDate.month;
                 final isToday = _isSameDay(day, DateTime.now());
                 final isSelected = _isSameDay(day, selectedDate);
-                
+
                 return GestureDetector(
                   onTap: () {
                     setState(() {
@@ -998,7 +1311,11 @@ class _AgendaPageState extends State<AgendaPage> {
                           width: 32,
                           height: 32,
                           decoration: BoxDecoration(
-                            color: isSelected ? const Color(0xFF1E40AF) : (isToday ? const Color(0xFFFFF3E0) : Colors.transparent),
+                            color: isSelected
+                                ? const Color(0xFF1E40AF)
+                                : (isToday
+                                      ? const Color(0xFFFFF3E0)
+                                      : Colors.transparent),
                             shape: BoxShape.circle,
                           ),
                           child: Center(
@@ -1006,8 +1323,14 @@ class _AgendaPageState extends State<AgendaPage> {
                               "${day.day}",
                               style: TextStyle(
                                 fontSize: 13,
-                                fontWeight: isSelected || isToday ? FontWeight.bold : FontWeight.normal,
-                                color: isSelected ? Colors.white : (isCurrentMonth ? const Color(0xFF1E293B) : Colors.grey[400]),
+                                fontWeight: isSelected || isToday
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: isSelected
+                                    ? Colors.white
+                                    : (isCurrentMonth
+                                          ? const Color(0xFF1E293B)
+                                          : Colors.grey[400]),
                               ),
                             ),
                           ),
@@ -1023,7 +1346,7 @@ class _AgendaPageState extends State<AgendaPage> {
       ),
     );
   }
-  
+
   Widget _buildTimeRow(String hour) {
     return Container(
       height: 45,
@@ -1036,10 +1359,7 @@ class _AgendaPageState extends State<AgendaPage> {
             width: 55,
             child: Text(
               hour,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFF64748B),
-              ),
+              style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
             ),
           ),
           ...List.generate(7, (index) {
@@ -1055,7 +1375,7 @@ class _AgendaPageState extends State<AgendaPage> {
       ),
     );
   }
-  
+
   Widget _buildDayTimeRow(String hour) {
     return Container(
       height: 45,
@@ -1068,34 +1388,45 @@ class _AgendaPageState extends State<AgendaPage> {
             width: 55,
             child: Text(
               hour,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFF64748B),
-              ),
+              style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
             ),
           ),
-          Container(
-            width: 80,
-            height: 45,
-            decoration: BoxDecoration(
-              border: Border(left: BorderSide(color: Colors.grey[200]!)),
+          Expanded(
+            child: Container(
+              height: 45,
+              decoration: BoxDecoration(
+                border: Border(left: BorderSide(color: Colors.grey[200]!)),
+              ),
             ),
           ),
         ],
       ),
     );
   }
-  
+
   String _getDayShortName(int weekday) {
     const days = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];
     return days[weekday - 1];
   }
-  
+
   String _getMonthName(int month) {
-    const months = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+    const months = [
+      "janv.",
+      "févr.",
+      "mars",
+      "avr.",
+      "mai",
+      "juin",
+      "juil.",
+      "août",
+      "sept.",
+      "oct.",
+      "nov.",
+      "déc.",
+    ];
     return months[month - 1];
   }
-  
+
   bool _isSameDay(DateTime a, DateTime b) {
     return a.year == b.year && a.day == b.day && a.month == b.month;
   }

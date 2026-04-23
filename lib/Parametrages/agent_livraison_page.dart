@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/ui_components/modern_ui_components.dart';
+import '../widgets/Ajouter_visite.dart' hide AppTheme;
 
 class AgentLivraisonPage extends StatefulWidget {
   const AgentLivraisonPage({super.key});
@@ -72,12 +74,9 @@ class _AgentLivraisonPageState extends State<AgentLivraisonPage> {
   }
 
   void _ajouterVisite() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Ajouter une visite (fonctionnalité à venir)'),
-        backgroundColor: Color(0xFF1E40AF),
-        duration: Duration(seconds: 2),
-      ),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddVisitFlow()),
     );
   }
 
@@ -94,19 +93,19 @@ class _AgentLivraisonPageState extends State<AgentLivraisonPage> {
     final filteredAgents = _filteredAgents;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
         title: const Text(
           'Gestion des Agents de Livraison',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.cardBackground,
         elevation: 0.5,
         centerTitle: false,
         actions: [
           IconButton(
             onPressed: _refreshList,
-            icon: const Icon(Icons.refresh, color: Color(0xFF64748B)),
+            icon: const Icon(Icons.refresh, color: AppTheme.textSecondary),
             tooltip: 'Actualiser',
           ),
         ],
@@ -116,39 +115,22 @@ class _AgentLivraisonPageState extends State<AgentLivraisonPage> {
           children: [
             // Button "Ajouter un agent" fouq l'recherche (tftah l formulaire)
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: _openAddAgentForm,
-                  icon: const Icon(Icons.person_add, size: 18),
-                  label: const Text(
-                    'Ajouter un agent',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1E40AF),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
+              padding: const EdgeInsets.all(AppTheme.spacingLarge),
+              child: ModernButton(
+                text: 'Ajouter un agent',
+                icon: Icons.person_add,
+                onPressed: _openAddAgentForm,
+                fullWidth: true,
               ),
             ),
             // Barre de recherche
             Container(
-              color: Colors.white,
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-              child: TextField(
+              color: AppTheme.cardBackground,
+              padding: const EdgeInsets.fromLTRB(AppTheme.spacingLarge, 0, AppTheme.spacingLarge, AppTheme.spacingMedium),
+              child: ModernInput(
+                hint: 'Rechercher...',
+                prefixIcon: Icons.search,
                 onChanged: (value) => setState(() => recherche = value),
-                decoration: InputDecoration(
-                  hintText: 'Rechercher...',
-                  prefixIcon: const Icon(Icons.search, size: 20, color: Color(0xFF64748B)),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -160,11 +142,11 @@ class _AgentLivraisonPageState extends State<AgentLivraisonPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.person_off_outlined, size: 64, color: Colors.grey[400]),
+                          Icon(Icons.person_off_outlined, size: 64, color: AppTheme.textMuted),
                           const SizedBox(height: 16),
                           Text(
                             'Aucun agent trouvé',
-                            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                            style: TextStyle(fontSize: 16, color: AppTheme.textSecondary),
                           ),
                         ],
                       ),
@@ -173,216 +155,121 @@ class _AgentLivraisonPageState extends State<AgentLivraisonPage> {
                 : ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingLarge, vertical: AppTheme.spacingSmall),
                     itemCount: filteredAgents.length,
                     itemBuilder: (context, index) {
                       final agent = filteredAgents[index];
                       final originalIndex = agents.indexOf(agent);
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        child: Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
+                      return ModernCard(
+                        margin: const EdgeInsets.only(bottom: AppTheme.spacingMedium),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // En-tête avec l'agent et icône de suppression
+                            Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // En-tête avec l'agent et icône de suppression
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Avatar avec initiale
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          colors: [Color(0xFF1E40AF), Color(0xFF3B82F6)],
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          agent['agent']!.substring(0, 1).toUpperCase(),
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    // Nom de l'agent
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            agent['agent']!,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFF1E293B),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFEFF6FF),
-                                              borderRadius: BorderRadius.circular(12),
-                                            ),
-                                            child: const Text(
-                                              'Agent de livraison',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                color: Color(0xFF1E40AF),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Bouton supprimer
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.red.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () => _deleteAgent(originalIndex),
-                                        icon: const Icon(Icons.delete_outline, size: 20, color: Colors.red),
-                                        tooltip: 'Supprimer',
-                                      ),
-                                    ),
-                                  ],
+                                // Avatar avec initiale
+                                ModernAvatar(
+                                  name: agent['agent'],
+                                  size: 50,
                                 ),
-                                const SizedBox(height: 16),
-                                const Divider(height: 1, color: Color(0xFFE2E8F0)),
-                                const SizedBox(height: 12),
-                                // Informations du projet et tranche
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFF1F5F9),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            child: const Icon(
-                                              Icons.business_outlined,
-                                              size: 16,
-                                              color: Color(0xFF64748B),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Projet',
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.grey[500],
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  agent['projet']!,
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xFF1E293B),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                const SizedBox(width: AppTheme.spacingMedium),
+                                // Nom de l'agent
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        agent['agent']!,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppTheme.textPrimary,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFF1F5F9),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            child: const Icon(
-                                              Icons.layers_outlined,
-                                              size: 16,
-                                              color: Color(0xFF64748B),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Tranche',
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.grey[500],
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  agent['tranche']!,
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xFF1E293B),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                      const SizedBox(height: 4),
+                                      ModernBadge(
+                                        text: 'Agent de livraison',
+                                        type: BadgeType.primary,
+                                        size: BadgeSize.small,
                                       ),
+                                    ],
+                                  ),
+                                ),
+                                // Bouton supprimer
+                                InkWell(
+                                  onTap: () => _deleteAgent(originalIndex),
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(color: Colors.red.withOpacity(0.3)),
                                     ),
-                                  ],
+                                    child: const Icon(
+                                      Icons.delete_outline,
+                                      color: Colors.red,
+                                      size: 22,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
+                            const SizedBox(height: AppTheme.spacingLarge),
+                            const Divider(height: 1, color: AppTheme.border),
+                            const SizedBox(height: AppTheme.spacingMedium),
+                            // Informations du projet et tranche
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: ModernInfoBox(
+                                    label: 'Projet',
+                                    value: agent['projet']!,
+                                    icon: Icons.business_outlined,
+                                  ),
+                                ),
+                                const SizedBox(width: AppTheme.spacingMedium),
+                                Expanded(
+                                  child: ModernInfoBox(
+                                    label: 'Tranche',
+                                    value: agent['tranche']!,
+                                    icon: Icons.layers_outlined,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       );
                     },
                   ),
             // Compteur
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              padding: const EdgeInsets.fromLTRB(AppTheme.spacingLarge, AppTheme.spacingMedium, AppTheme.spacingLarge, AppTheme.spacingLarge),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '${filteredAgents.length} affectation(s) trouvée(s)',
-                  style: const TextStyle(fontSize: 13, color: Color(0xFF64748B)),
+                  style: const TextStyle(fontSize: 13, color: AppTheme.textSecondary),
                 ),
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _ajouterVisite,
-        backgroundColor: const Color(0xFF1E40AF),
-        child: const Icon(Icons.add, color: Colors.white),
-        tooltip: 'Ajouter une visite',
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: FloatingActionButton(
+          onPressed: _ajouterVisite,
+          backgroundColor: AppTheme.primaryBlue,
+          foregroundColor: Colors.white,
+          elevation: 6,
+          shape: const CircleBorder(),
+          tooltip: 'Ajouter une visite',
+          child: const Icon(Icons.add, size: 34),
+        ),
       ),
     );
   }
@@ -455,35 +342,44 @@ class _AddAgentDialogState extends State<AddAgentDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text(
-        'Assigner un Agent de Livraison à un Projet',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      content: SizedBox(
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: const Color(0xFFF1F5F9), // Fond légèrement grisé/bleuté
+      elevation: 0,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      child: Container(
         width: MediaQuery.of(context).size.width * 0.85,
+        padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              'Assigner un Agent de Livraison à un Projet',
+              style: TextStyle(
+                fontSize: 18, 
+                fontWeight: FontWeight.bold, 
+                color: Color(0xFF1E293B),
+              ),
+            ),
+            const SizedBox(height: 24),
             // Agent de Livraison
-            _buildRequiredLabel('Agent de Livraison'),
-            const SizedBox(height: 8),
-            _buildDropdown(
+            ModernDropdown(
+              label: 'Agent de Livraison',
               value: selectedAgent,
-              items: agents,
               hint: 'Sélectionner un agent',
+              required: true,
+              items: agents.map((agent) => DropdownMenuItem(value: agent, child: Text(agent))).toList(),
               onChanged: (v) => setState(() => selectedAgent = v),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppTheme.spacingLarge),
             // Projet
-            _buildRequiredLabel('Projet'),
-            const SizedBox(height: 8),
-            _buildDropdown(
+            ModernDropdown(
+              label: 'Projet',
               value: selectedProjet,
-              items: projets,
               hint: 'Sélectionner un projet',
+              required: true,
+              items: projets.map((projet) => DropdownMenuItem(value: projet, child: Text(projet))).toList(),
               onChanged: (v) {
                 setState(() {
                   selectedProjet = v;
@@ -491,78 +387,37 @@ class _AddAgentDialogState extends State<AddAgentDialog> {
                 });
               },
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppTheme.spacingLarge),
             // Tranche
-            _buildRequiredLabel('Tranche'),
-            const SizedBox(height: 8),
-            _buildDropdown(
+            ModernDropdown(
+              label: 'Tranche',
               value: selectedTranche,
-              items: tranchesDisponibles,
               hint: selectedProjet == null ? 'Sélectionnez d\'abord un projet' : 'Sélectionner une tranche',
+              required: true,
               enabled: selectedProjet != null,
+              items: tranchesDisponibles.map((tranche) => DropdownMenuItem(value: tranche, child: Text(tranche))).toList(),
               onChanged: (v) => setState(() => selectedTranche = v),
             ),
+            const SizedBox(height: 32),
+            Row(
+              children: [
+                Expanded(
+                  child: ModernButton(
+                    text: 'Annuler',
+                    onPressed: () => Navigator.pop(context),
+                    type: ButtonType.outlined,
+                  ),
+                ),
+                const SizedBox(width: AppTheme.spacingMedium),
+                Expanded(
+                  child: ModernButton(
+                    text: 'Créer',
+                    onPressed: _submit,
+                  ),
+                ),
+              ],
+            ),
           ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          style: TextButton.styleFrom(
-            side: BorderSide(color: Colors.grey[400]!),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-          child: const Text('Annuler'),
-        ),
-        ElevatedButton(
-          onPressed: _submit,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1E40AF),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-          child: const Text('Créer'),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRequiredLabel(String text) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: text, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFF1E293B))),
-          const TextSpan(text: ' *', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDropdown({
-    required String? value,
-    required List<String> items,
-    required String hint,
-    required Function(String?) onChanged,
-    bool enabled = true,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(10),
-        color: enabled ? Colors.white : const Color(0xFFF5F7FA),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: value,
-          isExpanded: true,
-          hint: Text(hint, style: TextStyle(color: enabled ? Colors.grey[600] : Colors.grey[400])),
-          icon: Icon(Icons.arrow_drop_down, color: enabled ? const Color(0xFF1E40AF) : Colors.grey[400]),
-          items: items.map((item) {
-            return DropdownMenuItem(value: item, child: Text(item));
-          }).toList(),
-          onChanged: enabled ? onChanged : null,
         ),
       ),
     );

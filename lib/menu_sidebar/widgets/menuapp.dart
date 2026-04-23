@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'sidebar.dart';
-import 'package:geccimo/Agenda/agenda_page.dart';
+import 'package:sav/Agenda/agenda_page.dart';
 
 // 📌 Paramétrages
-import 'package:geccimo/Parametrages/agent_livraison_page.dart';
-import 'package:geccimo/Parametrages/configurations_page.dart';
-import 'package:geccimo/Parametrages/configurations_profil_page.dart';
-import 'package:geccimo/Parametrages/configurations_pv_page.dart';
-import 'package:geccimo/Parametrages/pilote_project_page.dart';
-import 'package:geccimo/Parametrages/switch_session_page.dart';
+import 'package:sav/Parametrages/agent_livraison_page.dart';
+import 'package:sav/Parametrages/configurations_page.dart';
+import 'package:sav/Parametrages/configurations_profil_page.dart';
+import 'package:sav/Parametrages/configurations_pv_page.dart';
+import 'package:sav/Parametrages/pilote_project_page.dart';
+import 'package:sav/Parametrages/Prestataires/EmailsPrest.dart';
+import 'package:sav/Parametrages/switch_session_page.dart';
 
 // 📌 Reporting
-import 'package:geccimo/Reporting/livraison_page.dart';
-import 'package:geccimo/Reporting/rapport_immeubles_page.dart';
+import 'package:sav/Reporting/livraison_page.dart';
+import 'package:sav/Reporting/rapport_immeubles_page.dart';
 
 // 📌 Visites
-import 'package:geccimo/Visites/visites_page.dart';
+import 'package:sav/Visites/visites_page.dart';
 
 class MenuApp extends StatefulWidget {
   const MenuApp({super.key});
@@ -32,21 +33,35 @@ class _MenuAppState extends State<MenuApp>
   int selectedPage = 0;
 
   final List<Widget> pages = [
+    // 0..2 Dashboards
+    const Center(child: Text("Dashboard Principal")),
+    const Center(child: Text("Observations (Dashboard)")),
+    const Center(child: Text("Regression Constats")),
+
+    // 3..6 Main
     const VisitesPage(),
     const Center(child: Text("Observations")),
-    const Center(child: Text("Reclamations")),
+    const Center(child: Text("Reclamation")),
     const AgendaPage(),
 
+    // 7..8 Reporting
     const LivraisonPage(),
     const RapportImmeublesPage(),
 
-    // 🟣 Paramétrages
-    const AgentLivraisonPage(),
-    const ConfigurationsPage(),
-    const ConfigurationsProfilPage(),
-    const ConfigurationsPvPage(),
-    const PiloteProjectPage(),
+    // 9..20 Paramétrages
+    const Center(child: Text("Emails")),
+    const Center(child: Text("Emails par étape")),
+    const Center(child: Text("Prestataires")),
+    const Center(child: Text("Utilisateur")),
+    const Center(child: Text("Corps de métier")),
+    const Center(child: Text("Localite")),
     const SwitchSessionPage(),
+    const ConfigurationsPage(),
+    const ConfigurationsPvPage(),
+    const ConfigurationsProfilPage(),
+    const PiloteProjectPage(),
+    const AgentLivraisonPage(),
+    const EmailsPrestScreen(),
   ];
 
   @override

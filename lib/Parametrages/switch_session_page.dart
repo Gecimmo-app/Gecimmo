@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/ui_components/modern_ui_components.dart';
+import '../widgets/Ajouter_visite.dart' hide AppTheme;
 
 class SwitchSessionPage extends StatefulWidget {
   const SwitchSessionPage({super.key});
@@ -8,7 +10,6 @@ class SwitchSessionPage extends StatefulWidget {
 }
 
 class _SwitchSessionPageState extends State<SwitchSessionPage> {
-  static const Color _primaryBlue = Color(0xFF1E40AF);
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -57,72 +58,65 @@ class _SwitchSessionPageState extends State<SwitchSessionPage> {
     final List<_SessionUser> usersToDisplay = _filteredUsers;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: _primaryBlue,
-        elevation: 4,
-        child: const Icon(Icons.add, color: Colors.white),
+      backgroundColor: const Color(0xFFEFF6FF),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddVisitFlow()),
+            );
+          },
+          backgroundColor: AppTheme.primaryBlue,
+          foregroundColor: Colors.white,
+          elevation: 6,
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add, size: 34),
+        ),
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(AppTheme.spacingLarge),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 'Gestion des Utilisateurs',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFF0F172A),
-                    ),
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  color: AppTheme.textPrimary,
+                ),
               ),
               const SizedBox(height: 6),
               Text(
                 'Cliquez sur "Se connecter" pour vous connecter en tant qu\'un autre utilisateur',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
-                    ),
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: AppTheme.textSecondary,
+                ),
               ),
-              const SizedBox(height: 18),
-              TextField(
+              const SizedBox(height: AppTheme.spacingLarge),
+              ModernInput(
+                hint: 'Rechercher par nom, email, description...',
+                prefixIcon: Icons.search,
                 controller: _searchController,
                 onChanged: (String value) {
                   setState(() {
                     _searchQuery = value;
                   });
                 },
-                decoration: InputDecoration(
-                  hintText: 'Rechercher par nom, email, description...',
-                  hintStyle: TextStyle(color: Colors.grey.shade500),
-                  prefixIcon: Icon(Icons.search, color: Colors.grey.shade500),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 14,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _primaryBlue, width: 1.4),
-                  ),
-                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: AppTheme.spacingSmall),
               Text(
                 '${usersToDisplay.length} utilisateur(s) trouvé(s)',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey.shade600,
-                      fontSize: 13,
-                    ),
+                style: const TextStyle(
+                  color: AppTheme.textSecondary,
+                  fontSize: 13,
+                ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppTheme.spacingMedium),
               Expanded(
                 child: ListView.separated(
                   itemCount: usersToDisplay.length,
@@ -141,42 +135,50 @@ class _SwitchSessionPageState extends State<SwitchSessionPage> {
   }
 
   Widget _buildUserCard(_SessionUser user) {
-    return Container(
+    return ModernCard(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.grey.shade200),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
       child: Row(
         children: <Widget>[
-          CircleAvatar(
-            radius: 22,
-            backgroundColor: const Color(0xFFE0EEFF),
-            child: Icon(
-              Icons.person_outline_rounded,
-              color: _primaryBlue.withValues(alpha: 0.85),
-            ),
+          ModernAvatar(
+            name: user.name,
+            size: 44,
+            backgroundColor: AppTheme.primaryBlue.withOpacity(0.1),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppTheme.spacingMedium),
           Expanded(
-            child: Text(
-              user.name,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF0F172A),
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.name,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  user.email,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: AppTheme.textSecondary,
+                  ),
+                ),
+                if (user.description.isNotEmpty) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    user.description,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.textMuted,
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppTheme.spacingSmall),
           user.isActive ? _buildConnectedBadge() : _buildConnectButton(),
         ],
       ),
@@ -184,46 +186,19 @@ class _SwitchSessionPageState extends State<SwitchSessionPage> {
   }
 
   Widget _buildConnectedBadge() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Icon(Icons.check_circle_outline, size: 18, color: Colors.grey.shade600),
-          const SizedBox(width: 6),
-          Text(
-            'Connecté',
-            style: TextStyle(
-              color: Colors.grey.shade700,
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
-            ),
-          ),
-        ],
-      ),
+    return ModernBadge(
+      text: 'Connecté',
+      type: BadgeType.secondary,
+      size: BadgeSize.medium,
     );
   }
 
   Widget _buildConnectButton() {
-    return ElevatedButton.icon(
+    return ModernButton(
+      text: 'Se connecter',
+      icon: Icons.login_rounded,
       onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: _primaryBlue,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-      icon: const Icon(Icons.login_rounded, size: 18),
-      label: const Text(
-        'Se connecter',
-        style: TextStyle(fontWeight: FontWeight.w600),
-      ),
+      size: ButtonSize.small,
     );
   }
 }

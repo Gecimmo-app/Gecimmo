@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widgets/Ajouter_visite.dart';
+import '../Ajouter_visite.dart';
 import 'detailsobservation.dart';
 
 enum ObservationStatus { accepte, aFaire, refuse }

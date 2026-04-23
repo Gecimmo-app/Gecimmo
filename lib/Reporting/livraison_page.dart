@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import '../widgets/Ajouter_visite.dart';
 
 class LivraisonPage extends StatefulWidget {
   const LivraisonPage({super.key});
@@ -10,13 +11,26 @@ class LivraisonPage extends StatefulWidget {
 
 class _LivraisonPageState extends State<LivraisonPage> {
   final List<String> _projets = [
-    'Projet1', 'Projet2', 'Projet3', 'Projet4', 'Projet5', 'Projet6', 'Projet7',
-    'Projet9', 'Projet10', 'Projet12', 'Projet13', 'Projet14', 'Projet15',
-    'Projet18', 'Projet19', 'Projet20'
+    'Projet1',
+    'Projet2',
+    'Projet3',
+    'Projet4',
+    'Projet5',
+    'Projet6',
+    'Projet7',
+    'Projet9',
+    'Projet10',
+    'Projet12',
+    'Projet13',
+    'Projet14',
+    'Projet15',
+    'Projet18',
+    'Projet19',
+    'Projet20',
   ];
   final List<String> _selectedProjets = [];
   bool _selectAllProjets = true;
-  
+
   // State for accordion behavior
   int? expandedIndex;
 
@@ -60,22 +74,36 @@ class _LivraisonPageState extends State<LivraisonPage> {
                         child: TextField(
                           decoration: InputDecoration(
                             hintText: 'Rechercher des projets...',
-                            hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 13),
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 13,
+                            ),
                             prefixIcon: const Icon(Icons.search, size: 18),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6),
-                              borderSide: BorderSide(color: Colors.grey.shade200),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade200,
+                              ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6),
-                              borderSide: BorderSide(color: Colors.grey.shade200),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade200,
+                              ),
                             ),
                             isDense: true,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 0,
+                              horizontal: 12,
+                            ),
                           ),
                         ),
                       ),
-                      const Divider(height: 1, thickness: 1, color: Color(0xFFF1F5F9)),
+                      const Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: Color(0xFFF1F5F9),
+                      ),
                       Expanded(
                         child: StatefulBuilder(
                           builder: (context, setStateDialog) {
@@ -84,8 +112,8 @@ class _LivraisonPageState extends State<LivraisonPage> {
                               physics: const BouncingScrollPhysics(),
                               children: [
                                 _buildCheckboxItem(
-                                  "Tous les projets", 
-                                  _selectAllProjets, 
+                                  "Tous les projets",
+                                  _selectAllProjets,
                                   (val) {
                                     setStateDialog(() {
                                       _selectAllProjets = val ?? false;
@@ -97,29 +125,32 @@ class _LivraisonPageState extends State<LivraisonPage> {
                                       }
                                     });
                                     setState(() {});
-                                  }
+                                  },
                                 ),
-                                ..._projets.map((p) => _buildCheckboxItem(
-                                  p, 
-                                  _selectedProjets.contains(p), 
-                                  (val) {
-                                    setStateDialog(() {
-                                      if (val == true) {
-                                        _selectedProjets.add(p);
-                                      } else {
-                                        _selectedProjets.remove(p);
-                                        _selectAllProjets = false;
-                                      }
-                                      if (_selectedProjets.length == _projets.length) {
-                                        _selectAllProjets = true;
-                                      }
-                                    });
-                                    setState(() {});
-                                  }
-                                ))
+                                ..._projets.map(
+                                  (p) => _buildCheckboxItem(
+                                    p,
+                                    _selectedProjets.contains(p),
+                                    (val) {
+                                      setStateDialog(() {
+                                        if (val == true) {
+                                          _selectedProjets.add(p);
+                                        } else {
+                                          _selectedProjets.remove(p);
+                                          _selectAllProjets = false;
+                                        }
+                                        if (_selectedProjets.length ==
+                                            _projets.length) {
+                                          _selectAllProjets = true;
+                                        }
+                                      });
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
                               ],
                             );
-                          }
+                          },
                         ),
                       ),
                     ],
@@ -140,7 +171,7 @@ class _LivraisonPageState extends State<LivraisonPage> {
         DateTime tempStartDate = _startDate;
         DateTime tempEndDate = _endDate;
         String selectedPeriod = "90 derniers jours";
-        
+
         return StatefulBuilder(
           builder: (context, setStateDialog) {
             return AlertDialog(
@@ -153,7 +184,10 @@ class _LivraisonPageState extends State<LivraisonPage> {
                   children: [
                     const Text(
                       "Sélection rapide",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     Wrap(
@@ -178,9 +212,13 @@ class _LivraisonPageState extends State<LivraisonPage> {
                             setStateDialog(() {
                               selectedPeriod = "Cette semaine";
                               final now = DateTime.now();
-                              final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+                              final startOfWeek = now.subtract(
+                                Duration(days: now.weekday - 1),
+                              );
                               tempStartDate = startOfWeek;
-                              tempEndDate = startOfWeek.add(const Duration(days: 6));
+                              tempEndDate = startOfWeek.add(
+                                const Duration(days: 6),
+                              );
                             });
                           },
                         ),
@@ -192,7 +230,11 @@ class _LivraisonPageState extends State<LivraisonPage> {
                               selectedPeriod = "Ce mois";
                               final now = DateTime.now();
                               tempStartDate = DateTime(now.year, now.month, 1);
-                              tempEndDate = DateTime(now.year, now.month + 1, 0);
+                              tempEndDate = DateTime(
+                                now.year,
+                                now.month + 1,
+                                0,
+                              );
                             });
                           },
                         ),
@@ -215,7 +257,9 @@ class _LivraisonPageState extends State<LivraisonPage> {
                             setStateDialog(() {
                               selectedPeriod = "7 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 7));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 7),
+                              );
                             });
                           },
                         ),
@@ -226,7 +270,9 @@ class _LivraisonPageState extends State<LivraisonPage> {
                             setStateDialog(() {
                               selectedPeriod = "30 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 30));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 30),
+                              );
                             });
                           },
                         ),
@@ -237,7 +283,9 @@ class _LivraisonPageState extends State<LivraisonPage> {
                             setStateDialog(() {
                               selectedPeriod = "90 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 90));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 90),
+                              );
                             });
                           },
                         ),
@@ -248,7 +296,9 @@ class _LivraisonPageState extends State<LivraisonPage> {
                             setStateDialog(() {
                               selectedPeriod = "365 derniers jours";
                               tempEndDate = DateTime.now();
-                              tempStartDate = DateTime.now().subtract(const Duration(days: 365));
+                              tempStartDate = DateTime.now().subtract(
+                                const Duration(days: 365),
+                              );
                             });
                           },
                         ),
@@ -259,7 +309,10 @@ class _LivraisonPageState extends State<LivraisonPage> {
                     const SizedBox(height: 12),
                     const Text(
                       "Sélection personnalisée",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     InkWell(
@@ -279,18 +332,28 @@ class _LivraisonPageState extends State<LivraisonPage> {
                         }
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey[300]!),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.calendar_today, size: 16, color: Color(0xFF1E40AF)),
+                            const Icon(
+                              Icons.calendar_today,
+                              size: 16,
+                              color: Color(0xFF1E40AF),
+                            ),
                             const SizedBox(width: 8),
                             Text(
                               "Choisir une plage de dates",
-                              style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ],
                         ),
@@ -298,7 +361,10 @@ class _LivraisonPageState extends State<LivraisonPage> {
                     ),
                     const SizedBox(height: 12),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F7FA),
                         borderRadius: BorderRadius.circular(8),
@@ -308,7 +374,10 @@ class _LivraisonPageState extends State<LivraisonPage> {
                         children: [
                           Text(
                             "${tempStartDate.day}/${tempStartDate.month}/${tempStartDate.year} - ${tempEndDate.day}/${tempEndDate.month}/${tempEndDate.year}",
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
@@ -326,7 +395,8 @@ class _LivraisonPageState extends State<LivraisonPage> {
                     setState(() {
                       _startDate = tempStartDate;
                       _endDate = tempEndDate;
-                      _periodText = "${_startDate.day}/${_startDate.month}/${_startDate.year} - ${_endDate.day}/${_endDate.month}/${_endDate.year}";
+                      _periodText =
+                          "${_startDate.day}/${_startDate.month}/${_startDate.year} - ${_endDate.day}/${_endDate.month}/${_endDate.year}";
                     });
                     Navigator.pop(context);
                   },
@@ -343,7 +413,11 @@ class _LivraisonPageState extends State<LivraisonPage> {
     );
   }
 
-  Widget _buildQuickSelectButton(String text, bool isSelected, VoidCallback onTap) {
+  Widget _buildQuickSelectButton(
+    String text,
+    bool isSelected,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -374,7 +448,11 @@ class _LivraisonPageState extends State<LivraisonPage> {
     );
   }
 
-  Widget _buildCheckboxItem(String title, bool value, ValueChanged<bool?> onChanged) {
+  Widget _buildCheckboxItem(
+    String title,
+    bool value,
+    ValueChanged<bool?> onChanged,
+  ) {
     return InkWell(
       onTap: () => onChanged(!value),
       child: Padding(
@@ -382,17 +460,23 @@ class _LivraisonPageState extends State<LivraisonPage> {
         child: Row(
           children: [
             SizedBox(
-              width: 18, height: 18,
+              width: 18,
+              height: 18,
               child: Checkbox(
                 value: value,
                 onChanged: onChanged,
                 activeColor: const Color(0xFF1E40AF),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
                 side: BorderSide(color: Colors.grey.shade400, width: 1.5),
               ),
             ),
             const SizedBox(width: 12),
-            Text(title, style: TextStyle(fontSize: 13, color: Colors.blueGrey.shade800)),
+            Text(
+              title,
+              style: TextStyle(fontSize: 13, color: Colors.blueGrey.shade800),
+            ),
           ],
         ),
       ),
@@ -412,38 +496,17 @@ class _LivraisonPageState extends State<LivraisonPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // HEADER
-              if (isDesktop)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Reporting Dashboard",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
-                      ),
-                    ),
-                    _buildHeaderButtons(),
-                  ],
-                )
-              else
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Reporting Dashboard",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildHeaderButtons(),
-                  ],
+              const Text(
+                "Reporting Dashboard",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1E293B),
                 ),
-              
+              ),
+              const SizedBox(height: 24),
+              Center(child: _buildHeaderButtons()),
+
               const SizedBox(height: 32),
 
               // STATS CARDS
@@ -460,18 +523,26 @@ class _LivraisonPageState extends State<LivraisonPage> {
               else
                 Column(
                   children: [
-                    SizedBox(width: double.infinity, child: _buildDossierStatCard()),
+                    SizedBox(
+                      width: double.infinity,
+                      child: _buildDossierStatCard(),
+                    ),
                     const SizedBox(height: 16),
-                    SizedBox(width: double.infinity, child: _buildClesStatCard()),
+                    SizedBox(
+                      width: double.infinity,
+                      child: _buildClesStatCard(),
+                    ),
                     const SizedBox(height: 16),
-                    SizedBox(width: double.infinity, child: _buildReclamationStatCard()),
+                    SizedBox(
+                      width: double.infinity,
+                      child: _buildReclamationStatCard(),
+                    ),
                   ],
                 ),
 
               const SizedBox(height: 48),
 
               // EXPANDABLE SECTIONS (Accordion Behavior)
-              
               ExpandableSection(
                 title: "Dossiers PV signé (1)",
                 isExpanded: expandedIndex == 0,
@@ -481,16 +552,16 @@ class _LivraisonPageState extends State<LivraisonPage> {
                   });
                 },
                 content: _buildDossierItem(
-                  projet: "Projet7", 
-                  bien: "Bien1788", 
-                  dateVisite: "10 févr. 2026", 
-                  tickets: "1", 
+                  projet: "Projet7",
+                  bien: "Bien1788",
+                  dateVisite: "10 févr. 2026",
+                  tickets: "1",
                   datePv: "03 avr. 2026",
-                  isDesktop: isDesktop
+                  isDesktop: isDesktop,
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               ExpandableSection(
                 title: "Clés reçues (0)",
                 isExpanded: expandedIndex == 1,
@@ -504,7 +575,11 @@ class _LivraisonPageState extends State<LivraisonPage> {
                   child: Center(
                     child: Text(
                       "Aucun dossier.",
-                      style: TextStyle(color: Color(0xFF94A3B8), fontSize: 13, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        color: Color(0xFF94A3B8),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -522,43 +597,53 @@ class _LivraisonPageState extends State<LivraisonPage> {
                 content: Column(
                   children: [
                     _buildReclamationItem(
-                      projet: "Projet7", 
-                      bien: "Bien1788", 
-                      dateVisite: "10 févr. 2026", 
-                      tranche: "Tranche5", 
-                      groupement: "GH1", 
+                      projet: "Projet7",
+                      bien: "Bien1788",
+                      dateVisite: "10 févr. 2026",
+                      tranche: "Tranche5",
+                      groupement: "GH1",
                       creePar: "admin user",
                       isDesktop: isDesktop,
                     ),
-                    const Divider(height: 32, thickness: 1, color: Color(0xFFF1F5F9)),
+                    const Divider(
+                      height: 32,
+                      thickness: 1,
+                      color: Color(0xFFF1F5F9),
+                    ),
                     _buildReclamationItem(
-                      projet: "Projet7", 
-                      bien: "Bien1789", 
-                      dateVisite: "11 févr. 2026", 
-                      tranche: "Tranche5", 
-                      groupement: "GH1", 
+                      projet: "Projet7",
+                      bien: "Bien1789",
+                      dateVisite: "11 févr. 2026",
+                      tranche: "Tranche5",
+                      groupement: "GH1",
                       creePar: "admin user",
                       isDesktop: isDesktop,
                     ),
                   ],
                 ),
               ),
-              
-              
+
               const SizedBox(height: 80),
             ],
           ),
         ),
       ),
-      
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Empty - nothing happens
-        },
-        child: const Icon(Icons.add, size: 28),
-        backgroundColor: const Color(0xFF1E40AF),
-        foregroundColor: Colors.white,
-        elevation: 4,
+
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddVisitFlow()),
+            );
+          },
+          backgroundColor: const Color(0xFF1E40AF),
+          foregroundColor: Colors.white,
+          elevation: 6,
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add, size: 34),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
@@ -566,38 +651,69 @@ class _LivraisonPageState extends State<LivraisonPage> {
 
   Widget _buildHeaderButtons() {
     return Wrap(
+      alignment: WrapAlignment.center,
       spacing: 12,
       runSpacing: 12,
       children: [
-        OutlinedButton.icon(
-          onPressed: () => _showProjetsDropdown(context),
-          icon: Icon(Icons.folder_outlined, size: 16, color: Colors.grey.shade600),
-          label: Text(
-            "Projets (16)",
-            style: TextStyle(color: Colors.grey.shade700, fontSize: 13, fontWeight: FontWeight.w600),
-          ),
-          style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.white,
-            side: BorderSide(color: Colors.grey.shade200),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-          ),
+        _buildFilterChip(
+          icon: Icons.folder_outlined,
+          label: _selectedProjets.length == _projets.length
+              ? "Tous les projets"
+              : "Projets (${_selectedProjets.length})",
+          onTap: () => _showProjetsDropdown(context),
         ),
-        OutlinedButton.icon(
-          onPressed: _showPeriodDialog,
-          icon: Icon(Icons.calendar_today_outlined, size: 16, color: Colors.grey.shade600),
-          label: Text(
-            _periodText,
-            style: TextStyle(color: Colors.grey.shade700, fontSize: 13, fontWeight: FontWeight.w600),
-          ),
-          style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.white,
-            side: BorderSide(color: Colors.grey.shade200),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-          ),
+        _buildFilterChip(
+          icon: Icons.calendar_today_outlined,
+          label: _periodText,
+          onTap: _showPeriodDialog,
         ),
       ],
+    );
+  }
+
+  Widget _buildFilterChip({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 16, color: const Color(0xFF64748B)),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 13,
+                color: Color(0xFF64748B),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(width: 6),
+            const Icon(
+              Icons.arrow_drop_down,
+              size: 20,
+              color: Color(0xFF64748B),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -611,34 +727,45 @@ class _LivraisonPageState extends State<LivraisonPage> {
             bottom: 0,
             right: -2,
             child: Container(
-              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-              child: Icon(Icons.check_circle, size: 16, color: Colors.blue.shade600),
-            )
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.check_circle,
+                size: 16,
+                color: Colors.blue.shade600,
+              ),
+            ),
           ),
         ],
       ),
-      value: "1", 
-      label: "Dossiers avec PV signé"
+      value: "1",
+      label: "Dossiers avec PV signé",
     );
   }
 
   Widget _buildClesStatCard() {
     return _buildStatCard(
-      iconWidget: const Icon(Icons.key, size: 40, color: Color(0xFFD97706)), 
-      value: "0", 
-      label: "Clés reçues - Traitement réserves fini"
+      iconWidget: const Icon(Icons.key, size: 40, color: Color(0xFFD97706)),
+      value: "0",
+      label: "Clés reçues - Traitement réserves fini",
     );
   }
 
   Widget _buildReclamationStatCard() {
     return _buildStatCard(
-      iconWidget: const Icon(Icons.build, size: 40, color: Color(0xFFDC2626)), 
-      value: "4", 
-      label: "Réclamations en cours de garantie"
+      iconWidget: const Icon(Icons.build, size: 40, color: Color(0xFFDC2626)),
+      value: "4",
+      label: "Réclamations en cours de garantie",
     );
   }
 
-  Widget _buildStatCard({required Widget iconWidget, required String value, required String label}) {
+  Widget _buildStatCard({
+    required Widget iconWidget,
+    required String value,
+    required String label,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       decoration: BoxDecoration(
@@ -650,7 +777,7 @@ class _LivraisonPageState extends State<LivraisonPage> {
             color: Colors.black.withOpacity(0.02),
             blurRadius: 8,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Column(
@@ -685,68 +812,81 @@ class _LivraisonPageState extends State<LivraisonPage> {
   }
 
   Widget _buildDossierItem({
-    required String projet, 
-    required String bien, 
-    required String dateVisite, 
-    required String tickets, 
+    required String projet,
+    required String bien,
+    required String dateVisite,
+    required String tickets,
     required String datePv,
     required bool isDesktop,
   }) {
     final List<Widget> fields = [
       _buildDashedInfoBox("Projet", projet, null),
       _buildDashedInfoBox("Bien", bien, Icons.home_outlined),
-      _buildDashedInfoBox("Date Visite", dateVisite, Icons.calendar_today_outlined),
+      _buildDashedInfoBox(
+        "Date Visite",
+        dateVisite,
+        Icons.calendar_today_outlined,
+      ),
       _buildDashedInfoBox("Tickets", tickets, null),
       _buildDashedInfoBox("Date PV", datePv, Icons.edit_document),
     ];
 
     return _buildStructuredItemWrapper(
-      iconWidget: Icon(Icons.home_outlined, size: 20, color: Colors.blue.shade600),
+      iconWidget: Icon(
+        Icons.home_outlined,
+        size: 20,
+        color: Colors.blue.shade600,
+      ),
       iconColor: Colors.blue.shade200,
       fields: fields,
-      isDesktop: isDesktop
+      isDesktop: isDesktop,
     );
   }
 
   Widget _buildReclamationItem({
-    required String projet, 
-    required String bien, 
-    required String dateVisite, 
-    required String tranche, 
-    required String groupement, 
+    required String projet,
+    required String bien,
+    required String dateVisite,
+    required String tranche,
+    required String groupement,
     required String creePar,
-    required bool isDesktop
+    required bool isDesktop,
   }) {
     final List<Widget> fields = [
       _buildDashedInfoBox("Projet", projet, null),
       _buildDashedInfoBox("Bien", bien, Icons.home_outlined),
-      _buildDashedInfoBox("Date Visite", dateVisite, Icons.calendar_today_outlined),
+      _buildDashedInfoBox(
+        "Date Visite",
+        dateVisite,
+        Icons.calendar_today_outlined,
+      ),
       _buildDashedInfoBox("Tranche", tranche, Icons.layers_outlined),
       _buildDashedInfoBox("Groupement", groupement, null),
       _buildDashedInfoBox("Créé par", creePar, Icons.person_outline),
     ];
 
     return _buildStructuredItemWrapper(
-      iconWidget: Icon(Icons.build_outlined, size: 20, color: Colors.red.shade500),
+      iconWidget: Icon(
+        Icons.build_outlined,
+        size: 20,
+        color: Colors.red.shade500,
+      ),
       iconColor: Colors.red.shade200,
       fields: fields,
-      isDesktop: isDesktop
+      isDesktop: isDesktop,
     );
   }
-  
+
   Widget _buildStructuredItemWrapper({
     required Widget iconWidget,
     required Color iconColor,
     required List<Widget> fields,
-    required bool isDesktop
+    required bool isDesktop,
   }) {
     Widget iconBox = _DashedBox(
       color: iconColor,
       shape: BoxShape.circle,
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: iconWidget,
-      ),
+      child: Padding(padding: const EdgeInsets.all(14), child: iconWidget),
     );
 
     if (isDesktop) {
@@ -755,29 +895,28 @@ class _LivraisonPageState extends State<LivraisonPage> {
         children: [
           iconBox,
           const SizedBox(width: 16),
-          ...fields.map((f) => Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: f,
-            )
-          )),
+          ...fields.map(
+            (f) => Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: f,
+              ),
+            ),
+          ),
         ],
       );
     } else {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: iconBox
-          ),
+          Center(child: iconBox),
           const SizedBox(height: 16),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: fields.map((f) => FractionallySizedBox(
-              widthFactor: 0.48,
-              child: f,
-            )).toList(),
+            children: fields
+                .map((f) => FractionallySizedBox(widthFactor: 0.48, child: f))
+                .toList(),
           ),
         ],
       );
@@ -806,7 +945,11 @@ class _LivraisonPageState extends State<LivraisonPage> {
                     label,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade500, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey.shade500,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -817,7 +960,11 @@ class _LivraisonPageState extends State<LivraisonPage> {
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 12, color: Color(0xFF1E293B), fontWeight: FontWeight.w700),
+              style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xFF1E293B),
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ],
         ),
@@ -853,12 +1000,12 @@ class ExpandableSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey.shade200),
           boxShadow: [
-             BoxShadow(
-                color: Colors.black.withOpacity(0.015),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-             )
-          ]
+            BoxShadow(
+              color: Colors.black.withOpacity(0.015),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -880,7 +1027,7 @@ class ExpandableSection extends StatelessWidget {
                   Icon(
                     isExpanded ? Icons.expand_less : Icons.expand_more,
                     color: Colors.grey.shade500,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -890,7 +1037,11 @@ class ExpandableSection extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: isExpanded
                   ? Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                        right: 16.0,
+                        bottom: 16.0,
+                      ),
                       child: content,
                     )
                   : const SizedBox(width: double.infinity, height: 0),
@@ -918,7 +1069,13 @@ class _DashedBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _DashedRectPainter(color: color, gap: 5.0, strokeWidth: 1.2, radius: radius, shape: shape),
+      painter: _DashedRectPainter(
+        color: color,
+        gap: 5.0,
+        strokeWidth: 1.2,
+        radius: radius,
+        shape: shape,
+      ),
       child: child,
     );
   }
@@ -950,7 +1107,12 @@ class _DashedRectPainter extends CustomPainter {
     if (shape == BoxShape.circle) {
       path.addOval(Rect.fromLTWH(0, 0, size.width, size.height));
     } else {
-      path.addRRect(RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, size.width, size.height), Radius.circular(radius)));
+      path.addRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(0, 0, size.width, size.height),
+          Radius.circular(radius),
+        ),
+      );
     }
 
     Path dashPath = Path();
@@ -958,8 +1120,11 @@ class _DashedRectPainter extends CustomPainter {
 
     for (PathMetric pathMetric in path.computeMetrics()) {
       while (distance < pathMetric.length) {
-        dashPath.addPath(pathMetric.extractPath(distance, distance + gap), Offset.zero);
-        distance += 2 * gap; 
+        dashPath.addPath(
+          pathMetric.extractPath(distance, distance + gap),
+          Offset.zero,
+        );
+        distance += 2 * gap;
       }
       distance = 0.0;
     }

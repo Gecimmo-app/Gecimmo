@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../ui_components/modern_ui_components.dart';
 import 'Dashbordprincpa.dart';
-import 'Ajouter_visite.dart';
+import '../Ajouter_visite.dart' hide AppTheme;
 
 void main() {
   runApp(const MyApp());
@@ -16,27 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'Inter',
-        scaffoldBackgroundColor: AppColors.bluePale,
+        scaffoldBackgroundColor: AppTheme.background,
       ),
       home: const DashboardScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
-}
-
-class AppColors {
-  static const Color blue = Color(0xFF1E40AF);
-  static const Color bluePale = Color(0xFFEFF6FF);
-  static const Color textDark = Color(0xFF1F2937);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color background = Color(0xFFFAFAFE);
-  
-  // Couleurs pour les cartes
-  static const Color cardBlue = Color(0xFF3B82F6);
-  static const Color cardGreen = Color(0xFF22C55E);
-  static const Color cardRed = Color(0xFFEF4444);
-  static const Color cardPurple = Color(0xFF8B5CF6);
-  static const Color cardOrange = Color(0xFFF59E0B);
 }
 
 class DashboardScreen extends StatefulWidget {
@@ -327,7 +313,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     {
       'title': 'Réception Technique',
       'count': 14,
-      'color': AppColors.cardBlue,
+      'color': AppTheme.primaryBlue,
       'lightColor': const Color(0xFFEFF6FF),
       'summary': '6 corps métier • 6 localités • 6 prestataires',
       'sections': [
@@ -372,7 +358,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     {
       'title': 'Livraison Technique',
       'count': 9,
-      'color': AppColors.cardGreen,
+      'color': AppTheme.success,
       'lightColor': const Color(0xFFECFDF5),
       'summary': '4 corps métier • 5 localités • 5 prestataires',
       'sections': [
@@ -415,7 +401,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     {
       'title': 'Réclamation',
       'count': 4,
-      'color': AppColors.cardRed,
+      'color': AppTheme.danger,
       'lightColor': const Color(0xFFFEF2F2),
       'summary': '4 corps métier • 6 localités • 5 prestataires',
       'sections': [
@@ -459,7 +445,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     {
       'title': 'Livraison Client',
       'count': 2,
-      'color': AppColors.cardPurple,
+      'color': const Color(0xFF8B5CF6),
       'lightColor': const Color(0xFFF5F3FF),
       'summary': '4 corps métier • 6 localités • 5 prestataires',
       'sections': [
@@ -503,7 +489,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     {
       'title': 'Livraison Syndic',
       'count': 2,
-      'color': AppColors.cardOrange,
+      'color': AppTheme.warning,
       'lightColor': const Color(0xFFFEF3C7),
       'summary': '2 corps métier • 2 localités • 1 prestataires',
       'sections': [
@@ -544,59 +530,59 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
 
     return Container(
-  color: AppColors.bluePale, // 🔵 هنا background كامل
-  child: Scaffold(
-    
-        backgroundColor: Colors.transparent, // 🔵 IMPORTAN
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 24),
-        child: FloatingActionButton(
-          onPressed: openAddVisitFlow,
-          backgroundColor: const Color(0xFF1E40AF),
-          foregroundColor: Colors.white,
-          elevation: 6,
-          shape: const CircleBorder(),
-          child: const Icon(Icons.add, size: 34),
+      color: AppTheme.background,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: FloatingActionButton(
+            onPressed: openAddVisitFlow,
+            backgroundColor: AppTheme.primaryBlue,
+            foregroundColor: Colors.white,
+            elevation: 6,
+            shape: const CircleBorder(),
+            child: const Icon(Icons.add, size: 34),
+          ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const _TopBar(),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: _buildFiltersRow(),
-                    ),
-                    const SizedBox(height: 28),
-                    ...cards.map((card) => Padding(
-                      padding: const EdgeInsets.only(bottom: 18),
-                      child: DashboardCard(
-                        title: card['title'],
-                        count: card['count'],
-                        summary: card['summary'],
-                        sections: card['sections'],
-                        cardColor: card['color'],
-                        lightColor: card['lightColor'],
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const _TopBar(),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: _buildFiltersRow(),
                       ),
-                    )),
-                    const SizedBox(height: 30),
-                  ],
+                      const SizedBox(height: 28),
+                      ...cards.map((card) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+                        child: DashboardCard(
+                          title: card['title'],
+                          count: card['count'],
+                          summary: card['summary'],
+                          sections: card['sections'],
+                          cardColor: card['color'],
+                          lightColor: card['lightColor'],
+                        ),
+                      )),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
-
- 
 }
 
 class _TopBar extends StatelessWidget {
@@ -604,22 +590,16 @@ class _TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.bluePale,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          const Text(
-  'Regression Constats',
-  style: TextStyle(
-    fontSize: 21,
-    fontWeight: FontWeight.w700,
-    color: AppColors.textDark,
-    letterSpacing: -0.8,
-    fontFamily: 'Inter',
-  ),
-),
-        ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+      child: Text(
+        "Regression Constats",
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
+          color: AppTheme.textPrimary,
+          letterSpacing: -0.5,
+        ),
       ),
     );
   }

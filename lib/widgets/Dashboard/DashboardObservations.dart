@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'Dashbordprincpa.dart';
-import 'Ajouter_visite.dart';
+import '../Ajouter_visite.dart';
 
 class ObservationsScreen extends StatefulWidget {
   const ObservationsScreen({super.key});

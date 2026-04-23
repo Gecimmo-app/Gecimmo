@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:projet_sva/widgets/Dashbordprincpa.dart';
-import '../widgets/RegressionConstats.dart';
-import '../menu_sidebar/widgests/sidebar.dart';
-import '../Observations.dart' as observations_page;
-import 'DashboardObservations.dart' as dashboard_obs;
-import '../screens/parametrage/Emails.dart';
-import '../screens/parametrage/EmailsParEtape.dart';
-import '../screens/parametrage/Prestataires/EmailsPrest.dart';
-import '../screens/parametrage/Prestataires/ListePrestataires.dart';
-import '../screens/parametrage/corps_de_metier_page.dart';
-import '../screens/parametrage/localites_page.dart';
-import '../screens/parametrage/utilisateurs/utilisateurs_page.dart';
+import 'Dashboard/Dashbordprincpa.dart';
+import 'Dashboard/RegressionConstats.dart';
+import '../menu_sidebar/widgets/sidebar.dart';
+import 'Observations/Observations.dart' as observations_page;
+import 'Dashboard/DashboardObservations.dart' as dashboard_obs;
+import '../Parametrages/Emails.dart';
+import '../Parametrages/EmailsParEtape.dart';
+import '../Parametrages/Prestataires/ListePrestataires.dart';
+import '../Parametrages/Prestataires/EmailsPrest.dart';
+import '../Parametrages/corps_de_metier_page.dart';
+import '../Parametrages/localites_page.dart';
+import '../Parametrages/utilisateurs/utilisateurs_page.dart';
+import '../Parametrages/switch_session_page.dart';
+import '../Parametrages/configurations_page.dart';
+import '../Parametrages/configurations_pv_page.dart';
+import '../Parametrages/configurations_profil_page.dart';
+import '../Parametrages/pilote_project_page.dart';
+import '../Parametrages/agent_livraison_page.dart';
+import '../Visites/visites_page.dart';
+import '../Agenda/agenda_page.dart';
+import '../Reporting/livraison_page.dart';
+import '../Reporting/rapport_immeubles_page.dart';
+import 'Ajouter_visite.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,24 +38,29 @@ class _HomePageState extends State<HomePage>
 
   int selectedPage = 1;
 
-  // 🔥 PAGES (SAV بدل Dashboard Principal)
   List<Widget> get pages => [
-    const Center(child: Text("SAV")), // 0 👈 CHANGED HERE
-    const DashbordPrincpa(), // 1
-    const Center(child: Text("Visites")), // 2
-    const dashboard_obs.ObservationsScreen(), // 3  -> Observations (sous Dashboard)
-    const Center(child: Text("Reclamations")), // 4
-    const Center(child: Text("Agenda")), // 5
-    const Center(child: Text("Reporting")), // 6
-    const DashboardScreen(), // 7 Regression Constats
-    const observations_page.ObservationsScreen(), // 8  -> Observations (menu principal)
-    const EmailsConfigScreen(), // 9 -> Emails
-    const EmailsParEtapeScreen(), // 10 -> Emails par étape
-    const EmailsPrestScreen(), // 11 -> Emails Prestataires
-    const ListePrestatairesScreen(), // 12 -> Liste des prestataires
-    const CorpsDeMetierScreen(), // 13 -> Corps de métier
-    const LocalitesScreen(), // 14 -> Localités
-    const UtilisateursScreen(), // 15 -> Utilisateurs
+    const DashbordPrincpa(), // 0
+    const dashboard_obs.ObservationsScreen(), // 1
+    const DashboardScreen(), // 2
+    const VisitesPage(), // 3
+    const observations_page.ObservationsScreen(), // 4
+    const Center(child: Text("Reclamation")), // 5
+    const AgendaPage(), // 6
+    const LivraisonPage(), // 7
+    const RapportImmeublesPage(), // 8
+    const EmailsConfigScreen(), // 9
+    const EmailsParEtapeScreen(), // 10
+    const ListePrestatairesScreen(), // 11
+    const UtilisateursScreen(), // 12
+    const CorpsDeMetierScreen(), // 13
+    const LocalitesScreen(), // 14
+    const SwitchSessionPage(), // 15
+    const ConfigurationsPage(), // 16
+    const ConfigurationsPvPage(), // 17
+    const ConfigurationsProfilPage(), // 18
+    const PiloteProjectPage(), // 19
+    const AgentLivraisonPage(), // 20
+    const EmailsPrestScreen(), // 21
   ];
 
   @override
@@ -147,23 +163,8 @@ class _HomePageState extends State<HomePage>
                 animationController: _controller,
                 onClose: closeMenu,
 
-                onItemSelected: (title) {
-                  if (title == "SAV") changePage(0);
-                  else if (title == "Dashboard Principal") changePage(1);
-                  else if (title == "Visites") changePage(2);
-                  else if (title == "Observations (Dashboard)") changePage(3);
-                  else if (title == "Observations") changePage(8);
-                  else if (title == "Reclamations") changePage(4);
-                  else if (title == "Agenda") changePage(5);
-                  else if (title == "Reporting") changePage(6);
-                  else if (title == "Regression Constats") changePage(7);
-                  else if (title == "Emails") changePage(9);
-                  else if (title == "Emails par étape") changePage(10);
-                  else if (title == "Emails Prestataires") changePage(11);
-                  else if (title == "Liste des prestataires") changePage(12);
-                  else if (title == "Corps de métier") changePage(13);
-                  else if (title == "Localités") changePage(14);
-                  else if (title == "Utilisateurs") changePage(15);
+                onItemSelected: (index) {
+                  changePage(index);
                 },
               ),
             ),

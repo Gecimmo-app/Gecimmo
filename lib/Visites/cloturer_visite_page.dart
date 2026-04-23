@@ -18,7 +18,7 @@ class _CloturerVisitePageState extends State<CloturerVisitePage> {
 
   Future<void> _pickFile() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.pickFiles(
         allowMultiple: true,
         type: FileType.custom,
         allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'],
