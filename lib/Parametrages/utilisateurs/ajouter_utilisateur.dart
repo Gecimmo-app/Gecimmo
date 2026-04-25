@@ -34,10 +34,10 @@ class AjouterUtilisateurScreen extends StatefulWidget {
 
 class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
   static const Color _primaryBlue = Color(0xFF3B82F6);
-  static const Color _pageBg = Color(0xFFF8FAFC);
-  static const Color _textTitle = Color(0xFF1D2939);
-  static const Color _textMuted = Color(0xFF667085);
-  static const Color _border = Color(0xFFEAECF0);
+  static const Color _pageBg = Color(0xFFEFF6FF);
+  static const Color _textTitle = Color(0xFF0F172A);
+  static const Color _textMuted = Color(0xFF64748B);
+  static const Color _border = Color(0xFFE2E8F0);
 
   final _nomCtrl = TextEditingController();
   final _loginCtrl = TextEditingController();
@@ -85,43 +85,39 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
       data: Theme.of(context).copyWith(
         checkboxTheme: CheckboxThemeData(
           fillColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.selected)) return _primaryBlue;
+            if (states.contains(WidgetState.selected)) return const Color(0xFF3B82F6);
             return null;
           }),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
       ),
       child: Scaffold(
-        backgroundColor: _pageBg,
+        backgroundColor: const Color(0xFFEFF6FF),
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFF1E40AF),
           elevation: 0,
           centerTitle: true,
-          iconTheme: const IconThemeData(color: _textTitle),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
             'Ajouter un utilisateur',
             style: TextStyle(
-              color: _textTitle,
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
             ),
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1),
-            child: Container(height: 1, color: _border),
           ),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildCardWrapper(_buildInformationsGenerales()),
-              const SizedBox(height: 24),
-              _buildCardWrapper(_buildDroitsFormulaires(context)),
-              const SizedBox(height: 24),
-              _buildCardWrapper(_buildDroitsSpeciaux(context)),
-              const SizedBox(height: 24),
+              const SizedBox(height: 40),
+              _buildDroitsFormulaires(context),
+              const SizedBox(height: 40),
+              _buildDroitsSpeciaux(context),
+              const SizedBox(height: 40),
               _buildBottomActions(context),
             ],
           ),
@@ -131,37 +127,35 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
   }
 
   Widget _buildCardWrapper(Widget child) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return Card(
+      margin: EdgeInsets.zero,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _border),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        side: const BorderSide(color: Color(0xFFE2E8F0)),
       ),
-      child: child,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: child,
+      ),
     );
   }
 
   Widget _buildSectionHeader(String title, [String? trailing]) {
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: _textTitle),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
           ),
           if (trailing != null)
             Text(
               trailing,
-              style: TextStyle(fontSize: 13, color: _textMuted.withValues(alpha: 0.9)),
+              style: TextStyle(fontSize: 13, color: const Color(0xFF64748B).withValues(alpha: 0.9)),
             ),
         ],
       ),
@@ -170,34 +164,49 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
 
   Widget _buildInformationsGenerales() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('Informations générales'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 24),
-          child: Column(
-            children: [
-              _buildField('Nom Complet *', TextField(
-                controller: _nomCtrl,
-                decoration: _inputDeco(''),
-              )),
-              const SizedBox(height: 20),
-              _buildField('Login *', TextField(
-                controller: _loginCtrl,
-                decoration: _inputDeco(''),
-              )),
-              const SizedBox(height: 20),
-              _buildField('Rôle *', DropdownButtonFormField<String>(
-                value: _selectedRole,
-                hint: const Text('Sélectionner un rôle'),
-                decoration: _inputDeco(''),
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: _roles.map((r) => DropdownMenuItem(value: r, child: Text(r))).toList(),
-                onChanged: (v) => setState(() => _selectedRole = v),
-              )),
-            ],
-          ),
+        Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: const Color(0xFFEFF6FF),
+              child: Icon(Icons.person_outline, color: Colors.blue[700]),
+            ),
+            const SizedBox(width: 16),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Informations générales',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                ),
+                Text(
+                  'Détails du profil',
+                  style: TextStyle(fontSize: 13, color: Colors.grey),
+                ),
+              ],
+            ),
+          ],
         ),
+        const SizedBox(height: 24),
+        _buildField('Nom Complet *', TextField(
+          controller: _nomCtrl,
+          decoration: _inputDeco(''),
+        )),
+        const SizedBox(height: 20),
+        _buildField('Login *', TextField(
+          controller: _loginCtrl,
+          decoration: _inputDeco(''),
+        )),
+        const SizedBox(height: 20),
+        _buildField('Rôle *', DropdownButtonFormField<String>(
+          value: _selectedRole,
+          hint: const Text('Sélectionner un rôle'),
+          decoration: _inputDeco(''),
+          icon: const Icon(Icons.keyboard_arrow_down),
+          items: _roles.map((r) => DropdownMenuItem(value: r, child: Text(r))).toList(),
+          onChanged: (v) => setState(() => _selectedRole = v),
+        )),
       ],
     );
   }
@@ -263,12 +272,7 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildSectionHeader('Droits formulaires', '${_droitsFormulaire.length} formulaire(s) disponible(s)'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 24),
-          child: Column(
-            children: _droitsFormulaire.map((d) => _buildProfessionalFormCard(d)).toList(),
-          ),
-        ),
+        ..._droitsFormulaire.map((d) => _buildProfessionalFormCard(d)).toList(),
       ],
     );
   }
@@ -278,12 +282,7 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildSectionHeader('Droits spéciaux', '${_droitsSpeciaux.length} droit(s) spécial(aux) disponible(s)'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 24),
-          child: Column(
-            children: _droitsSpeciaux.map((d) => _buildProfessionalSpecialCard(d)).toList(),
-          ),
-        ),
+        ..._droitsSpeciaux.map((d) => _buildProfessionalSpecialCard(d)).toList(),
       ],
     );
   }
@@ -605,7 +604,7 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
               Navigator.of(context).pop();
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: _primaryBlue,
+              backgroundColor: const Color(0xFF1E40AF),
               foregroundColor: Colors.white,
               elevation: 0,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),

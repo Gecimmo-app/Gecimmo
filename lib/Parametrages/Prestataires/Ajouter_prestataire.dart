@@ -325,9 +325,9 @@ class _AjouterPrestataireScreenState extends State<AjouterPrestataireScreen> {
                     Widget actions = Container(
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF8FAFC),
+                        color: const Color(0xFFEFF6FF),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFF1F5F9)), 
+                        border: Border.all(color: const Color(0xFFEFF6FF)), 
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -430,7 +430,7 @@ class _AjouterPrestataireScreenState extends State<AjouterPrestataireScreen> {
             enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFFE2E8F0))),
             focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFF2563EB), width: 1.5)),
             filled: true,
-            fillColor: const Color(0xFFF8FAFC), // Fond gris très subtil
+            fillColor: const Color(0xFFEFF6FF), // Fond gris très subtil
           ),
         ),
       ],

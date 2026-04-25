@@ -250,7 +250,7 @@ class _AgendaPageState extends State<AgendaPage> {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF5F7FA),
+                        color: const Color(0xFFEFF6FF),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -750,7 +750,7 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F6FB),
+      backgroundColor: const Color(0xFFEFF6FF),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -901,7 +901,7 @@ class _AgendaPageState extends State<AgendaPage> {
               Center(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF4F6FB),
+                    color: const Color(0xFFEFF6FF),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(

@@ -6,7 +6,7 @@ import 'observations_page.dart';
 
 class _PagePalette {
   static const Color primary = Color(0xFF1E40AF);
-  static const Color background = Color(0xFFF8FAFC);
+  static const Color background = Color(0xFFEFF6FF);
   static const Color surface = Colors.white;
   static const Color title = Color(0xFF0F172A);
   static const Color subtitle = Color(0xFF64748B);
@@ -654,7 +654,7 @@ class CategoriesList extends StatelessWidget {
             crossAxisCount: columns,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
-            childAspectRatio: 2.05,
+            mainAxisExtent: 100,
           ),
           itemBuilder: (context, index) {
             return CategoryCard(
@@ -709,7 +709,7 @@ class CategoryCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFFF8FAFC),
+                color: const Color(0xFFEFF6FF),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: _PagePalette.border),
               ),

@@ -206,7 +206,7 @@ class _DettailPageState extends State<DettailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: const Color(0xFFEFF6FF),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1E40AF),
         elevation: 0,
@@ -368,7 +368,7 @@ class _DettailPageState extends State<DettailPage> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFC),
+        color: const Color(0xFFEFF6FF),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -420,7 +420,7 @@ class _DettailPageState extends State<DettailPage> {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: const Color(0xFFF1F5F9),
+                  backgroundColor: const Color(0xFFEFF6FF),
                   child: Icon(Icons.settings_outlined, color: Colors.grey[700]),
                 ),
                 const SizedBox(width: 16),

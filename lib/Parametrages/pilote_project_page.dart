@@ -441,7 +441,7 @@ class _AddPiloteFormState extends State<AddPiloteForm> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: const Color(0xFFF1F5F9), // Fond légèrement grisé/bleuté
+      backgroundColor: const Color(0xFFEFF6FF), // Fond légèrement grisé/bleuté
       elevation: 0,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       child: Container(

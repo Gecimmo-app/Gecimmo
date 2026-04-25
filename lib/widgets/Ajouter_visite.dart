@@ -14,7 +14,7 @@ class AppTheme {
   static const Color error = Color(0xFFEF4444);
   static const Color accent = Color(0xFF8B5CF6);
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color background = Color(0xFFF4F6FB);
+  static const Color background = Color(0xFFEFF6FF);
   static const Color textPrimary = Color(0xFF1E293B);
   static const Color textSecondary = Color(0xFF64748B);
   static const Color border = Color(0xFFE2E8F0);
@@ -812,23 +812,26 @@ class _AddVisitFlowState extends State<AddVisitFlow> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      backgroundColor: AppTheme.surface,
+      backgroundColor: AppTheme.primary,
       elevation: 0,
-      title: const Text(
+      title: Text(
         'Ajouter une visite',
-        style: AppTextStyles.titleLarge,
+        style: AppTextStyles.titleLarge.copyWith(color: Colors.white),
       ),
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.close, color: AppTheme.textPrimary),
+        icon: const Icon(Icons.close, color: Colors.white),
         onPressed: () => _showExitConfirmation(),
       ),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(80),
-        child: StepIndicator(
-          currentStep: _currentStep,
-          steps: _steps,
-          onStepTap: _goToStep,
+        child: Container(
+          color: AppTheme.surface,
+          child: StepIndicator(
+            currentStep: _currentStep,
+            steps: _steps,
+            onStepTap: _goToStep,
+          ),
         ),
       ),
     );

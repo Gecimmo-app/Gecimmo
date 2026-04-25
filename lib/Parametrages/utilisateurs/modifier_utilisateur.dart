@@ -11,7 +11,7 @@ class ModifierUtilisateurScreen extends StatefulWidget {
 }
 
 class _ModifierUtilisateurScreenState extends State<ModifierUtilisateurScreen> {
-  static const Color _primaryBlue = Color(0xFF2563EB); // Bleu élégant et moderne
+  static const Color _primaryBlue = Color(0xFF1E40AF); // Bleu élégant et moderne
   static const Color _bgLight = Color(0xFFEFF6FF);
   static const Color _textTitle = Color(0xFF0F172A);
   static const Color _textSubtitle = Color(0xFF64748B);

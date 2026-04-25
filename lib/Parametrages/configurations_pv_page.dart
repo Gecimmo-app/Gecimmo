@@ -181,7 +181,7 @@ class _ConfigurationsPvPageState extends State<ConfigurationsPvPage> {
           'Gestion des Modèles PV',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFEFF6FF),
         elevation: 0.5,
         centerTitle: false,
         actions: [],
@@ -524,7 +524,7 @@ class _ConfigurationsPvPageState extends State<ConfigurationsPvPage> {
         Container(
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: const Color(0xFFF1F5F9),
+            color: const Color(0xFFEFF6FF),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, size: 16, color: const Color(0xFF64748B)),

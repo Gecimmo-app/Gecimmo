@@ -14,7 +14,7 @@ class RapportImmeublesPage extends StatefulWidget {
 class _RapportImmeublesPageState extends State<RapportImmeublesPage> {
   // Brand Base colors
   static const Color primaryColor = Color(0xFF1E40AF);
-  static const Color bgColor = Color(0xFFF8FAFC);
+  static const Color bgColor = Color(0xFFEFF6FF);
 
   // Current active smart filters state map
   Map<String, String?> currentFilters = {

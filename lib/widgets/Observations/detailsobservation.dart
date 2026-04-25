@@ -429,7 +429,7 @@ class _PlanPanel extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF8FAFC),
+                  color: const Color(0xFFEFF6FF),
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(color: const Color(0xFFE5E7EB)),
                 ),

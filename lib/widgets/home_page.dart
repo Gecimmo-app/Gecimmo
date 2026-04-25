@@ -162,7 +162,7 @@ class _HomePageState extends State<HomePage>
               child: Sidebar(
                 animationController: _controller,
                 onClose: closeMenu,
-
+                currentIndex: selectedPage,
                 onItemSelected: (index) {
                   changePage(index);
                 },

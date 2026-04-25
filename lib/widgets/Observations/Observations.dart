@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Ajouter_visite.dart';
 import 'detailsobservation.dart';
+import '../../Visites/details_visite_page.dart';
 
 enum ObservationStatus { accepte, aFaire, refuse }
 
@@ -31,7 +32,7 @@ class BienObservation {
 class AppTheme {
   static const Color primaryBlue = Color(0xFF1E40AF);
   static const Color bluePale = Color(0xFFEFF6FF);
-  static const Color background = Color(0xFFF8FAFC);
+  static const Color background = Color(0xFFEFF6FF);
   static const Color cardShadow = Color(0x11000000);
   static const Color acceptedGreen = Color(0xFF10B981);
   static const Color refusedRed = Color(0xFFEF4444);
@@ -1562,14 +1563,31 @@ class BienCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            observation.name,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xFF0F172A),
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailsVisitePage(
+                                      projetName: observation.name,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                observation.name,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900,
+                                  color: AppTheme.primaryBlue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: AppTheme.primaryBlue,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Container(

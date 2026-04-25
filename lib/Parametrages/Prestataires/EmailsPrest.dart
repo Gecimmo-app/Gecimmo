@@ -312,7 +312,7 @@ class _MultiSelectSheetState extends State<_MultiSelectSheet> {
                       return Container(
                         margin: const EdgeInsets.only(bottom: 8),
                         decoration: BoxDecoration(
-                          color: isSelected ? const Color(0xFFF1F5F9) : Colors.transparent,
+                          color: isSelected ? const Color(0xFFEFF6FF) : Colors.transparent,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: CheckboxListTile(

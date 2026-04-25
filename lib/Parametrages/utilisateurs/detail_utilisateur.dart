@@ -193,7 +193,7 @@ class _DetailUtilisateurScreenState extends State<DetailUtilisateurScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFC),
+        color: const Color(0xFFEFF6FF),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -237,7 +237,7 @@ class _DetailUtilisateurScreenState extends State<DetailUtilisateurScreen> {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: const Color(0xFFF1F5F9),
+                  backgroundColor: const Color(0xFFEFF6FF),
                   child: Icon(Icons.settings_outlined, color: Colors.grey[700]),
                 ),
                 const SizedBox(width: 16),
@@ -323,7 +323,7 @@ class _DetailUtilisateurScreenState extends State<DetailUtilisateurScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF3B82F6),
+                    backgroundColor: const Color(0xFF1E40AF),
                     elevation: 0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),

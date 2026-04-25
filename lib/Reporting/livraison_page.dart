@@ -102,7 +102,7 @@ class _LivraisonPageState extends State<LivraisonPage> {
                       const Divider(
                         height: 1,
                         thickness: 1,
-                        color: Color(0xFFF1F5F9),
+                        color: Color(0xFFEFF6FF),
                       ),
                       Expanded(
                         child: StatefulBuilder(
@@ -366,7 +366,7 @@ class _LivraisonPageState extends State<LivraisonPage> {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF5F7FA),
+                        color: const Color(0xFFEFF6FF),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -488,7 +488,7 @@ class _LivraisonPageState extends State<LivraisonPage> {
     final bool isDesktop = MediaQuery.of(context).size.width > 800;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F5F9),
+      backgroundColor: const Color(0xFFEFF6FF),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
@@ -608,7 +608,7 @@ class _LivraisonPageState extends State<LivraisonPage> {
                     const Divider(
                       height: 32,
                       thickness: 1,
-                      color: Color(0xFFF1F5F9),
+                      color: Color(0xFFEFF6FF),
                     ),
                     _buildReclamationItem(
                       projet: "Projet7",

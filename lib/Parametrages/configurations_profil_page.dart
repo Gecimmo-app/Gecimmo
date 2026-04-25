@@ -77,10 +77,10 @@ class _ConfigurationsProfilPageState extends State<ConfigurationsProfilPage> {
     final filteredRoles = _filteredRoles;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: const Color(0xFFEFF6FF),
       appBar: AppBar(
         title: const Text('Gestion des Rôles'),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFEFF6FF),
         elevation: 0.5,
         centerTitle: false,
         actions: [

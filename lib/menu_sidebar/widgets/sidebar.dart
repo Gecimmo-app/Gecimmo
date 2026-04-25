@@ -26,12 +26,14 @@ class Sidebar extends StatefulWidget {
   final AnimationController animationController;
   final VoidCallback onClose;
   final Function(int) onItemSelected;
+  final int currentIndex;
 
   const Sidebar({
     super.key,
     required this.animationController,
     required this.onClose,
     required this.onItemSelected,
+    required this.currentIndex,
   });
 
   @override
@@ -39,7 +41,19 @@ class Sidebar extends StatefulWidget {
 }
 
 class _SidebarState extends State<Sidebar> {
-  String selected = "Dashboard Principal";
+  @override
+  void initState() {
+    super.initState();
+    // Auto-expand parent if it contains the active child
+    for (var item in items) {
+      if (item.children != null) {
+        bool hasActiveChild = item.children!.any((child) => _index(child.name) == widget.currentIndex);
+        if (hasActiveChild) {
+          item.isExpanded = true;
+        }
+      }
+    }
+  }
 
   final List<SidebarItem> items = [
     SidebarItem(
@@ -148,21 +162,24 @@ class _SidebarState extends State<Sidebar> {
 
   Widget buildItem(SidebarItem item, {int depth = 0}) {
     final hasChildren = item.children != null;
-    final isSelected = selected == item.name;
+    final isSelected = widget.currentIndex == _index(item.name);
 
     double paddingLeft = depth == 0 ? 0 : 44.0;
 
     if (hasChildren) {
+      // Check if any child is selected to highlight the parent slightly
+      final bool hasSelectedChild = item.children!.any((child) => widget.currentIndex == _index(child.name));
+      
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
             contentPadding: EdgeInsets.only(left: depth == 0 ? 16.0 : paddingLeft, right: 16.0),
-            leading: item.icon != null ? Icon(item.icon, color: primaryBlue, size: 22) : null,
+            leading: item.icon != null ? Icon(item.icon, color: hasSelectedChild ? primaryBlue : darkGrey, size: 22) : null,
             title: Text(item.name, style: TextStyle(
               fontSize: depth == 0 ? 15 : 14,
-              color: darkGrey,
-              fontWeight: depth == 0 ? FontWeight.w500 : FontWeight.normal,
+              color: hasSelectedChild ? primaryBlue : darkGrey,
+              fontWeight: depth == 0 ? FontWeight.w600 : FontWeight.normal,
             )),
             trailing: Icon(
               item.isExpanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,
@@ -193,30 +210,34 @@ class _SidebarState extends State<Sidebar> {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
-          setState(() => selected = item.name);
           widget.onItemSelected(_index(item.name));
           widget.onClose();
         },
         child: Container(
           margin: depth == 0
-              ? const EdgeInsets.symmetric(horizontal: 8, vertical: 2)
+              ? const EdgeInsets.symmetric(horizontal: 12, vertical: 2)
               : const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           decoration: BoxDecoration(
             color: isSelected ? primaryBlue.withOpacity(0.1) : Colors.transparent,
             borderRadius: BorderRadius.circular(8),
+            border: isSelected ? Border.all(color: primaryBlue.withOpacity(0.3)) : Border.all(color: Colors.transparent),
           ),
           child: ListTile(
-            contentPadding: EdgeInsets.only(left: depth == 0 ? 16.0 : 8.0, right: 16.0),
+            contentPadding: EdgeInsets.only(left: depth == 0 ? 12.0 : 8.0, right: 16.0),
             leading: depth == 0
-                ? (item.icon != null ? Icon(item.icon, size: 22, color: isSelected ? primaryBlue : primaryBlue.withOpacity(0.7)) : null)
-                : Icon(Icons.circle, size: 8, color: isSelected ? primaryBlue : Colors.grey),
-            minLeadingWidth: depth == 0 ? null : 16,
+                ? (item.icon != null ? Icon(item.icon, size: 22, color: isSelected ? primaryBlue : lightGrey) : null)
+                : Icon(
+                    isSelected ? Icons.circle : Icons.circle_outlined, 
+                    size: isSelected ? 10 : 8, 
+                    color: isSelected ? primaryBlue : Colors.grey.shade400
+                  ),
+            minLeadingWidth: depth == 0 ? null : 20,
             title: Text(item.name, style: TextStyle(
               fontSize: depth == 0 ? 15 : 14,
               color: isSelected
                   ? primaryBlue
                   : (depth == 0 ? darkGrey : lightGrey),
-              fontWeight: depth == 0 ? FontWeight.w500 : FontWeight.normal,
+              fontWeight: isSelected ? FontWeight.w700 : (depth == 0 ? FontWeight.w500 : FontWeight.normal),
             )),
           ),
         ),

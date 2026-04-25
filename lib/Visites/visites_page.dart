@@ -499,7 +499,7 @@ class _VisitesPageState extends State<VisitesPage> {
     final filtered = filteredVisites;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: const Color(0xFFEFF6FF),
       body: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
@@ -592,20 +592,18 @@ class _VisitesPageState extends State<VisitesPage> {
   }
 
   Widget _buildPageHeader() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final bool isCompact = constraints.maxWidth < 560;
-
-        final Widget title = const Text(
+    return Row(
+      children: [
+        const Text(
           'Visites',
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: FontWeight.w700,
             color: Color(0xFF111827),
           ),
-        );
-
-        final Widget addButton = ElevatedButton.icon(
+        ),
+        const Spacer(),
+        ElevatedButton.icon(
           onPressed: _ajouterVisite,
           icon: const Icon(Icons.add, size: 18),
           label: const Text(
@@ -616,32 +614,13 @@ class _VisitesPageState extends State<VisitesPage> {
             backgroundColor: const Color(0xFF1E40AF),
             foregroundColor: Colors.white,
             elevation: 0,
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-        );
-
-        if (isCompact) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              title,
-              const SizedBox(height: 12),
-              SizedBox(width: double.infinity, child: addButton),
-            ],
-          );
-        }
-
-        return Row(
-          children: [
-            title,
-            const Spacer(),
-            addButton,
-          ],
-        );
-      },
+        ),
+      ],
     );
   }
 
@@ -649,7 +628,7 @@ class _VisitesPageState extends State<VisitesPage> {
     const Color primaryBlue = Color(0xFF1E40AF);
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF1F5F9),
+        color: const Color(0xFFEFF6FF),
         border: Border.all(color: const Color(0xFFE2E8F0)),
         borderRadius: BorderRadius.circular(10),
       ),

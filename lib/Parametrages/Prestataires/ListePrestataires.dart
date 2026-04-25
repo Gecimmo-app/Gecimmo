@@ -10,7 +10,7 @@ class ListePrestatairesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color bgColor = Color(0xFFF8FAFC);
+    const Color bgColor = Color(0xFFEFF6FF);
 
     // Données fictives
     final List<Map<String, String>> prestataires = [
@@ -203,7 +203,7 @@ class ListePrestatairesScreen extends StatelessWidget {
             ),
           ),
           
-          const Divider(color: Color(0xFFF1F5F9), height: 1, thickness: 1),
+          const Divider(color: Color(0xFFEFF6FF), height: 1, thickness: 1),
           
           // Footer action
           InkWell(

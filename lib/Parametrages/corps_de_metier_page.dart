@@ -49,7 +49,7 @@ class CorpsDeMetierScreen extends StatefulWidget {
 
 class _CorpsDeMetierScreenState extends State<CorpsDeMetierScreen> {
   static const Color _primaryBlue = Color(0xFF1E40AF);
-  static const Color _pageBg = Color(0xFFF8FAFC);
+  static const Color _pageBg = Color(0xFFEFF6FF);
   static const Color _textTitle = Color(0xFF1D2939);
   static const Color _textMuted = Color(0xFF667085);
   static const Color _border = Color(0xFFD0D5DD);

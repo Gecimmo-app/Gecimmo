@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 class AddTicketPage extends StatefulWidget {
   const AddTicketPage({super.key});
@@ -35,7 +37,7 @@ class _AddTicketPageState extends State<AddTicketPage> {
   String? selectedCorpsMetier;
   String? selectedPrestataire;
   final TextEditingController observationController = TextEditingController();
-  List<String> attachedFiles = [];
+  List<File> attachedFiles = [];
   
   // Lists des observations ajoutées
   List<Map<String, dynamic>> addedObservations = [];
@@ -116,10 +118,21 @@ class _AddTicketPageState extends State<AddTicketPage> {
 
   void _closeDialog() => Navigator.pop(context);
 
-  void _addAttachment() {
-    setState(() {
-      attachedFiles.add("Fichier ${attachedFiles.length + 1}");
-    });
+  void _addAttachment() async {
+    try {
+      FilePickerResult? result = await FilePicker.pickFiles(
+        type: FileType.image,
+      );
+      if (result != null && result.files.single.path != null) {
+        setState(() {
+          attachedFiles.add(File(result.files.single.path!));
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Erreur lors de la sélection de l'image")),
+      );
+    }
   }
 
   void _addObservation() {
@@ -151,7 +164,7 @@ class _AddTicketPageState extends State<AddTicketPage> {
     );
   }
 
-  void _showImagePreview(String fileName) {
+  void _showImagePreview(File file) {
     showDialog(
       context: context,
       builder: (context) {
@@ -165,16 +178,23 @@ class _AddTicketPageState extends State<AddTicketPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(fileName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Expanded(
+                      child: Text(
+                        file.path.split(Platform.pathSeparator).last,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                     IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.close)),
                   ],
                 ),
                 const SizedBox(height: 16),
                 Container(
                   height: 300,
-                  width: 300,
-                  color: Colors.grey[200],
-                  child: const Center(child: Icon(Icons.image, size: 80, color: Colors.grey)),
+                  width: double.infinity,
+                  color: Colors.grey[100],
+                  child: Image.file(file, fit: BoxFit.contain),
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
@@ -193,7 +213,7 @@ class _AddTicketPageState extends State<AddTicketPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFEFF6FF),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
@@ -544,7 +564,7 @@ class _AddTicketPageState extends State<AddTicketPage> {
                 if (attachedFiles.isNotEmpty)
                   Container(
                     decoration: BoxDecoration(border: Border(top: BorderSide(color: Colors.grey[200]!))),
-                    child: Column(children: attachedFiles.map((file) => ListTile(leading: const Icon(Icons.insert_drive_file, size: 18, color: Color(0xFF1E40AF)), title: Text(file, style: const TextStyle(fontSize: 12)), trailing: IconButton(icon: const Icon(Icons.close, size: 16, color: Colors.grey), onPressed: () => setState(() => attachedFiles.remove(file))), dense: true)).toList()),
+                    child: Column(children: attachedFiles.map((file) => ListTile(leading: const Icon(Icons.image, size: 18, color: Color(0xFF1E40AF)), title: Text(file.path.split(Platform.pathSeparator).last, style: const TextStyle(fontSize: 12)), trailing: IconButton(icon: const Icon(Icons.close, size: 16, color: Colors.grey), onPressed: () => setState(() => attachedFiles.remove(file))), dense: true)).toList()),
                   ),
               ],
             ),
@@ -730,20 +750,24 @@ class _AddTicketPageState extends State<AddTicketPage> {
                             ],
                           ),
                           const SizedBox(height: 12),
-                          _buildDetailGrid("Localité", obs['localite']?.toString() ?? "—"),
-                          const SizedBox(height: 8),
-                          _buildDetailGrid("Corps de métier", obs['corpsMetier']?.toString() ?? "—"),
-                          const SizedBox(height: 8),
-                          _buildDetailGrid("Prestataire", obs['prestataire']?.toString() ?? "—"),
+                          Row(
+                            children: [
+                              Expanded(child: _buildDetailGrid("Localité", obs['localite']?.toString() ?? "—")),
+                              Expanded(child: _buildDetailGrid("Corps de métier", obs['corpsMetier']?.toString() ?? "—")),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          _buildDetailGrid("Préstataire", obs['prestataire']?.toString() ?? "—"),
                           if (obs['observation'] != null && obs['observation'].toString().isNotEmpty) ...[
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 16),
+                            const Text("Observation", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF94A3B8))),
+                            const SizedBox(height: 4),
                             Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFF8FAFC),
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.grey[200]!),
+                                color: const Color(0xFFEFF6FF),
+                                borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
                                 obs['observation'].toString(),
@@ -752,49 +776,49 @@ class _AddTicketPageState extends State<AddTicketPage> {
                             ),
                           ],
                           if (files.isNotEmpty) ...[
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 16),
                             Text(
-                              "Fichiers attachés (${files.length}):",
-                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey.shade600),
+                              "Fichiers attachés (${files.length})",
+                              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF94A3B8)),
                             ),
                             const SizedBox(height: 8),
                             ...files.map((file) {
-                              final name = file.toString();
+                              final File f = file as File;
+                              final name = f.path.split(Platform.pathSeparator).last;
+                              final kb = (f.lengthSync() / 1024).toStringAsFixed(2);
                               return Container(
                                 margin: const EdgeInsets.only(bottom: 8),
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: Colors.grey[200]!),
+                                  color: const Color(0xFFEFF6FF),
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(color: const Color(0xFFE2E8F0)),
                                 ),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.insert_drive_file, size: 20, color: Colors.green.shade600),
-                                    const SizedBox(width: 10),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             name,
-                                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF1E293B)),
+                                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF1E293B)),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                           const SizedBox(height: 2),
                                           Text(
-                                            "5.83 KB • image/webp",
+                                            "$kb KB • image",
                                             style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
                                           ),
                                         ],
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () => _showImagePreview(name),
+                                      onPressed: () => _showImagePreview(f),
                                       child: const Text(
                                         "Voir l'image",
-                                        style: TextStyle(fontSize: 12, color: Color(0xFF2196F3), fontWeight: FontWeight.w600),
+                                        style: TextStyle(fontSize: 12, color: Color(0xFF2196F3), fontWeight: FontWeight.w500),
                                       ),
                                     ),
                                   ],
@@ -834,41 +858,37 @@ class _AddTicketPageState extends State<AddTicketPage> {
   }
 
   Widget _buildRecapInfoField(String label, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey.shade600, height: 1.3)),
-        const SizedBox(height: 4),
-        Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF1E293B), height: 1.3)),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "$label: ",
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+            ),
+            TextSpan(
+              text: value,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF1E293B)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _buildDetailGrid(String label, String value) {
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 110,
-          child: Text(
-            label,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF64748B)),
-          ),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF94A3B8)),
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.grey[200]!),
-            ),
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 12, color: Color(0xFF1E293B)),
-            ),
-          ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF1E293B)),
         ),
       ],
     );

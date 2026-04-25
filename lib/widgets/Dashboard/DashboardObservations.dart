@@ -198,7 +198,7 @@ class _ObservationsScreenState extends State<ObservationsScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F7FC), // Soft modern background
+      backgroundColor: const Color(0xFFEFF6FF), // Soft modern background
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 24),
         child: FloatingActionButton(
@@ -619,7 +619,7 @@ class _ObservationsScreenState extends State<ObservationsScreen> {
                     Container(
                       height: 18,
                       decoration: const BoxDecoration(
-                        color: Color(0xFFF1F5F9),
+                        color: Color(0xFFEFF6FF),
                       ),
                     ),
                     Container(

@@ -15,7 +15,7 @@ class AppColors {
   static const red = Color(0xFFEF4444);
   static const purple = Color(0xFF8B5CF6);
   static const white = Color(0xFFFFFFFF);
-  static const bg = Color(0xFFF4F6FB);
+  static const bg = Color(0xFFEFF6FF);
   static const textDark = Color(0xFF1E293B);
   static const textMid = Color(0xFF64748B);
   static const cardBorder = Color(0xFFE2E8F0);

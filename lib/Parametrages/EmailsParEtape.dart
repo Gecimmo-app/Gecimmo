@@ -190,7 +190,7 @@ class _EmailsParEtapeScreenState extends State<EmailsParEtapeScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF8FAFC),
+                    color: const Color(0xFFEFF6FF),
                     border: Border.all(color: const Color(0xFFE2E8F0)),
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -481,7 +481,7 @@ class _FilterSheetContentState extends State<_FilterSheetContent> {
                   final option = _filteredOptions[index];
                   final isSelected = option == widget.currentValue;
                   return Container(
-                    color: isSelected ? const Color(0xFFF1F5F9) : Colors.transparent,
+                    color: isSelected ? const Color(0xFFEFF6FF) : Colors.transparent,
                     child: CheckboxListTile(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                       controlAffinity: ListTileControlAffinity.leading,
