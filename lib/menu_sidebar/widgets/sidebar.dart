@@ -78,6 +78,7 @@ class _SidebarState extends State<Sidebar> {
         ),
         SidebarItem(title: 'Corps de métier'),
         SidebarItem(title: 'Localite'),
+        SidebarItem(title: 'Utilisateur'),
         SidebarItem(title: 'Switch Session'),
         SidebarItem(title: 'Configurations'),
         SidebarItem(title: 'Configurations Pv'),
@@ -240,6 +241,7 @@ class _SidebarState extends State<Sidebar> {
       case 'Prestataires': return 11;
       case 'Prestataires Emails': return 21;
       case 'Liste des prestataires': return 11;
+      case 'Utilisateur': return 12;
       case 'Corps de métier': return 13;
       case 'Localite': return 14;
       case 'Switch Session': return 15;

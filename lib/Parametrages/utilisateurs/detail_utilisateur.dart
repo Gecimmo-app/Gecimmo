@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utilisateurs_page.dart'; // Pour UtilisateurData
 
 class DroitFormulaire {
   final String formulaire;
@@ -25,31 +26,28 @@ class DroitSpecial {
   DroitSpecial(this.droit, this.formulaire, this.description, {this.active = false});
 }
 
-class AjouterUtilisateurScreen extends StatefulWidget {
-  const AjouterUtilisateurScreen({super.key});
+class DetailUtilisateurScreen extends StatefulWidget {
+  final UtilisateurData utilisateur;
+
+  const DetailUtilisateurScreen({super.key, required this.utilisateur});
 
   @override
-  State<AjouterUtilisateurScreen> createState() => _AjouterUtilisateurScreenState();
+  State<DetailUtilisateurScreen> createState() => _DetailUtilisateurScreenState();
 }
 
-class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
-  static const Color _primaryBlue = Color(0xFF3B82F6);
-  static const Color _pageBg = Color(0xFFF8FAFC);
-  static const Color _textTitle = Color(0xFF1D2939);
-  static const Color _textMuted = Color(0xFF667085);
-  static const Color _border = Color(0xFFEAECF0);
-
-  final _nomCtrl = TextEditingController();
-  final _loginCtrl = TextEditingController();
-  String? _selectedRole;
-
-  final List<String> _roles = ['Admin', 'Commercial', 'ADV', 'Comptable', 'Recouvrement', 'SI', 'Marketing', 'Responsable commercial'];
+class _DetailUtilisateurScreenState extends State<DetailUtilisateurScreen> {
+  final List<String> _allProjects = [
+    'Projet1', 'Projet2', 'Projet3', 'Projet4', 'Projet5', 'Projet6', 'Projet7',
+  ];
+  List<String> _selectedProjects = [];
 
   final List<DroitFormulaire> _droitsFormulaire = [
+    // Anciennes lignes
     DroitFormulaire('Visites', 'Visites SAV', consulter: true, ajouter: true, modifier: true),
     DroitFormulaire('Tickets', 'Tickets SAV', consulter: true, ajouter: true, modifier: true),
     DroitFormulaire('Reclamations SAV', 'Gérer les réclamations SAV'),
     DroitFormulaire('Prestataires', 'Gestion des prestataires'),
+    // Lignes de l'image
     DroitFormulaire('ParametrageSAV', 'Parametrages des listes SAV'),
     DroitFormulaire('Utilisateur SAV', 'Gestion des utilisateurs'),
     DroitFormulaire('Dashboards SAV', 'Consultation des Dashboards SAV'),
@@ -59,11 +57,13 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
   ];
 
   final List<DroitSpecial> _droitsSpeciaux = [
+    // Anciennes lignes
     DroitSpecial('RealiserObservation', 'Tickets', 'Réaliser une observation'),
     DroitSpecial('AcceptObservation', 'Tickets', 'Accepter une observation'),
     DroitSpecial('RefusObservation', 'Tickets', 'Refuser une observation'),
     DroitSpecial('PlanificationTravaux', 'Tickets', 'Planification Travaux'),
     DroitSpecial('PlanificationTravauxObservation', 'Tickets', 'Planification travaux de l\'observation'),
+    // Lignes de l'image
     DroitSpecial('Réception Technique', 'Visites SAV', 'Consulter et Ajouter Les Visites De Type Réception Technique'),
     DroitSpecial('Livraison Technique', 'Visites SAV', 'Consulter et ajouter les visites de type Livraison Technique'),
     DroitSpecial('Livraison Client', 'Visites SAV', 'Consulter et ajouter les visites de type Livraison Client'),
@@ -73,187 +73,331 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
   ];
 
   @override
-  void dispose() {
-    _nomCtrl.dispose();
-    _loginCtrl.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
         checkboxTheme: CheckboxThemeData(
           fillColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.selected)) return _primaryBlue;
+            if (states.contains(WidgetState.selected)) return const Color(0xFF3B82F6);
             return null;
           }),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
       ),
       child: Scaffold(
-        backgroundColor: _pageBg,
+        backgroundColor: const Color(0xFFEFF6FF),
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFF1E40AF),
           elevation: 0,
           centerTitle: true,
-          iconTheme: const IconThemeData(color: _textTitle),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
-            'Ajouter un utilisateur',
+            "Détails de l'utilisateur",
             style: TextStyle(
-              color: _textTitle,
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
             ),
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1),
-            child: Container(height: 1, color: _border),
           ),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+          padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildCardWrapper(_buildInformationsGenerales()),
-              const SizedBox(height: 24),
-              _buildCardWrapper(_buildDroitsFormulaires(context)),
-              const SizedBox(height: 24),
-              _buildCardWrapper(_buildDroitsSpeciaux(context)),
-              const SizedBox(height: 24),
-              _buildBottomActions(context),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCardWrapper(Widget child) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _border),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: child,
-    );
-  }
-
-  Widget _buildSectionHeader(String title, [String? trailing]) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: _textTitle),
-          ),
-          if (trailing != null)
-            Text(
-              trailing,
-              style: TextStyle(fontSize: 13, color: _textMuted.withValues(alpha: 0.9)),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInformationsGenerales() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildSectionHeader('Informations générales'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 24),
-          child: Column(
-            children: [
-              _buildField('Nom Complet *', TextField(
-                controller: _nomCtrl,
-                decoration: _inputDeco(''),
-              )),
-              const SizedBox(height: 20),
-              _buildField('Login *', TextField(
-                controller: _loginCtrl,
-                decoration: _inputDeco(''),
-              )),
-              const SizedBox(height: 20),
-              _buildField('Rôle *', DropdownButtonFormField<String>(
-                value: _selectedRole,
-                hint: const Text('Sélectionner un rôle'),
-                decoration: _inputDeco(''),
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: _roles.map((r) => DropdownMenuItem(value: r, child: Text(r))).toList(),
-                onChanged: (v) => setState(() => _selectedRole = v),
-              )),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildField(String label, Widget child) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth > 600) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 150,
-                child: Text(
-                  label,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: _textTitle.withValues(alpha: 0.85)),
-                ),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth > 800) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: _buildInfoUserCard()),
+                        const SizedBox(width: 24),
+                        Expanded(child: _buildProjectConfigCard()),
+                      ],
+                    );
+                  }
+                  return Column(
+                    children: [
+                      _buildInfoUserCard(),
+                      const SizedBox(height: 24),
+                      _buildProjectConfigCard(),
+                    ],
+                  );
+                },
               ),
-              const SizedBox(width: 16),
-              Expanded(child: child),
+              const SizedBox(height: 40),
+              _buildDroitsFormulaires(context),
+              const SizedBox(height: 40),
+              _buildDroitsSpeciaux(context),
+              const SizedBox(height: 40),
             ],
-          );
-        }
-        return Column(
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoUserCard() {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: Color(0xFFE2E8F0)),
+      ),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              label,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: _textTitle.withValues(alpha: 0.85)),
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: const Color(0xFFEFF6FF),
+                  child: Icon(Icons.person_outline, color: Colors.blue[700]),
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Informations utilisateur',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                    ),
+                    Text(
+                      'Détails du profil',
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 8),
-            child,
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(child: _buildInfoField('Nom complet', widget.utilisateur.nomComplet, Icons.person_outline)),
+                const SizedBox(width: 16),
+                Expanded(child: _buildInfoField('Login', widget.utilisateur.role, null)),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildInfoField('Email', widget.utilisateur.email, Icons.email_outlined),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoField(String label, String value, IconData? icon) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FAFC),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              if (icon != null) ...[
+                Icon(icon, size: 14, color: const Color(0xFF94A3B8)),
+                const SizedBox(width: 6),
+              ],
+              Text(
+                label,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF64748B)),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF1E293B)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProjectConfigCard() {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: Color(0xFFE2E8F0)),
+      ),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: const Color(0xFFF1F5F9),
+                  child: Icon(Icons.settings_outlined, color: Colors.grey[700]),
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Configuration des projets',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                    ),
+                    const Text(
+                      'Attribution et gestion',
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Sélection des projets',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF1E293B)),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Attribuez des projets à cet utilisateur pour lui donner accès aux fonctionnalités spécifiques.',
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            ),
+            const SizedBox(height: 12),
+            InkWell(
+              onTap: _showMultiSelectProjects,
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  _selectedProjects.isEmpty ? 'Aucun projet attribué' : _selectedProjects.join(', '),
+                  style: const TextStyle(fontSize: 14, color: Color(0xFF334155)),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFFBEB),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFFFEF3C7)),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Attention',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFFB45309)),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Les modifications ne seront appliquées qu\'après avoir cliqué sur "Enregistrer". L\'utilisateur perdra l\'accès aux projets désélectionnés.',
+                    style: TextStyle(fontSize: 12, color: Color(0xFFB45309)),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Projets sélectionnés: ${_selectedProjects.length}',
+                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Projets enregistrés avec succès'), backgroundColor: Colors.green),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF3B82F6),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: const Text('Enregistrer', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showMultiSelectProjects() async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: const Text('Sélectionner des projets', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              contentPadding: const EdgeInsets.only(top: 12, bottom: 12),
+              content: SizedBox(
+                width: 400,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _allProjects.length,
+                  itemBuilder: (context, index) {
+                    final projet = _allProjects[index];
+                    final isSelected = _selectedProjects.contains(projet);
+                    return ListTile(
+                      leading: isSelected ? const Icon(Icons.check, color: Color(0xFF3B82F6)) : const SizedBox(width: 24),
+                      title: Text(projet, style: TextStyle(color: isSelected ? const Color(0xFF3B82F6) : const Color(0xFF1E293B), fontWeight: isSelected ? FontWeight.bold : FontWeight.w500)),
+                      tileColor: isSelected ? const Color(0xFFEFF6FF) : null,
+                      onTap: () {
+                        setDialogState(() {
+                          if (isSelected) {
+                            _selectedProjects.remove(projet);
+                          } else {
+                            _selectedProjects.add(projet);
+                          }
+                        });
+                        setState(() {});
+                      },
+                    );
+                  },
+                ),
+              ),
+              actions: [
+                TextButton(onPressed: () => Navigator.pop(context), child: const Text('Fermer')),
+              ],
+            );
+          },
         );
       },
     );
   }
 
-  InputDecoration _inputDeco(String hint) {
-    return InputDecoration(
-      hintText: hint,
-      hintStyle: TextStyle(color: _textMuted.withValues(alpha: 0.6)),
-      filled: true,
-      fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: _border),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: _border),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: _primaryBlue, width: 1.5),
+  Widget _buildSectionHeader(String title, [String? trailing]) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
+          ),
+          if (trailing != null)
+            Text(
+              trailing,
+              style: TextStyle(fontSize: 13, color: const Color(0xFF64748B).withValues(alpha: 0.9)),
+            ),
+        ],
       ),
     );
   }
@@ -263,12 +407,7 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildSectionHeader('Droits formulaires', '${_droitsFormulaire.length} formulaire(s) disponible(s)'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 24),
-          child: Column(
-            children: _droitsFormulaire.map((d) => _buildProfessionalFormCard(d)).toList(),
-          ),
-        ),
+        ..._droitsFormulaire.map((d) => _buildProfessionalFormCard(d)).toList(),
       ],
     );
   }
@@ -278,12 +417,7 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildSectionHeader('Droits spéciaux', '${_droitsSpeciaux.length} droit(s) spécial(aux) disponible(s)'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 24),
-          child: Column(
-            children: _droitsSpeciaux.map((d) => _buildProfessionalSpecialCard(d)).toList(),
-          ),
-        ),
+        ..._droitsSpeciaux.map((d) => _buildProfessionalSpecialCard(d)).toList(),
       ],
     );
   }
@@ -357,6 +491,7 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
                     ],
                   ),
                 ),
+
               ],
             ),
           ),
@@ -583,39 +718,4 @@ class _AjouterUtilisateurScreenState extends State<AjouterUtilisateurScreen> {
       ),
     );
   }
-
-  Widget _buildBottomActions(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          OutlinedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: _textTitle,
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              side: const BorderSide(color: _border),
-            ),
-            child: const Text('Annuler', style: TextStyle(fontWeight: FontWeight.w600)),
-          ),
-          const SizedBox(width: 12),
-          ElevatedButton(
-            onPressed: () {
-              // Action Save
-              Navigator.of(context).pop();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: _primaryBlue,
-              foregroundColor: Colors.white,
-              elevation: 0,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            ),
-            child: const Text('Enregistrer', style: TextStyle(fontWeight: FontWeight.w600)),
-          ),
-        ],
-    );
-  }
 }
-
-

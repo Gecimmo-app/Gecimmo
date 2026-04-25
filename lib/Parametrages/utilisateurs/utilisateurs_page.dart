@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ajouter_utilisateur.dart';
 import 'modifier_utilisateur.dart';
+import 'detail_utilisateur.dart';
 
 class UtilisateurData {
   final String id;
@@ -25,7 +26,7 @@ class UtilisateursScreen extends StatefulWidget {
 
 class _UtilisateursScreenState extends State<UtilisateursScreen> {
   static const Color _primaryBlue = Color(0xFF1E40AF);
-  static const Color _pageBg = Color(0xFFF8FAFC);
+  static const Color _pageBg = Color(0xFFEFF6FF);
   static const Color _textTitle = Color(0xFF1D2939);
   static const Color _textMuted = Color(0xFF667085);
   static const Color _border = Color(0xFFEAECF0);
@@ -50,6 +51,12 @@ class _UtilisateursScreenState extends State<UtilisateursScreen> {
   void _navToModifier(UtilisateurData u) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => ModifierUtilisateurScreen(initial: u)),
+    );
+  }
+
+  void _navToDetail(UtilisateurData u) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => DetailUtilisateurScreen(utilisateur: u)),
     );
   }
 
@@ -225,7 +232,7 @@ class _UtilisateursScreenState extends State<UtilisateursScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton.icon(
-                  onPressed: () {}, // Action détail non spécifiée
+                  onPressed: () => _navToDetail(user),
                   icon: const Icon(Icons.visibility_outlined, size: 16),
                   label: const Text('Détail', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                   style: OutlinedButton.styleFrom(
